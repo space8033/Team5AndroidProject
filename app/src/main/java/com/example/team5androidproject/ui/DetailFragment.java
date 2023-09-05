@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.example.team5androidproject.R;
+
 import com.example.team5androidproject.databinding.FragmentDetailBinding;
 
 
@@ -36,7 +38,9 @@ public class DetailFragment extends Fragment {
     }
 
     private void initBtnBack() {
-        navController.popBackStack();
+        binding.btnBack.setOnClickListener(v -> {
+            navController.popBackStack();
+        });
     }
 
     private void initBtnLogin() {
@@ -46,7 +50,7 @@ public class DetailFragment extends Fragment {
     }
 
     private void initBtnCart() {
-        binding.btnLogin.setOnClickListener(v->{
+        binding.btnCart.setOnClickListener(v->{
             navController.navigate(R.id.action_dest_detail_to_dest_cart);
         });
     }
