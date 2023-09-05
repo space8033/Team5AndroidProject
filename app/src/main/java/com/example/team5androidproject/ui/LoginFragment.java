@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,17 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(getLayoutInflater());
+
+        navController = NavHostFragment.findNavController(this);
+
+        initBtnMain();
+
         return binding.getRoot();
+    }
+
+    private void initBtnMain() {
+        binding.btnMain.setOnClickListener(v->{
+            navController.popBackStack();
+        });
     }
 }

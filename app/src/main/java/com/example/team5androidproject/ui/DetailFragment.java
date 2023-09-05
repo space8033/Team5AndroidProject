@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,36 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDetailBinding.inflate(getLayoutInflater());
+
+        navController = NavHostFragment.findNavController(this);
+
+        initBtnOrder();
+        initBtnCart();
+        initBtnLogin();
+        initBtnBack();
+
         return binding.getRoot();
+    }
+
+    private void initBtnBack() {
+        navController.popBackStack();
+    }
+
+    private void initBtnLogin() {
+        binding.btnLogin.setOnClickListener(v->{
+            navController.navigate(R.id.action_dest_detail_to_dest_login);
+        });
+    }
+
+    private void initBtnCart() {
+        binding.btnLogin.setOnClickListener(v->{
+            navController.navigate(R.id.action_dest_detail_to_dest_cart);
+        });
+    }
+
+    private void initBtnOrder() {
+        binding.btnOrder.setOnClickListener(v->{
+            navController.navigate(R.id.action_dest_detail_to_dest_order);
+        });
     }
 }
