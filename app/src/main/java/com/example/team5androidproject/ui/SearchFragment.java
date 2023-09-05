@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,28 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(getLayoutInflater());
+
+        navController = NavHostFragment.findNavController(this);
+
+        initBtnBack();
+        initBtnList();
+
+
+
         return binding.getRoot();
+
+
+    }
+
+    private void initBtnList() {
+        binding.btnList.setOnClickListener(v->{
+            navController.navigate(R.id.action_dest_search_to_dest_list);
+        });
+    }
+
+    private void initBtnBack() {
+        binding.btnBack.setOnClickListener(v->{
+            navController.popBackStack();
+        });
     }
 }
