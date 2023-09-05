@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dest_main"
-        android:name="com.example.team5androidproject.MainFragment"
+        android:name="com.example.team5androidproject.ui.MainFragment"
         android:label="메인페이지"
         tools:layout="@layout/fragment_main" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_search"
-        android:name="com.example.team5androidproject.SearchFragment"
+        android:name="com.example.team5androidproject.ui.SearchFragment"
         android:label="검색페이지"
         tools:layout="@layout/fragment_search" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_list"
-        android:name="com.example.team5androidproject.ListFragment"
+        android:name="com.example.team5androidproject.ui.ListFragment"
         android:label="리스트페이지"
         tools:layout="@layout/fragment_list" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_mypage"
-        android:name="com.example.team5androidproject.MyPageFragment"
+        android:name="com.example.team5androidproject.ui.MyPageFragment"
         android:label="마이페이지"
         tools:layout="@layout/fragment_my_page" >
         <action
@@ -55,12 +55,12 @@
     </fragment>
     <fragment
         android:id="@+id/dest_login"
-        android:name="com.example.team5androidproject.LoginFragment"
+        android:name="com.example.team5androidproject.ui.LoginFragment"
         android:label="로그인페이지"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/dest_detail"
-        android:name="com.example.team5androidproject.DetailFragment"
+        android:name="com.example.team5androidproject.ui.DetailFragment"
         android:label="상품상세페이지"
         tools:layout="@layout/fragment_detail" >
         <action
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_order"
-        android:name="com.example.team5androidproject.OrderFragment"
+        android:name="com.example.team5androidproject.ui.OrderFragment"
         android:label="결제페이지"
         tools:layout="@layout/fragment_order" >
         <action
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_cart"
-        android:name="com.example.team5androidproject.CartFragment"
+        android:name="com.example.team5androidproject.ui.CartFragment"
         android:label="장바구니"
         tools:layout="@layout/fragment_cart" >
         <action
