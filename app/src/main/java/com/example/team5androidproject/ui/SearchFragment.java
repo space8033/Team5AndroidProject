@@ -4,11 +4,16 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,25 +32,34 @@ public class SearchFragment extends Fragment {
 
         navController = NavHostFragment.findNavController(this);
 
-        initBtnBack();
-        initBtnList();
 
 
+        initMenu();
 
         return binding.getRoot();
 
 
     }
 
-    private void initBtnList() {
-        binding.btnList.setOnClickListener(v->{
-            navController.navigate(R.id.action_dest_search_to_dest_list);
-        });
-    }
+    private void initMenu() {
+        MenuProvider menuProvider = new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.search_fragment,menu);
+            }
 
-    private void initBtnBack() {
-        binding.btnBack.setOnClickListener(v->{
-            navController.popBackStack();
-        });
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                if(menuItem.getItemId() == R.id.dest_list){
+                    navController.navigate(R.id.action_dest_search_to_dest_list);
+                    return true;
+                } else if (menuItem.getItemId() == R.id.dest_main){
+                    navController.popBackStack(R.id.dest_main,false);
+                    return true;
+                }
+                return false;
+            }
+        };
+        getActivity().addMenuProvider(menuProvider,getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 }
