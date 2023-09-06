@@ -69,6 +69,9 @@
         <action
             android:id="@+id/action_dest_detail_to_dest_login"
             app:destination="@id/dest_login" />
+        <action
+            android:id="@+id/action_dest_detail_to_dest_search"
+            app:destination="@id/dest_search" />
     </fragment>
     <fragment
         android:id="@+id/dest_order"
