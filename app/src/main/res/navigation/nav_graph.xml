@@ -91,4 +91,9 @@
             android:id="@+id/action_dest_cart_to_dest_order"
             app:destination="@id/dest_order" />
     </fragment>
+    <fragment
+        android:id="@+id/dest_inquriy"
+        android:name="com.example.team5androidproject.ui.InquiryFragment"
+        android:label="fragment_inquiry"
+        tools:layout="@layout/fragment_inquiry" />
 </navigation>

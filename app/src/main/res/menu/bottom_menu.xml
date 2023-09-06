@@ -7,20 +7,20 @@
         android:id="@+id/dest_main"
         android:icon="@drawable/ic_home_24dp"
         app:showAsAction="always"
-        android:title="Home" />
+        android:title="홈" />
     <item
         android:id="@+id/dest_search"
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"
-        android:title="DashBoard" />
+        android:title="검색" />
     <item
         android:id="@+id/dest_inquiry"
         android:icon="@drawable/ic_chat_24dp"
         app:showAsAction="always"
-        android:title="Notification" />
+        android:title="문의" />
     <item
         android:id="@+id/dest_mypage"
         android:icon="@drawable/ic_person_24dp"
         app:showAsAction="always"
-        android:title="Notification" />
+        android:title="마이페이지" />
 </menu>
