@@ -12,7 +12,6 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="상품 목록 페이지"
         android:textSize="40sp" />
 
     <Button
