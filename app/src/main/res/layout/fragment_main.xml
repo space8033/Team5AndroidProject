@@ -11,27 +11,18 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="메인페이지"
+        android:text=""
         android:textSize="40sp" />
-
-    <Button
-        android:id="@+id/btn_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="검색"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <Button
         android:id="@+id/btn_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:text="상품상세"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_search" />
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <Button
         android:id="@+id/btn_mypage"
@@ -43,21 +34,12 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_detail" />
 
     <Button
-        android:id="@+id/btn_cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="장바구니"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_mypage" />
-
-    <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="로그인"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_cart" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_mypage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
