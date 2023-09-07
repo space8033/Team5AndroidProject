@@ -32,7 +32,6 @@ public class ListFragment extends Fragment {
 
         navController = NavHostFragment.findNavController(this);
 
-        initBtnDetail();
 
         initMenu();
 
@@ -59,11 +58,5 @@ public class ListFragment extends Fragment {
             }
         };
         getActivity().addMenuProvider(menuProvider,getViewLifecycleOwner(), Lifecycle.State.RESUMED);
-    }
-
-    private void initBtnDetail() {
-        binding.btnDetail.setOnClickListener(v->{
-            navController.navigate(R.id.action_dest_list_to_dest_detail);
-        });
     }
 }
