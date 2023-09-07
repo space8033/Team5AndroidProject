@@ -4,11 +4,10 @@
 
     <item
         android:id="@+id/dest_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"
-        android:title="Search" />
+        android:title="Search"
+        />
     <item
         android:id="@+id/dest_cart"
         android:layout_width="wrap_content"

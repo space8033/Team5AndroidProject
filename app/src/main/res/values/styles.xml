@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Remove the clear (X) button -->
+        <item name="closeIcon">@null</item>
+        <item name="searchIcon">@drawable/ic_search_black_24dp</item>
+    </style>
+</resources>
