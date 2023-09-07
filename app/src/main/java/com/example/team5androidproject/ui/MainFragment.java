@@ -34,9 +34,6 @@ public class MainFragment extends Fragment {
         navController = NavHostFragment.findNavController(this);
 
         initBtnDetail();
-        initBtnMypage();
-        initBtnLogin();
-
         initMenu();
 
         return binding.getRoot();
@@ -71,15 +68,4 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private void initBtnMypage() {
-        binding.btnMypage.setOnClickListener(v->{
-            navController.navigate(R.id.action_dest_main_to_dest_mypage);
-        });
-    }
-
-    private void initBtnLogin() {
-        binding.btnLogin.setOnClickListener(v->{
-            navController.navigate(R.id.action_dest_main_to_dest_login);
-        });
-    }
 }
