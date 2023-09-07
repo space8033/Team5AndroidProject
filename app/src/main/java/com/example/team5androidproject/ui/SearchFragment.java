@@ -1,65 +1,83 @@
 package com.example.team5androidproject.ui;
 
+
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.MenuProvider;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
+
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentSearchBinding;
+import com.google.android.material.appbar.AppBarLayout;
 
 
 public class SearchFragment extends Fragment {
     private static final String TAG = "SearchFragment";
     private FragmentSearchBinding binding;
     private NavController navController;
+    private SearchView searchView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         binding = FragmentSearchBinding.inflate(getLayoutInflater());
 
         navController = NavHostFragment.findNavController(this);
 
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
 
+        // 추가: SearchView 초기화 및 검색 이벤트 처리 리스너 설정
+        searchView = rootView.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // 검색 버튼을 눌렀을 때 처리
+                return true;
+            }
 
-        initMenu();
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // 검색어가 변경될 때 처리
+                return true;
+            }
+        });
+
+        initBtnBack();
+        initBtnMain();
 
         return binding.getRoot();
-
-
     }
 
-    private void initMenu() {
-        MenuProvider menuProvider = new MenuProvider() {
-            @Override
-            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.search_fragment,menu);
-            }
+    private void initBtnMain() {
+        binding.Home.setOnClickListener(v->{
+            navController.popBackStack(R.id.dest_main, false);
+        });
+    }
 
-            @Override
-            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
-                if(menuItem.getItemId() == R.id.dest_list){
-                    navController.navigate(R.id.action_dest_search_to_dest_list);
-                    return true;
-                } else if (menuItem.getItemId() == R.id.dest_main){
-                    navController.popBackStack(R.id.dest_main,false);
-                    return true;
-                }
-                return false;
-            }
-        };
-        getActivity().addMenuProvider(menuProvider,getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+    private void initBtnBack() {
+        binding.Back.setOnClickListener(v->{
+            navController.popBackStack();
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        actionBar.show();
     }
 }
