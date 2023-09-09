@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#FFFFFF"
     tools:context=".ui.CartFragment">
 
 
@@ -22,8 +23,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
         </ScrollView>
 
         <LinearLayout
@@ -31,13 +31,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/btn_order"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="결제" />
+                android:background="@drawable/cart_button"
+                android:backgroundTint="@color/design_default_color_error"
+                android:gravity="center"
+                android:text="결제하기"
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 
