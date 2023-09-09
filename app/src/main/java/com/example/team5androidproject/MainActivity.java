@@ -42,6 +42,5 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
 
-
     }
 }
