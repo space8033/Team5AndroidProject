@@ -7,7 +7,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.app.ActionBar;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.team5androidproject.databinding.ActivityMainBinding;
 
@@ -19,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
+        //상태바 투명하게 설정
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = navHostFragment.getNavController();
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
         initAppBar();
+
+        setContentView(binding.getRoot());
     }
 
     private void initAppBar() {
@@ -41,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
-
 
     }
 }

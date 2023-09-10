@@ -1,4 +1,4 @@
-package com.example.team5androidproject.ui;
+package com.example.team5androidproject.ui.fragment;
 
 
 import android.os.Bundle;
@@ -64,7 +64,8 @@ public class SearchFragment extends Fragment {
 
     private void initBtnMain() {
         binding.Home.setOnClickListener(v->{
-            navController.popBackStack(R.id.dest_main, false);
+            navController.navigate(R.id.action_dest_search_to_dest_list);
+            //navController.popBackStack(R.id.dest_main, false);
         });
     }
 

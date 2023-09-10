@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dest_main"
-        android:name="com.example.team5androidproject.ui.MainFragment"
+        android:name="com.example.team5androidproject.ui.fragment.MainFragment"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_dest_main_to_dest_search"
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_search"
-        android:name="com.example.team5androidproject.ui.SearchFragment"
+        android:name="com.example.team5androidproject.ui.fragment.SearchFragment"
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_dest_search_to_dest_list"
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_list"
-        android:name="com.example.team5androidproject.ui.ListFragment"
+        android:name="com.example.team5androidproject.ui.fragment.ListFragment"
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_dest_list_to_dest_detail"
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_mypage"
-        android:name="com.example.team5androidproject.ui.MyPageFragment"
+        android:name="com.example.team5androidproject.ui.fragment.MyPageFragment"
         tools:layout="@layout/fragment_my_page">
         <action
             android:id="@+id/action_dest_mypage_to_dest_detail"
@@ -55,11 +55,11 @@
     </fragment>
     <fragment
         android:id="@+id/dest_login"
-        android:name="com.example.team5androidproject.ui.LoginFragment"
+        android:name="com.example.team5androidproject.ui.fragment.LoginFragment"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/dest_detail"
-        android:name="com.example.team5androidproject.ui.DetailFragment"
+        android:name="com.example.team5androidproject.ui.fragment.DetailFragment"
         tools:layout="@layout/fragment_detail">
         <action
             android:id="@+id/action_dest_detail_to_dest_order"
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_order"
-        android:name="com.example.team5androidproject.ui.OrderFragment"
+        android:name="com.example.team5androidproject.ui.fragment.OrderFragment"
         tools:layout="@layout/fragment_order">
         <action
             android:id="@+id/action_dest_order_to_dest_mypage"
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_cart"
-        android:name="com.example.team5androidproject.ui.CartFragment"
+        android:name="com.example.team5androidproject.ui.fragment.CartFragment"
         tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_dest_cart_to_dest_order"
@@ -92,7 +92,17 @@
     </fragment>
     <fragment
         android:id="@+id/dest_inquriy"
-        android:name="com.example.team5androidproject.ui.InquiryFragment"
+        android:name="com.example.team5androidproject.ui.fragment.InquiryFragment"
         android:label="fragment_inquiry"
         tools:layout="@layout/fragment_inquiry" />
+    <fragment
+        android:id="@+id/dest_order_history"
+        android:name="com.example.team5androidproject.ui.fragment.OrderHistoryFragment"
+        android:label="fragment_order_history"
+        tools:layout="@layout/fragment_order_history" />
+    <fragment
+        android:id="@+id/dest_review"
+        android:name="com.example.team5androidproject.ui.fragment.ReviewFragment"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review" />
 </navigation>
