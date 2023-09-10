@@ -19,7 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
+import com.example.team5androidproject.adapter.AdPagerAdapter;
 import com.example.team5androidproject.databinding.FragmentMainBinding;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 
 public class MainFragment extends Fragment {
@@ -29,12 +32,11 @@ public class MainFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentMainBinding.inflate(getLayoutInflater());
-
+        binding = FragmentMainBinding.inflate(inflater);
         navController = NavHostFragment.findNavController(this);
 
-        initBtnDetail();
         initMenu();
+        initPagerView();
 
         return binding.getRoot();
 
@@ -62,10 +64,17 @@ public class MainFragment extends Fragment {
         getActivity().addMenuProvider(menuProvider,getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
-    private void initBtnDetail() {
-        binding.btnDetail.setOnClickListener(v->{
-            navController.navigate(R.id.action_dest_main_to_dest_detail);
+    private void initPagerView() {
+        AdPagerAdapter adPagerAdapter = new AdPagerAdapter(this);
+        binding.viewPager.setAdapter(adPagerAdapter);
+
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
+                binding.tabLayout, binding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+            }
         });
+        tabLayoutMediator.attach();
     }
 
 }

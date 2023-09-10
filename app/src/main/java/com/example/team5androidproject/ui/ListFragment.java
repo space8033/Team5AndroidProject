@@ -45,9 +45,9 @@ public class ListFragment extends Fragment {
         navController = NavHostFragment.findNavController(this);
 
 
-        initMenu();
+       // initMenu();
 
-        initRecyclerView();
+        //initRecyclerView();
 
         return binding.getRoot();
     }
