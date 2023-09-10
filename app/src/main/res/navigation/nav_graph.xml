@@ -95,4 +95,14 @@
         android:name="com.example.team5androidproject.ui.fragment.InquiryFragment"
         android:label="fragment_inquiry"
         tools:layout="@layout/fragment_inquiry" />
+    <fragment
+        android:id="@+id/dest_order_history"
+        android:name="com.example.team5androidproject.ui.fragment.OrderHistoryFragment"
+        android:label="fragment_order_history"
+        tools:layout="@layout/fragment_order_history" />
+    <fragment
+        android:id="@+id/dest_review"
+        android:name="com.example.team5androidproject.ui.fragment.ReviewFragment"
+        android:label="fragment_review"
+        tools:layout="@layout/fragment_review" />
 </navigation>

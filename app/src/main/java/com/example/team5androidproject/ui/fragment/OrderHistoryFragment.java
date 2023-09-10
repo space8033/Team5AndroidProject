@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
+import com.example.team5androidproject.databinding.FragmentOrderHistoryBinding;
 
-public class InquiryFragment extends Fragment {
-
+public class OrderHistoryFragment extends Fragment {
+    private static final String TAG = "OrderHistoryFragment";
+    private FragmentOrderHistoryBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inquiry, container, false);
+        binding = FragmentOrderHistoryBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
 }
