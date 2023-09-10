@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!--<CheckBox
+                android:id="@+id/cb_item_cart_product"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/selector_cart_checkbox"
+                android:button="@null"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/checkbox_cheese"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onCheckboxClicked" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_meat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onCheckboxClicked"
+                     />
+
+            </LinearLayout>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_item_cart_product"
+                android:layout_width="56dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription=""
+                android:src="@drawable/photo1"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_item_cart_product_title"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:text="@{product.label}"
+                app:layout_constraintEnd_toStartOf="@id/btn_item_cart_product_delete"
+                app:layout_constraintStart_toEndOf="@id/iv_item_cart_product"
+                app:layout_constraintTop_toTopOf="@id/iv_item_cart_product"
+                tools:text="캐시미어 100% 터틀넥 스웨터" />
+
+            <ImageButton
+                android:id="@+id/btn_item_cart_product_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_item_cart_product_option"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text=""
+                app:layout_constraintEnd_toEndOf="@id/tv_item_cart_product_title"
+                app:layout_constraintStart_toStartOf="@id/tv_item_cart_product_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_item_cart_product_title"
+                tools:text="옵션: Free" />
+
+            <ImageButton
+                android:id="@+id/iv_item_cart_product_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/ic_minus"
+                android:contentDescription="@string/description_btn_minus"
+                app:layout_constraintStart_toStartOf="@id/tv_item_cart_product_option"
+                app:layout_constraintTop_toBottomOf="@id/tv_item_cart_product_option" />
+
+            <TextView
+                android:id="@+id/tv_item_cart_product_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{product.count}"
+                app:layout_constraintBottom_toBottomOf="@id/iv_item_cart_product_minus"
+                app:layout_constraintEnd_toStartOf="@id/iv_item_cart_product_plus"
+                app:layout_constraintStart_toEndOf="@id/iv_item_cart_product_minus"
+                app:layout_constraintTop_toTopOf="@id/iv_item_cart_product_minus"
+                tools:text="1" />
+
+            <ImageButton
+                android:id="@+id/iv_item_cart_product_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/ic_plus"
+                android:contentDescription="@string/description_btn_plus"
+                app:layout_constraintStart_toEndOf="@id/tv_item_cart_product_count"
+                app:layout_constraintTop_toTopOf="@id/iv_item_cart_product_minus" />
+
+            <TextView
+                android:id="@+id/tv_item_cart_product_price"
+                priceAmount="@{product.price}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_item_cart_product_plus"
+                tools:text="81,000원" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
