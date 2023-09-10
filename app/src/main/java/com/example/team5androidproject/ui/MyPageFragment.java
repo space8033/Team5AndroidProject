@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,21 +29,9 @@ public class MyPageFragment extends Fragment {
         binding = FragmentMyPageBinding.inflate(getLayoutInflater());
         navController = NavHostFragment.findNavController(this);
 
-        initBtnMain();
-        initBtnDetail();
-
         return binding.getRoot();
     }
 
-    private void initBtnMain() {
-        binding.btnMain.setOnClickListener(v -> {
-            navController.popBackStack(R.id.dest_main, false);
-        });
-    }
 
-    private void initBtnDetail() {
-        binding.btnDetail.setOnClickListener(v -> {
-            navController.navigate(R.id.action_dest_mypage_to_dest_detail);
-        });
-    }
+
 }

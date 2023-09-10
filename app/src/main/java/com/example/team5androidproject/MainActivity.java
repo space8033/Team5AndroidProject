@@ -7,7 +7,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.app.ActionBar;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.team5androidproject.databinding.ActivityMainBinding;
 
@@ -19,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = navHostFragment.getNavController();
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
         initAppBar();
+
+        setContentView(binding.getRoot());
     }
 
     private void initAppBar() {

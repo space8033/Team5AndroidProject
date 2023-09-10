@@ -55,4 +55,6 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.navigation:navigation-fragment:2.6.0")
     implementation("androidx.navigation:navigation-ui:2.6.0")
+    //Circle이미지뷰를 위해 추가
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
