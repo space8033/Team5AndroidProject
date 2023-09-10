@@ -1,4 +1,4 @@
-package com.example.team5androidproject.ui;
+package com.example.team5androidproject.ui.viewHolder;
 
 import android.util.Log;
 import android.view.View;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Product;
 import com.example.team5androidproject.service.ListService;
+import com.example.team5androidproject.ui.adapter.ListAdapter;
 
 public class ListViewHolder extends RecyclerView.ViewHolder {
     private int product_no;

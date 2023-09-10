@@ -1,14 +1,12 @@
-package com.example.team5androidproject.adapter;
+package com.example.team5androidproject.ui.adapter;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.team5androidproject.ui.AdPageFragment;
-import com.example.team5androidproject.ui.MainFragment;
+import com.example.team5androidproject.ui.fragment.AdPageFragment;
 
 public class AdPagerAdapter extends FragmentStateAdapter {
 

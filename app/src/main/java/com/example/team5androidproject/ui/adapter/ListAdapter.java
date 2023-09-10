@@ -1,4 +1,4 @@
-package com.example.team5androidproject.ui;
+package com.example.team5androidproject.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Product;
+import com.example.team5androidproject.ui.viewHolder.ListViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

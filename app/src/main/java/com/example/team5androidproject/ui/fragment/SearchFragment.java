@@ -1,4 +1,4 @@
-package com.example.team5androidproject.ui;
+package com.example.team5androidproject.ui.fragment;
 
 
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.team5androidproject.ui;
+package com.example.team5androidproject.ui.fragment;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.util.Log;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
-import com.example.team5androidproject.adapter.AdPagerAdapter;
+import com.example.team5androidproject.ui.adapter.AdPagerAdapter;
 import com.example.team5androidproject.databinding.FragmentMainBinding;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -29,6 +29,7 @@ public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
     private FragmentMainBinding binding;
     private NavController navController;
+    private Handler handler = new Handler();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class MainFragment extends Fragment {
         AdPagerAdapter adPagerAdapter = new AdPagerAdapter(this);
         binding.viewPager.setAdapter(adPagerAdapter);
 
+        //탭 레이아웃 기능
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(
                 binding.tabLayout, binding.viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
@@ -75,6 +77,27 @@ public class MainFragment extends Fragment {
             }
         });
         tabLayoutMediator.attach();
+
+        //자동 넘김 기능
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                int currentItem = binding.viewPager.getCurrentItem();
+                int totalItems = binding.viewPager.getAdapter() != null ? binding.viewPager.getAdapter().getItemCount() : 0;
+                int nextItem = (currentItem + 1) % totalItems;
+
+                binding.viewPager.setCurrentItem(nextItem, true);
+
+                handler.postDelayed(this, 2500);
+            }
+        };
+
+        handler.postDelayed(runnable, 2500);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 }

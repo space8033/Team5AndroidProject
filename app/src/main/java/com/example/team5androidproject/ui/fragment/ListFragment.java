@@ -1,4 +1,4 @@
-package com.example.team5androidproject.ui;
+package com.example.team5androidproject.ui.fragment;
 
 import android.os.Bundle;
 
@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +24,7 @@ import com.example.team5androidproject.databinding.FragmentListBinding;
 import com.example.team5androidproject.dto.Product;
 import com.example.team5androidproject.service.ListService;
 import com.example.team5androidproject.service.ServiceProvider;
+import com.example.team5androidproject.ui.adapter.ListAdapter;
 
 import java.util.List;
 

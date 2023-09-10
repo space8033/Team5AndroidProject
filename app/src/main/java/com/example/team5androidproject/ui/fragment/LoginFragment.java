@@ -1,4 +1,4 @@
-package com.example.team5androidproject.ui;
+package com.example.team5androidproject.ui.fragment;
 
 import android.os.Bundle;
 
@@ -13,34 +13,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
-import com.example.team5androidproject.databinding.FragmentOrderBinding;
+import com.example.team5androidproject.databinding.FragmentLoginBinding;
 
 
-public class OrderFragment extends Fragment {
-    private static final String TAG = "OrderFragment";
-    private FragmentOrderBinding binding;
+public class LoginFragment extends Fragment {
+    private static final String TAG = "LoginFragment";
+    private FragmentLoginBinding binding;
     private NavController navController;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentOrderBinding.inflate(getLayoutInflater());
+        binding = FragmentLoginBinding.inflate(getLayoutInflater());
+
         navController = NavHostFragment.findNavController(this);
 
-        initBtnBack();
-        initBtnMypage();
+        initBtnMain();
 
         return binding.getRoot();
     }
 
-    private void initBtnBack() {
-        binding.btnBack.setOnClickListener(v -> {
-            navController.popBackStack();
-        });
-    }
-
-    private void initBtnMypage() {
-        binding.btnMypage.setOnClickListener(v -> {
-            navController.navigate(R.id.action_dest_order_to_dest_mypage);
+    private void initBtnMain() {
+        binding.btnMain.setOnClickListener(v->{
+            navController.popBackStack(R.id.dest_main, false);
         });
     }
 }
