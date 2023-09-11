@@ -12,31 +12,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentSearchBinding;
 import com.example.team5androidproject.dto.Product;
-import com.example.team5androidproject.service.ListService;
+import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
-import com.example.team5androidproject.ui.adapter.ListAdapter;
-import com.google.android.material.appbar.AppBarLayout;
+import com.example.team5androidproject.ui.adapter.ProductAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class SearchFragment extends Fragment {
@@ -45,7 +37,7 @@ public class SearchFragment extends Fragment {
     private NavController navController;
     private EditText editText;
     private Button searchButton;
-    private ListAdapter listAdapter;
+    private ProductAdapter productAdapter;
     private String keyword = "";
     @Nullable
     @Override
@@ -54,7 +46,7 @@ public class SearchFragment extends Fragment {
         binding = FragmentSearchBinding.inflate(getLayoutInflater());
 
         navController = NavHostFragment.findNavController(this);
-        listAdapter = new ListAdapter();
+        productAdapter = new ProductAdapter();
 
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar != null) {
@@ -84,11 +76,11 @@ public class SearchFragment extends Fragment {
 
     private void performSearch() {
         // Retrofit API 호출을 사용하여 키워드를 기반으로 제품 검색을 수행합니다.
-        ListService listService = ServiceProvider.getListService(requireContext());
+        ProductService productService = ServiceProvider.getListService(requireContext());
 
-        Call<List<Product>> call = listService.searchProducts(keyword);
+        //Call<List<Product>> call = productService.searchProducts(keyword);
 
-        call.enqueue(new Callback<List<Product>>() {
+        /*call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful()) {
@@ -115,7 +107,7 @@ public class SearchFragment extends Fragment {
                 Log.i(TAG, "onFailure 실행");
                 // 네트워크 오류 처리
             }
-        });
+        });*/
     }
 
     private List<Product> filterResultsByKeyword(List<Product> results, String keyword) {
