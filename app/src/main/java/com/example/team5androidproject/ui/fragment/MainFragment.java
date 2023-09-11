@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,10 +22,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
+import com.example.team5androidproject.dto.Product;
+import com.example.team5androidproject.service.ProductService;
+import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.AdPagerAdapter;
 import com.example.team5androidproject.databinding.FragmentMainBinding;
+import com.example.team5androidproject.ui.adapter.ProductAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainFragment extends Fragment {
@@ -38,6 +51,7 @@ public class MainFragment extends Fragment {
 
         initMenu();
         initPagerView();
+        initMainRecyclerView();
 
         return binding.getRoot();
 
@@ -96,8 +110,46 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         handler.removeCallbacksAndMessages(null);
+    }
+
+    private void initMainRecyclerView() {
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
+        binding.recyclerViewMain.setLayoutManager(layoutManager);
+
+
+        ProductAdapter listAdapter =new ProductAdapter();
+        ProductService listService = ServiceProvider.getListService(getContext());
+        Call<List<Product>> call = listService.getProductList();
+        call.enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                List<Product> list = response.body();
+                listAdapter.setList(list);
+                binding.recyclerViewMain.setAdapter(listAdapter);
+                Log.i(TAG, "테스트");
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+        listAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                Log.i(TAG, position+"번 항목 이동");
+                Product product = listAdapter.getItem(position);
+                Log.i(TAG, product.toString());
+
+                Bundle args = new Bundle();
+                args.putSerializable("product",product);
+                navController.navigate(R.id.action_dest_main_to_dest_detail,args);
+            }
+        });
+
     }
 }

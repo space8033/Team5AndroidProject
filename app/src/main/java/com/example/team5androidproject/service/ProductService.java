@@ -14,7 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-public interface ListService {
+public interface ProductService {
 
     @GET("products/getProductList")
     Call<List<Product>> getProductList();

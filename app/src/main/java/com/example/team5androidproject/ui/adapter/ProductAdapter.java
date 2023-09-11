@@ -9,26 +9,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Product;
-import com.example.team5androidproject.ui.viewHolder.ListViewHolder;
+import com.example.team5androidproject.ui.viewHolder.ProductViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
 
     private List<Product> list = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
     @NonNull
     @Override
-    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.list_board, parent, false);
-        ListViewHolder listViewHolder = new ListViewHolder(itemView, onItemClickListener);
-        return listViewHolder;
+        ProductViewHolder productViewHolder = new ProductViewHolder(itemView, onItemClickListener);
+        return productViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = list.get(position);
         holder.setData(product);
     }

@@ -22,9 +22,9 @@ import android.view.ViewGroup;
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentListBinding;
 import com.example.team5androidproject.dto.Product;
-import com.example.team5androidproject.service.ListService;
+import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
-import com.example.team5androidproject.ui.adapter.ListAdapter;
+import com.example.team5androidproject.ui.adapter.ProductAdapter;
 
 import java.util.List;
 
@@ -79,8 +79,8 @@ public class ListFragment extends Fragment {
         binding.recyclerView.setLayoutManager(layoutManager);
 
 
-        ListAdapter listAdapter =new ListAdapter();
-        ListService listService = ServiceProvider.getListService(getContext());
+        ProductAdapter listAdapter =new ProductAdapter();
+        ProductService listService = ServiceProvider.getListService(getContext());
         Call<List<Product>> call = listService.getProductList();
         call.enqueue(new Callback<List<Product>>() {
             @Override
@@ -97,7 +97,7 @@ public class ListFragment extends Fragment {
             }
         });
 
-        listAdapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {
+        listAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
                 Log.i(TAG, position+"번 항목 이동");
