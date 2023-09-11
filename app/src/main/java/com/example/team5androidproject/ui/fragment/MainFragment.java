@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -19,8 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
+import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.ui.adapter.AdPagerAdapter;
 import com.example.team5androidproject.databinding.FragmentMainBinding;
+import com.example.team5androidproject.ui.adapter.ProductAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -38,6 +41,7 @@ public class MainFragment extends Fragment {
 
         initMenu();
         initPagerView();
+        initMainRecyclerView();
 
         return binding.getRoot();
 
@@ -99,5 +103,15 @@ public class MainFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
+    }
+
+    private void initMainRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+            getContext(),LinearLayoutManager.VERTICAL, false
+        );
+        binding.recyclerViewMain.setLayoutManager(linearLayoutManager);
+
+        ProductAdapter listAdapter = new ProductAdapter();
+
     }
 }
