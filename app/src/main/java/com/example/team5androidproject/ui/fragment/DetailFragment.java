@@ -34,9 +34,9 @@ public class DetailFragment extends Fragment {
 
         navController = NavHostFragment.findNavController(this);
 
-        initBtnOrder();
+        /*initBtnOrder();
         initBtnCart();
-        initBtnLogin();
+        initBtnLogin();*/
 
         initMenu();
 
@@ -63,7 +63,7 @@ public class DetailFragment extends Fragment {
     }
 
 
-    private void initBtnLogin() {
+    /*private void initBtnLogin() {
         binding.btnLogin.setOnClickListener(v->{
             navController.navigate(R.id.action_dest_detail_to_dest_login);
         });
@@ -79,5 +79,5 @@ public class DetailFragment extends Fragment {
         binding.btnOrder.setOnClickListener(v->{
             navController.navigate(R.id.action_dest_detail_to_dest_order);
         });
-    }
+    }*/
 }
