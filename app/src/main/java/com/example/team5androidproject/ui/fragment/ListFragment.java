@@ -46,7 +46,6 @@ public class ListFragment extends Fragment {
 
 
         initMenu();
-
         initRecyclerView();
 
         return binding.getRoot();

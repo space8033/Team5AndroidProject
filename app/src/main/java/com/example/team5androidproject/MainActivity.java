@@ -9,14 +9,18 @@ import androidx.navigation.ui.NavigationUI;
 import android.app.ActionBar;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.team5androidproject.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String TAG = "MainActivity";
     private NavController navController;
     private ActivityMainBinding binding;
+    private boolean down = false;
+    private Float height = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
         initAppBar();
+        initScrollHide();
 
         setContentView(binding.getRoot());
     }
@@ -48,5 +53,31 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
+    }
+
+    private void initScrollHide() {
+        BottomNavigationView bottomNavigationView = binding.bottomNavigationView;
+        Log.i(TAG, "gag");
+        binding.basic.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(height == null) {
+                    height = (float) bottomNavigationView.getHeight();
+                }
+                if(scrollY > oldScrollY) {
+                    if(down) {
+                        down = false;
+                        bottomNavigationView.clearAnimation();
+                        bottomNavigationView.animate().translationY(height).setDuration(200);
+                    }
+                }else {
+                    if(!down) {
+                        down = false;
+                        bottomNavigationView.clearAnimation();
+                        bottomNavigationView.animate().translationY(0f).setDuration(200);
+                    }
+                }
+            }
+        });
     }
 }
