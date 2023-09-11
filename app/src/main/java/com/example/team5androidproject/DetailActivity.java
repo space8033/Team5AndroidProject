@@ -6,34 +6,31 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.app.ActionBar;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.team5androidproject.databinding.ActivityMainBinding;
+import com.example.team5androidproject.databinding.ActivityDetailBinding;
 
-public class MainActivity extends AppCompatActivity {
-
+public class DetailActivity extends AppCompatActivity {
     private NavController navController;
-    private ActivityMainBinding binding;
+    private ActivityDetailBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityDetailBinding.inflate(getLayoutInflater());
 
-        //상태바 투명하게 설정
+
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = navHostFragment.getNavController();
 
-        //NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
-
         initAppBar();
 
         setContentView(binding.getRoot());
+
     }
 
     private void initAppBar() {
