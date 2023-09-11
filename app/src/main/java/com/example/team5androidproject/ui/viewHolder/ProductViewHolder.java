@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Product;
-import com.example.team5androidproject.service.ListService;
-import com.example.team5androidproject.ui.adapter.ListAdapter;
+import com.example.team5androidproject.service.ProductService;
+import com.example.team5androidproject.ui.adapter.ProductAdapter;
 
-public class ListViewHolder extends RecyclerView.ViewHolder {
+public class ProductViewHolder extends RecyclerView.ViewHolder {
     private int product_no;
     private ImageView product_imgFile;
     private TextView product_name;
@@ -22,7 +22,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder {
     private static final String TAG = "ListViewHolder";
 
 
-    public ListViewHolder(@NonNull View itemView, ListAdapter.OnItemClickListener onItemClickListener) {
+    public ProductViewHolder(@NonNull View itemView, ProductAdapter.OnItemClickListener onItemClickListener) {
         super(itemView);
         product_name = (TextView) itemView.findViewById(R.id.product_name);
         product_price = (TextView) itemView.findViewById(R.id.product_price);
@@ -38,7 +38,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder {
 
     public void setData(Product product) {
         product_no = product.getProduct_no();
-        ListService.loadImage(product.getProduct_no(), product_imgFile);
+        ProductService.loadImage(product.getProduct_no(), product_imgFile);
         product_name.setText(product.getProduct_name());
         product_price.setText(String.valueOf(product.getProduct_price()));
     }

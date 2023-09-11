@@ -10,7 +10,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-public interface ListService {
+public interface ProductService {
 
     @GET("products/getProductList")
     Call<List<Product>> getProductList();
