@@ -33,10 +33,9 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = navHostFragment.getNavController();
 
-        //NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
         initAppBar();
-        initScrollHide();
 
         setContentView(binding.getRoot());
     }
@@ -53,31 +52,5 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
-    }
-
-    private void initScrollHide() {
-        BottomNavigationView bottomNavigationView = binding.bottomNavigationView;
-        Log.i(TAG, "gag");
-        binding.basic.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if(height == null) {
-                    height = (float) bottomNavigationView.getHeight();
-                }
-                if(scrollY > oldScrollY) {
-                    if(down) {
-                        down = false;
-                        bottomNavigationView.clearAnimation();
-                        bottomNavigationView.animate().translationY(height).setDuration(200);
-                    }
-                }else {
-                    if(!down) {
-                        down = false;
-                        bottomNavigationView.clearAnimation();
-                        bottomNavigationView.animate().translationY(0f).setDuration(200);
-                    }
-                }
-            }
-        });
     }
 }
