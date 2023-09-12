@@ -104,4 +104,9 @@
         android:name="com.example.team5androidproject.ui.fragment.ReviewFragment"
         android:label="fragment_review"
         tools:layout="@layout/fragment_review" />
+    <fragment
+        android:id="@+id/dest_coupon"
+        android:name="com.example.team5androidproject.CouponFragment"
+        android:label="fragment_coupon"
+        tools:layout="@layout/fragment_coupon" />
 </navigation>
