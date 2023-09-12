@@ -88,8 +88,8 @@
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:src="@drawable/point" />
 
@@ -118,8 +118,8 @@
 
                 <ImageView
                     android:id="@+id/imageView3"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:src="@drawable/coupon" />
 
@@ -148,8 +148,8 @@
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:src="@drawable/review" />
 
@@ -178,8 +178,8 @@
 
                 <ImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:src="@drawable/inquiry" />
 

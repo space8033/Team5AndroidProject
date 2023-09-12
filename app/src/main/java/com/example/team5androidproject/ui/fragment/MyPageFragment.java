@@ -34,6 +34,7 @@ public class MyPageFragment extends Fragment {
 
         initMyPagePagerView();
         initBtnCoupon();
+        initBtnReview();
 
         return binding.getRoot();
     }
@@ -62,6 +63,12 @@ public class MyPageFragment extends Fragment {
     private void initBtnCoupon() {
         binding.layoutCoupon.setOnClickListener(v -> {
             navController.navigate(R.id.action_dest_mypage_to_dest_coupon);
+        });
+    }
+
+    private void initBtnReview() {
+        binding.layoutReview.setOnClickListener(v -> {
+            binding.viewpagerMypage.setCurrentItem(1);
         });
     }
 }

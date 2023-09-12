@@ -22,4 +22,5 @@ public class ServiceProvider {
         ProductService productService = getRetrofit(context).create(ProductService.class);
         return productService;
     }
+
 }
