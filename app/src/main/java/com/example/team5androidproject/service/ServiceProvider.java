@@ -23,4 +23,14 @@ public class ServiceProvider {
         return productService;
     }
 
+    public static CartService getCartService(Context context){
+        CartService cartService = getRetrofit(context).create(CartService.class);
+        return cartService;
+    }
+
+    public static ReviewService getReviewService(Context context) {
+        ReviewService reviewService = getRetrofit(context).create(ReviewService.class);
+        return reviewService;
+    }
+
 }
