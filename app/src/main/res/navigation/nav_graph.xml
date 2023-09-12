@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_dest_mypage_to_dest_detail"
             app:destination="@id/dest_detail" />
+        <action
+            android:id="@+id/action_dest_mypage_to_dest_coupon"
+            app:destination="@id/dest_coupon" />
     </fragment>
     <fragment
         android:id="@+id/dest_login"
@@ -107,6 +110,5 @@
     <fragment
         android:id="@+id/dest_coupon"
         android:name="com.example.team5androidproject.ui.fragment.CouponFragment"
-        android:label="fragment_coupon"
         tools:layout="@layout/fragment_coupon" />
 </navigation>

@@ -33,6 +33,7 @@ public class MyPageFragment extends Fragment {
         navController = NavHostFragment.findNavController(this);
 
         initMyPagePagerView();
+        initBtnCoupon();
 
         return binding.getRoot();
     }
@@ -58,5 +59,9 @@ public class MyPageFragment extends Fragment {
         tabLayoutMediator.attach();
     }
 
-
+    private void initBtnCoupon() {
+        binding.layoutCoupon.setOnClickListener(v -> {
+            navController.navigate(R.id.action_dest_mypage_to_dest_coupon);
+        });
+    }
 }
