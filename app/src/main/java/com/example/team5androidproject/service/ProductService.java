@@ -27,4 +27,9 @@ public interface ProductService {
         String url = NetworkInfo.BASE_URL + "products/fileDownload?product_no=" + product_no;
         Glide.with(imageView.getContext()).load(url).into(imageView);
     }
+
+    static void loadDetail(int product_no, ImageView imageView){
+        String url = NetworkInfo.BASE_URL+"products/getDetailImgDetail?product_no="+ product_no;
+        Glide.with(imageView.getContext()).load(url).into(imageView);
+    }
 }
