@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import com.example.team5androidproject.R;
 
 import com.example.team5androidproject.databinding.FragmentDetailBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class DetailFragment extends Fragment {
@@ -33,7 +34,8 @@ public class DetailFragment extends Fragment {
         binding = FragmentDetailBinding.inflate(getLayoutInflater());
 
         navController = NavHostFragment.findNavController(this);
-
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.GONE);
         /*initBtnOrder();
         initBtnCart();
         initBtnLogin();*/
@@ -61,7 +63,12 @@ public class DetailFragment extends Fragment {
         };
         getActivity().addMenuProvider(menuProvider,getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+    }
 
     /*private void initBtnLogin() {
         binding.btnLogin.setOnClickListener(v->{
