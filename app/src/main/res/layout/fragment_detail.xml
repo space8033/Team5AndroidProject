@@ -74,7 +74,7 @@
                     android:layout_height="200dp" />-->
 
                 <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tab_layout"
+                    android:id="@+id/tab_img_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -233,16 +233,11 @@
                 </com.google.android.material.tabs.TabLayout>
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewpager_mypage"
+                    android:id="@+id/viewpager_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="926dp" />
-
         </LinearLayout>
 
     </ScrollView>
