@@ -121,7 +121,7 @@ public class MainFragment extends Fragment {
 
 
         ProductAdapter listAdapter =new ProductAdapter();
-        ProductService listService = ServiceProvider.getListService(getContext());
+        ProductService listService = ServiceProvider.getProductService(getContext());
         Call<List<Product>> call = listService.getProductList();
         call.enqueue(new Callback<List<Product>>() {
             @Override

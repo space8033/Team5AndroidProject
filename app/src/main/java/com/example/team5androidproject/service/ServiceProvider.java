@@ -18,7 +18,7 @@ public class ServiceProvider {
 
     //위에서 만들어진 retrofit으로 interface생성
 
-    public static ProductService getListService(Context context) {
+    public static ProductService getProductService(Context context) {
         ProductService productService = getRetrofit(context).create(ProductService.class);
         return productService;
     }
