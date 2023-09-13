@@ -7,29 +7,165 @@
     tools:context=".ui.fragment.OrderFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView8"
+
+    <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="40sp" />
-
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="뒤로가기"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView8" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="구매자 정보"
+                android:textSize="34sp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TableRow>
+
+                    <TextView android:text="이름" />
+
+                    <TextView android:text="조맛돌" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="이메일" />
+
+                    <TextView android:text="abc@naver.com" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="휴대폰 번호" />
+
+                    <TextView android:text="010-1111-2222" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="배송지 정보"
+                android:textSize="34sp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow>
+
+                    <TextView android:text="이름" />
+
+                    <TextView android:text="조맛돌" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="이메일" />
+
+                    <TextView android:text="abc@naver.com" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="휴대폰 번호" />
+
+                    <TextView android:text="010-1111-2222" />
+                </TableRow>
+
+
+            </TableLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="최종 결제정보"
+                android:textSize="34sp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView android:text="적립금" />
+
+                    <TextView android:text="0원" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="상품 금액" />
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:text="88000원" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView android:text="배송비" />
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:text="0원" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="match_parent"
+                        android:text="쿠폰"
+                        android:textSize="24sp" />
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="쿠폰" />
+
+                </TableRow>
+            </TableLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/btn_mypage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="마이페이지"
+        android:layout_marginBottom="16dp"
+        android:text="결제하기(마이페이지로)"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back" />
+        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

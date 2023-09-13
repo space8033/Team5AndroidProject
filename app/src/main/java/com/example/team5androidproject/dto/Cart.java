@@ -4,9 +4,8 @@ import java.util.Arrays;
 
 public class Cart {
     private int cart_no;
-    private String cart_optionContent;
+    private String production_productoption_no;
     private int cart_qty;
-    private String users_users_id;
     private int product_no;
     private String product_name;
     private int product_price;
@@ -22,12 +21,12 @@ public class Cart {
         this.cart_no = cart_no;
     }
 
-    public String getCart_optionContent() {
-        return cart_optionContent;
+    public String getProduction_productoption_no() {
+        return production_productoption_no;
     }
 
-    public void setCart_optionContent(String cart_optionContent) {
-        this.cart_optionContent = cart_optionContent;
+    public void setProduction_productoption_no(String production_productoption_no) {
+        this.production_productoption_no = production_productoption_no;
     }
 
     public int getCart_qty() {
@@ -36,14 +35,6 @@ public class Cart {
 
     public void setCart_qty(int cart_qty) {
         this.cart_qty = cart_qty;
-    }
-
-    public String getUsers_users_id() {
-        return users_users_id;
-    }
-
-    public void setUsers_users_id(String users_users_id) {
-        this.users_users_id = users_users_id;
     }
 
     public int getProduct_no() {
@@ -98,9 +89,8 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "cart_no=" + cart_no +
-                ", cart_optionContent='" + cart_optionContent + '\'' +
+                ", production_productoption_no='" + production_productoption_no + '\'' +
                 ", cart_qty=" + cart_qty +
-                ", users_users_id='" + users_users_id + '\'' +
                 ", product_no=" + product_no +
                 ", product_name='" + product_name + '\'' +
                 ", product_price=" + product_price +

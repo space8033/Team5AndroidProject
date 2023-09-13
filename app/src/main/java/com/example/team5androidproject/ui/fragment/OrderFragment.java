@@ -26,17 +26,17 @@ public class OrderFragment extends Fragment {
         binding = FragmentOrderBinding.inflate(getLayoutInflater());
         navController = NavHostFragment.findNavController(this);
 
-        initBtnBack();
+        /*initBtnBack();*/
         initBtnMypage();
 
         return binding.getRoot();
     }
 
-    private void initBtnBack() {
+    /*private void initBtnBack() {
         binding.btnBack.setOnClickListener(v -> {
             navController.popBackStack();
         });
-    }
+    }*/
 
     private void initBtnMypage() {
         binding.btnMypage.setOnClickListener(v -> {
