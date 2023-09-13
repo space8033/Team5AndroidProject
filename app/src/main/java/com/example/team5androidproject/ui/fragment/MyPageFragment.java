@@ -42,6 +42,7 @@ public class MyPageFragment extends Fragment {
     private void initMyPagePagerView() {
         MyPagePagerAdapter myPagePagerAdapter = new MyPagePagerAdapter(this);
         binding.viewpagerMypage.setAdapter(myPagePagerAdapter);
+        binding.viewpagerMypage.setUserInputEnabled(false);
 
         //탭 레이아웃
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(

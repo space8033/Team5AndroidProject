@@ -1,14 +1,30 @@
 package com.example.team5androidproject.dto;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Review {
+public class Review implements Serializable {
     private int review_no;
     private String review_name;
     private int review_rating;
     private String review_title;
     private String review_contents;
     private String review_createdDate;
+    private String product_name;
+    private List<Integer> images_no;
+    private List<byte[]> review_image;
+
+    public int getReview_no() {
+        return review_no;
+    }
+
+    public void setReview_no(int review_no) {
+        this.review_no = review_no;
+    }
+
+    public String getReview_name() {
+        return review_name;
+    }
 
     @Override
     public String toString() {
@@ -31,22 +47,6 @@ public class Review {
 
     public void setImages_no(List<Integer> images_no) {
         this.images_no = images_no;
-    }
-
-    private String product_name;
-    private List<Integer> images_no;
-    private List<byte[]> review_image;
-
-    public int getReview_no() {
-        return review_no;
-    }
-
-    public void setReview_no(int review_no) {
-        this.review_no = review_no;
-    }
-
-    public String getReview_name() {
-        return review_name;
     }
 
     public void setReview_name(String review_name) {

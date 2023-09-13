@@ -5,20 +5,17 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentReviewBinding;
 import com.example.team5androidproject.dto.Review;
 import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.ReviewAdapter;
-import com.example.team5androidproject.ui.adapter.ReviewImageAdapter;
 
 import java.util.List;
 
@@ -57,7 +54,6 @@ public class ReviewFragment extends Fragment {
                 List<Review> list = response.body();
                 reviewAdapter.setList(list);
                 binding.reviewRecycler.setAdapter(reviewAdapter);
-
             }
 
             @Override
