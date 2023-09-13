@@ -17,38 +17,33 @@ import org.w3c.dom.Text;
 
 public class CartViewHolder extends RecyclerView.ViewHolder {
 
+    private int product_no;
     private int cart_no;
-    private ImageView cart_ImageView;
-    private TextView cart_name;
-    private TextView cart_price;
     private TextView cart_qty;
-    private TextView cart_option;
+    private TextView product_name;
+    private TextView product_price;
+    private ImageView product_imgFile;
+    private TextView productOption_type;
 
 
 
     private static final String TAG = "CartViewHolder";
 
-    public CartViewHolder(@NonNull View itemView, CartAdapter.OnItemClickListener onItemClickListener) {
+    public CartViewHolder(@NonNull View itemView) {
         super(itemView);
-        cart_name = (TextView) itemView.findViewById(R.id.cart_name);
-        cart_ImageView = (ImageView) itemView.findViewById(R.id.cart_imgFile);
-        cart_price = (TextView) itemView.findViewById(R.id.cart_price);
-        cart_ImageView = (ImageView) itemView.findViewById(R.id.cart_imgFile);
+        product_name = (TextView) itemView.findViewById(R.id.cart_name);
+        product_imgFile = (ImageView) itemView.findViewById(R.id.cart_imgFile);
+        product_price = (TextView) itemView.findViewById(R.id.cart_price);
         cart_qty = (TextView) itemView.findViewById(R.id.cart_qty);
-
-        itemView.setOnClickListener(v->{
-            onItemClickListener.onItemClick(v, getAdapterPosition());
-        });
+        productOption_type = (TextView) itemView.findViewById(R.id.cart_option);
     }
     public void setData(Cart cart) {
         cart_no = cart.getCart_no();
-        CartService.loadImage(cart.getProduct_no(), cart_ImageView);
+        CartService.loadImage(cart.getProduct_no(), product_imgFile);
         cart_qty.setText(cart.getCart_qty());
-/*
-        cart_option.setText(cart.getCart_());
-*/
-        cart_price.setText(cart.getProduct_price());
-        cart_name.setText(cart.getProduct_name());
+        product_price.setText(cart.getProduct_price());
+        product_name.setText(cart.getProduct_name());
+        productOption_type.setText(cart.getProductOption_type());
 
     }
 }

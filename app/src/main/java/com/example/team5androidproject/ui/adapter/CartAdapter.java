@@ -20,13 +20,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     private List<Cart> list = new ArrayList<>();
 
-    private OnItemClickListener onItemClickListener;
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.list_cart, parent, false);
-        CartViewHolder cartViewHolder = new CartViewHolder(itemView, onItemClickListener);
+        CartViewHolder cartViewHolder = new CartViewHolder(itemView);
+
         return cartViewHolder;
     }
 
@@ -45,14 +45,5 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public void setList(List<Cart> list) {
         this.list = list;
     }
-    public Cart getItem(int position){
-        return list.get(position);
-    }
-    //목록 -> 상세 넘어가기
-    public interface OnItemClickListener {
-        void onItemClick(View itemView, int position);
-    }
-    public void setOnItemClickListener(CartAdapter.OnItemClickListener onItemClickListener){
-        this.onItemClickListener = onItemClickListener;
-    }
+
 }

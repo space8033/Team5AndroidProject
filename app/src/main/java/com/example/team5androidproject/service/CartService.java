@@ -16,7 +16,7 @@ public interface CartService {
     Call<List<Cart>> getCartList();
 
     static void loadImage(int product_no, ImageView imageView) {
-        String url = NetworkInfo.BASE_URL + "products/fileDownload?product_no=" + product_no;
+        String url = NetworkInfo.BASE_URL + "cart/fileDownload?product_no=" + product_no;
         Glide.with(imageView.getContext()).load(url).into(imageView);
     }
 }
