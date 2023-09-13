@@ -85,6 +85,13 @@ public class MyPageFragment extends Fragment {
                 }
             }
         });
+
+        binding.btnMypageFloat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.mypageNestedScroll.smoothScrollTo(0, 0);
+            }
+        });
     }
 
     private void hideButton() {
