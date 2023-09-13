@@ -3,64 +3,65 @@ package com.example.team5androidproject.ui.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
+import com.example.team5androidproject.databinding.FragmentReviewBinding;
+import com.example.team5androidproject.dto.Review;
+import com.example.team5androidproject.service.ReviewService;
+import com.example.team5androidproject.service.ServiceProvider;
+import com.example.team5androidproject.ui.adapter.ReviewAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ReviewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ReviewFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ReviewFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ReviewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ReviewFragment newInstance(String param1, String param2) {
-        ReviewFragment fragment = new ReviewFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    private static final String TAG = "ReviewFragment";
+    private FragmentReviewBinding binding;
+    private NavController navController;
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentReviewBinding.inflate(inflater);
+        navController = NavHostFragment.findNavController(this);
+
+        initRecyclerView();
+
+        return binding.getRoot();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_review, container, false);
+    private void initRecyclerView() {
+        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(
+                getContext(), LinearLayoutManager.VERTICAL,false
+        );
+
+        binding.reviewRecycler.setLayoutManager(linearLayoutManager);
+
+        ReviewAdapter reviewAdapter = new ReviewAdapter();
+
+        ReviewService reviewService = ServiceProvider.getReviewService(getContext());
+        Call<List<Review>> call = reviewService.getReviewByUser("space");
+        call.enqueue(new Callback<List<Review>>() {
+            @Override
+            public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
+                List<Review> list = response.body();
+                reviewAdapter.setList(list);
+                binding.reviewRecycler.setAdapter(reviewAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Review>> call, Throwable t) {
+
+            }
+        });
     }
 }

@@ -9,13 +9,16 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface ReviewService {
-    @GET
-    Call<List<Review>> getReviewByUser();
+    @GET("review/getReviewByUser")
+    Call<List<Review>> getReviewByUser(@Query("userId") String userId);
+    @GET("review/getReviewImageList")
+    Call<List<Integer>> getReviewImageList(@Query("review_no") int review_no);
 
-    static void loadImage(int review_no, ImageView imageView) {
-        String url = NetworkInfo.BASE_URL + "products/fileDownload?product_no=" + review_no;
+    static void loadImage(int image_no, ImageView imageView) {
+        String url = NetworkInfo.BASE_URL + "review/getReviewImage?image_no=" + image_no;
         Glide.with(imageView.getContext()).load(url).into(imageView);
     }
 }
