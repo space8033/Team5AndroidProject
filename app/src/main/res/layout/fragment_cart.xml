@@ -8,7 +8,7 @@
 
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/allSelect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -24,7 +24,7 @@
         android:layout_marginEnd="200dp"
         android:text="전체 x개"
         app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/checkBox" />
+        app:layout_constraintTop_toTopOf="@+id/allSelect" />
 
     <Button
         android:id="@+id/button"

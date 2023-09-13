@@ -1,6 +1,7 @@
 package com.example.team5androidproject.ui.viewHolder;
 
 import android.media.Image;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,8 +41,8 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
     public void setData(Cart cart) {
         cart_no = cart.getCart_no();
         CartService.loadImage(cart.getProduct_no(), product_imgFile);
-        cart_qty.setText(cart.getCart_qty());
-        product_price.setText(cart.getProduct_price());
+        cart_qty.setText(String.valueOf(cart.getCart_qty()));
+        product_price.setText(String.valueOf(cart.getProduct_price()));
         product_name.setText(cart.getProduct_name());
         productOption_type.setText(cart.getProductOption_type());
 
