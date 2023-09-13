@@ -17,13 +17,12 @@ import java.util.List;
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     List<Review> list= new ArrayList<>();
 
-
     @NonNull
     @Override
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.review_recycle, parent, false);
-        ReviewViewHolder reviewViewHolder =new ReviewViewHolder(itemView);
+        ReviewViewHolder reviewViewHolder = new ReviewViewHolder(itemView);
 
         return reviewViewHolder;
     }

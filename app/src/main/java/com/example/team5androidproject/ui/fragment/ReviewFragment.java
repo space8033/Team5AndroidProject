@@ -18,6 +18,7 @@ import com.example.team5androidproject.dto.Review;
 import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.ReviewAdapter;
+import com.example.team5androidproject.ui.adapter.ReviewImageAdapter;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ public class ReviewFragment extends Fragment {
                 List<Review> list = response.body();
                 reviewAdapter.setList(list);
                 binding.reviewRecycler.setAdapter(reviewAdapter);
+
             }
 
             @Override

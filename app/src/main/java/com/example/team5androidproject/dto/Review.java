@@ -9,8 +9,6 @@ public class Review {
     private String review_title;
     private String review_contents;
     private String review_createdDate;
-    private String product_name;
-    private List<byte[]> review_image;
 
     @Override
     public String toString() {
@@ -22,9 +20,22 @@ public class Review {
                 ", review_contents='" + review_contents + '\'' +
                 ", review_createdDate='" + review_createdDate + '\'' +
                 ", product_name='" + product_name + '\'' +
+                ", images_no=" + images_no +
                 ", review_image=" + review_image +
                 '}';
     }
+
+    public List<Integer> getImages_no() {
+        return images_no;
+    }
+
+    public void setImages_no(List<Integer> images_no) {
+        this.images_no = images_no;
+    }
+
+    private String product_name;
+    private List<Integer> images_no;
+    private List<byte[]> review_image;
 
     public int getReview_no() {
         return review_no;
