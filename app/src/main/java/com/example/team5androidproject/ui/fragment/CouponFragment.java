@@ -3,6 +3,9 @@ package com.example.team5androidproject.ui.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +13,53 @@ import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentCouponBinding;
+import com.example.team5androidproject.dto.Coupon;
+import com.example.team5androidproject.service.CouponService;
+import com.example.team5androidproject.service.ServiceProvider;
+import com.example.team5androidproject.ui.adapter.CouponAdapter;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CouponFragment extends Fragment {
     private static final String TAG = "CouponFragment";
     private FragmentCouponBinding binding;
+    private NavController navController;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_coupon, container, false);
+        binding = FragmentCouponBinding.inflate(inflater);
+        navController = NavHostFragment.findNavController(this);
+
+        initRecyclerView();
+
+        return binding.getRoot();
     }
 
-    @Override
-    public void onStop() {
+    private void initRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                getContext(), LinearLayoutManager.VERTICAL, false
+        );
 
-        super.onStop();
+        binding.couponImageRecycler.setLayoutManager(layoutManager);
+
+        CouponAdapter couponAdapter = new CouponAdapter();
+
+        CouponService couponService = ServiceProvider.getCouponService(getContext());
+        Call<List<Coupon>> call = couponService.getCouponByUser("space");
+
+        call.enqueue(new Callback<List<Coupon>>() {
+            @Override
+            public void onResponse(Call<List<Coupon>> call, Response<List<Coupon>> response) {
+                List<Coupon> list = response.body();
+                couponAdapter.setList(list);
+                binding.couponImageRecycler.setAdapter(couponAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Coupon>> call, Throwable t) {}
+        });
     }
 }

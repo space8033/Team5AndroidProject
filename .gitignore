@@ -129,6 +129,7 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+NetworkInfo.java
 ### AndroidStudio Patch ###
 
 !/gradle/wrapper/gradle-wrapper.jar

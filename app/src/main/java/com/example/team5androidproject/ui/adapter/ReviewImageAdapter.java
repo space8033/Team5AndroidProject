@@ -32,7 +32,6 @@ public class ReviewImageAdapter extends RecyclerView.Adapter<ReviewImageViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ReviewImageViewHolder holder, int position) {
-        Log.i(TAG, position + "번째 사진나와라");
         Integer i = list.get(position);
         holder.setImage(i);
     }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.team5androidproject.ui.fragment.DetailImgFragment;
+import com.example.team5androidproject.ui.fragment.DetailReviewFragment;
 import com.example.team5androidproject.ui.fragment.ReviewFragment;
 
 public class DetailPagerAdapter extends FragmentStateAdapter {
@@ -21,7 +22,7 @@ public class DetailPagerAdapter extends FragmentStateAdapter {
         if(position == 0) {
             fragment = new DetailImgFragment();
         }else if(position == 1) {
-            fragment = new ReviewFragment();
+            fragment = new DetailReviewFragment();
         }
         return fragment;
     }
