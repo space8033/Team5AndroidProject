@@ -23,7 +23,10 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentDetailBinding;
+import com.example.team5androidproject.ui.adapter.DetailPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputLayout;
 
 
@@ -43,7 +46,7 @@ public class DetailFragment extends Fragment {
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setVisibility(View.GONE);
 
-
+        initDetailPagerView();
         initBtnOrder();
         initBtnCart();
 
@@ -52,6 +55,23 @@ public class DetailFragment extends Fragment {
         initMenu();
 
         return binding.getRoot();
+    }
+
+    private void initDetailPagerView() {
+        DetailPagerAdapter detailPagerAdapter = new DetailPagerAdapter(this);
+        binding.viewpagerDetail.setAdapter(detailPagerAdapter);
+
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(binding.tabLayout, binding.viewpagerDetail, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                if(position == 0) {
+                    tab.setText("상품 상세");
+                }else if(position == 1) {
+                    tab.setText("주문 후기");
+                }
+            }
+        });
+        tabLayoutMediator.attach();
     }
 
     private void initStockSelect() {
