@@ -33,4 +33,8 @@ public class ServiceProvider {
         return reviewService;
     }
 
+    public static CouponService getCouponService(Context context) {
+        CouponService couponService = getRetrofit(context).create(CouponService.class);
+        return couponService;
+    }
 }

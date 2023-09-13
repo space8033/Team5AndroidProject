@@ -9,11 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Review;
-import com.example.team5androidproject.service.ReviewService;
-import com.example.team5androidproject.service.ServiceProvider;
-import com.example.team5androidproject.ui.adapter.ReviewImageAdapter;
-
-import java.util.List;
 
 public class ReviewViewHolder extends RecyclerView.ViewHolder {
     private int review_no;
