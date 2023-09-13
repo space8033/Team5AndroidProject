@@ -11,6 +11,7 @@ import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Review;
 import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;
+import com.example.team5androidproject.ui.adapter.ReviewImageAdapter;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
     private int review_no;
     private RatingBar ratingBar;
     private TextView reviewTitle;
-    private RecyclerView reviewImageRecycler;
+    public RecyclerView reviewImageRecycler;
     private TextView reviewContent;
     private TextView registeredAt;
     private TextView productName;

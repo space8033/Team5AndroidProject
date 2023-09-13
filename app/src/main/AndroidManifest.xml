@@ -15,9 +15,7 @@
         android:theme="@style/Theme.Team5AndroidProject"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".DetailActivity"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

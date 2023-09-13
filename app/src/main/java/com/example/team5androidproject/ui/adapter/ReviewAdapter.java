@@ -1,10 +1,12 @@
 package com.example.team5androidproject.ui.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
@@ -15,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
-    List<Review> list= new ArrayList<>();
-
+    private List<Review> list = new ArrayList<>();
+    private static final String TAG = "ReviewAdapter";
     @NonNull
     @Override
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,12 +31,26 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
-        Review review =list.get(position);
+        Review review = list.get(position);
         holder.setData(review);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false
+        );
+
+        List<Integer> imageList = review.getImages_no();
+
+        ReviewImageAdapter reviewImageAdapter = new ReviewImageAdapter(imageList);
+        holder.reviewImageRecycler.setLayoutManager(linearLayoutManager);
+        holder.reviewImageRecycler.setAdapter(reviewImageAdapter);
+
     }
 
     @Override
     public int getItemCount() {
+        if(list == null) {
+            return 0;
+        }
         return list.size();
     }
 

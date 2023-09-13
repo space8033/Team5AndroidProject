@@ -12,7 +12,9 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,6 +71,7 @@
             android:id="@+id/review_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             tools:text="무드등이 예뻐서 좋았어요! 번창하세요!" />
 
@@ -76,17 +79,19 @@
             android:id="@+id/txt_registered_at"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:text="2023.09.11 11:11:11" />
 
         <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_gravity="center"
             android:background="@drawable/history_border"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
-            android:layout_margin="5dp">
+            android:layout_margin="10dp">
 
             <TextView
                 android:id="@+id/textView18"
