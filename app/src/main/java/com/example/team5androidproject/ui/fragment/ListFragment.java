@@ -37,6 +37,8 @@ public class ListFragment extends Fragment {
     private static final String TAG = "ListFragment";
     private FragmentListBinding binding;
     private NavController navController;
+    private ProductAdapter productAdapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,17 +79,18 @@ public class ListFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
         binding.recyclerView.setLayoutManager(layoutManager);
 
+        productAdapter = new ProductAdapter();
+        String keyword = getArguments().getString("keyword", "");
 
-        ProductAdapter listAdapter =new ProductAdapter();
-        ProductService listService = ServiceProvider.getListService(getContext());
-        Call<List<Product>> call = listService.getProductList();
+        ProductService productService = ServiceProvider.getProductService(getContext());
+        Call<List<Product>> call = productService.searchProducts(keyword);
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> list = response.body();
-                listAdapter.setList(list);
-                binding.recyclerView.setAdapter(listAdapter);
-                Log.i(TAG, "테스트");
+                Log.i(TAG, "list : " + list);
+                productAdapter.setList(list);
+                binding.recyclerView.setAdapter(productAdapter);
             }
 
             @Override
@@ -96,11 +99,11 @@ public class ListFragment extends Fragment {
             }
         });
 
-        listAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+        productAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
                 Log.i(TAG, position+"번 항목 이동");
-                Product product = listAdapter.getItem(position);
+                Product product = productAdapter.getItem(position);
                 Log.i(TAG, product.toString());
 
                 Bundle args = new Bundle();

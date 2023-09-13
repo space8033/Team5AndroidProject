@@ -2,6 +2,7 @@ package com.example.team5androidproject.ui.fragment;
 
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,6 +32,10 @@ import com.example.team5androidproject.ui.adapter.ProductAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class SearchFragment extends Fragment {
     private static final String TAG = "SearchFragment";
@@ -43,83 +48,78 @@ public class SearchFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         binding = FragmentSearchBinding.inflate(getLayoutInflater());
 
         navController = NavHostFragment.findNavController(this);
         productAdapter = new ProductAdapter();
 
+        editText = binding.editText;
+        searchButton = binding.searchButton;
+
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
-        editText = rootView.findViewById(R.id.editText);
-        searchButton = rootView.findViewById(R.id.searchButton);
-
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH){
-                    keyword = v.getText().toString();
-                    performSearch();
-                    Log.i(TAG, "onEditorAction 실행");
-                    return true;
-                }
-                Log.i(TAG, "onEditorAction 실패");
-                return false;
-            }
-        });
+        initSearch();
         initBtnBack();
         initBtnMain();
 
         return binding.getRoot();
     }
 
+    private void initSearch() {
+        searchButton.setOnClickListener(v -> {
+            Log.i(TAG, "검색버튼 클릭");
+            performSearch();
+        });
+
+        editText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                performSearch();
+                return true;
+            }
+            return false;
+        });
+    }
+
     private void performSearch() {
-        // Retrofit API 호출을 사용하여 키워드를 기반으로 제품 검색을 수행합니다.
-        ProductService productService = ServiceProvider.getListService(requireContext());
+        keyword = editText.getText().toString();
+        Log.i(TAG, "keyword : " +keyword);
+        if (!TextUtils.isEmpty(keyword)) {
+            // 검색어를 사용하여 서버로 검색 요청을 보냅니다.
+            ProductService productService = ServiceProvider.getProductService(getContext());
+            Call<List<Product>> call = productService.searchProducts(keyword);
 
-        //Call<List<Product>> call = productService.searchProducts(keyword);
+            call.enqueue(new Callback<List<Product>>() {
+                @Override
+                public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                    if (response.isSuccessful()) {
+                        List<Product> searchResults = response.body();
+                        Log.i(TAG, "searchResults : " + searchResults);
+                        // 검색 결과를 RecyclerView에 표시합니다.
+                        productAdapter.setList(searchResults);
 
-        /*call.enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.isSuccessful()) {
-                    List<Product> searchResults = response.body();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("searchResults", new ArrayList<>(searchResults));
+                        getParentFragmentManager().setFragmentResult("searchResultsKey", bundle);
 
-                    // 검색어가 포함된 상품만 필터링
-                    List<Product> filteredResults = filterResultsByKeyword(searchResults, keyword);
-
-                    // RecyclerView 어댑터를 검색 결과로 업데이트합니다
-                    listAdapter.setList(filteredResults);
-                    // 어댑터에 데이터가 변경되었음을 알립니다
-                    listAdapter.notifyDataSetChanged();
-                    navController.navigate(R.id.action_dest_search_to_dest_list);
-                    // ListFragment로 이동
-                    Log.i(TAG, "onResponse 성공");
-                } else {
-                    Log.i(TAG, "onResponse 실패");
-
+                        bundle.putString("keyword",keyword);
+                        // ListFragment로 이동
+                        navController.navigate(R.id.action_dest_search_to_dest_list,bundle);
+                    } else {
+                        // 검색 실패 처리
+                        Log.e(TAG, "검색 실패: " + response.message());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                Log.i(TAG, "onFailure 실행");
-                // 네트워크 오류 처리
-            }
-        });*/
-    }
-
-    private List<Product> filterResultsByKeyword(List<Product> results, String keyword) {
-        List<Product> filteredResults = new ArrayList<>();
-        for (Product product : results) {
-            if (product.getProduct_name().contains(keyword)) {
-                filteredResults.add(product);
-            }
+                @Override
+                public void onFailure(Call<List<Product>> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
         }
-        return filteredResults;
     }
+
 
     private void initBtnMain() {
         binding.Home.setOnClickListener(v->{
