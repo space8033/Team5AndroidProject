@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentOrderBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class OrderFragment extends Fragment {
@@ -26,10 +27,20 @@ public class OrderFragment extends Fragment {
         binding = FragmentOrderBinding.inflate(getLayoutInflater());
         navController = NavHostFragment.findNavController(this);
 
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.GONE);
+
         /*initBtnBack();*/
         initBtnMypage();
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 
     /*private void initBtnBack() {
