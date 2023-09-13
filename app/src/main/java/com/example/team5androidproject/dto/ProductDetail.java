@@ -8,7 +8,7 @@ public class ProductDetail {
     private int product_price;
     private String product_option;
     private int product_qty;
-    private byte[] product_imgFile;
+    private byte[] product_detailImgFile;
 
     public int getProduct_no() {
         return product_no;
@@ -50,12 +50,12 @@ public class ProductDetail {
         this.product_qty = product_qty;
     }
 
-    public byte[] getProduct_imgFile() {
-        return product_imgFile;
+    public byte[] getProduct_detailImgFile() {
+        return product_detailImgFile;
     }
 
-    public void setProduct_imgFile(byte[] product_imgFile) {
-        this.product_imgFile = product_imgFile;
+    public void setProduct_detailImgFile(byte[] product_detailImgFile) {
+        this.product_detailImgFile = product_detailImgFile;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ProductDetail {
                 ", product_price=" + product_price +
                 ", product_option='" + product_option + '\'' +
                 ", product_qty=" + product_qty +
-                ", product_imgFile=" + Arrays.toString(product_imgFile) +
+                ", product_detailImgFile=" + Arrays.toString(product_detailImgFile) +
                 '}';
     }
 }

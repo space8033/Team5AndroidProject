@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +37,7 @@ public class SearchFragment extends Fragment {
     private FragmentSearchBinding binding;
     private NavController navController;
     private EditText editText;
-    private Button searchButton;
+    private ImageButton searchButton;
     private ProductAdapter productAdapter;
     private String keyword = "";
     @Nullable
