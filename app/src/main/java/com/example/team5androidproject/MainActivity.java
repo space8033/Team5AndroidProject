@@ -1,16 +1,23 @@
 package com.example.team5androidproject;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.team5androidproject.databinding.ActivityMainBinding;
+import com.example.team5androidproject.datastore.AppKeyValueStore;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
         navController = navHostFragment.getNavController();
 
+        binding.bottomNavigationView.getMenu().findItem(R.id.dest_mypage).setVisible(false);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
 
         initAppBar();
@@ -48,4 +56,5 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
     }
+
 }
