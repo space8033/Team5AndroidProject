@@ -12,6 +12,7 @@ import com.example.team5androidproject.dto.Review;
 
 public class ReviewViewHolder extends RecyclerView.ViewHolder {
     private int review_no;
+    private TextView reviewName;
     private RatingBar ratingBar;
     private TextView reviewTitle;
     public RecyclerView reviewImageRecycler;
@@ -21,6 +22,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
 
     public ReviewViewHolder(@NonNull View itemView) {
         super(itemView);
+        reviewName = (TextView) itemView.findViewById(R.id.txt_review_name);
         ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar2);
         reviewTitle = (TextView) itemView.findViewById(R.id.review_title);
         reviewImageRecycler = (RecyclerView)  itemView.findViewById(R.id.review_image_recycler_view);
@@ -31,6 +33,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
 
     public void setData(Review review) {
         review_no = review.getReview_no();
+        reviewName.setText(review.getReview_name());
         ratingBar.setRating(review.getReview_rating());
         reviewTitle.setText(review.getReview_title());
         reviewContent.setText(review.getReview_contents());
