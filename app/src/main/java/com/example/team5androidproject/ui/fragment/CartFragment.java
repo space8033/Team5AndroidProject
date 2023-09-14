@@ -36,6 +36,7 @@ import com.example.team5androidproject.ui.adapter.CartAdapter;
 import com.example.team5androidproject.ui.adapter.ProductAdapter;
 import com.example.team5androidproject.ui.adapter.ReviewAdapter;
 import com.example.team5androidproject.ui.viewHolder.CartViewHolder;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -54,21 +55,26 @@ public class CartFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentCartBinding.inflate(getLayoutInflater());
         navController = NavHostFragment.findNavController(this);
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.GONE);
+
 
         initBtnOrder();
         initMenu();
         initRecyclerView();
+/*
         initCheckAll();
+*/
 
         return binding.getRoot();
     }
 
-    private void initCheckAll() {
+   /* private void initCheckAll() {
         CartAdapter cartAdapter = new CartAdapter();
         binding.allSelect.setOnClickListener(v -> {
             cartAdapter.setAllSelected(!cartAdapter.isAllSelected()); // 전체 선택 상태를 토글합니다.
         });
-    }
+    }*/
 
     private void initMenu() {
         MenuProvider menuProvider = new MenuProvider() {
@@ -103,7 +109,9 @@ public class CartFragment extends Fragment {
         callCount.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
-                binding.countCart.setText(String.valueOf(response.body()));
+                int itemCount = response.body();
+                String countText = itemCount + "개의 상품이 담겨있습니다";
+                binding.countCart.setText(countText);
             }
 
             @Override
