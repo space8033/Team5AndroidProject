@@ -2,15 +2,20 @@ package com.example.team5androidproject.ui.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Review;
+import com.example.team5androidproject.service.ReviewService;
+import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.viewHolder.ReviewViewHolder;
 
 import java.util.ArrayList;
@@ -25,6 +30,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.review_recycle, parent, false);
         ReviewViewHolder reviewViewHolder = new ReviewViewHolder(itemView);
+
 
         return reviewViewHolder;
     }
