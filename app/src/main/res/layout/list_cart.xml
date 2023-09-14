@@ -58,6 +58,8 @@
                             android:layout_weight="1"
                             android:gravity="start"
                             android:text="맛도리 무드등"
+                            android:maxLines="2"
+                            android:ellipsize="end"
                             android:textAppearance="?attr/textAppearanceHeadline6" />
 
                         <ImageButton
