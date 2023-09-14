@@ -80,4 +80,5 @@ public class ServiceProvider {
         MemberService memberService = getRetrofit(context).create(MemberService.class);
         return memberService;
     }
+
 }
