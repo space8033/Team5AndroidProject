@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Product;
+import com.example.team5androidproject.dto.ProductDetail;
 import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.AdPagerAdapter;
@@ -146,15 +147,24 @@ public class MainFragment extends Fragment {
                 Log.i(TAG, position+"번 항목 이동");
                 Product product = listAdapter.getItem(position);
                 Log.i(TAG, product.toString());
+                ProductDetail productDetail = convertToProductDetail(product);
 
                 Bundle args = new Bundle();
-                args.putSerializable("product",product);
+                args.putSerializable("product",productDetail);
                 navController.navigate(R.id.action_dest_main_to_dest_detail,args);
             }
         });
 
     }
+    private ProductDetail convertToProductDetail(Product product) {
+        ProductDetail productDetail = new ProductDetail();
 
+        productDetail.setProduct_no(product.getProduct_no());
+        productDetail.setProduct_name(product.getProduct_name());
+        productDetail.setProduct_price(product.getProduct_price());
+
+        return productDetail;
+    }
     private void initFloatButton() {
         binding.nestedMainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override

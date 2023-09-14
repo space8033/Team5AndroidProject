@@ -1,6 +1,7 @@
 package com.example.team5androidproject.ui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,11 +24,20 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentDetailBinding;
+import com.example.team5androidproject.dto.ProductDetail;
+import com.example.team5androidproject.service.ProductService;
+import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.DetailPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DetailFragment extends Fragment {
@@ -50,13 +60,54 @@ public class DetailFragment extends Fragment {
         initBtnOrder();
         initBtnCart();
 
-        initOptionSelect();
         initStockSelect();
         initMenu();
+
+        Bundle bundle= getArguments();
+        ProductDetail productDetail =(ProductDetail) bundle.getSerializable("product");
+        Log.i(TAG, productDetail.toString());
+        initContent(productDetail);
 
         return binding.getRoot();
     }
 
+    private void initContent(ProductDetail productDetail){
+        int product_no = productDetail.getProduct_no();
+        ProductService productService = ServiceProvider.getProductService(getContext());
+        Call<ProductDetail> call = productService.getDetailList(product_no);
+        call.enqueue(new Callback<ProductDetail>() {
+            @Override
+            public void onResponse(Call<ProductDetail> call, Response<ProductDetail> response) {
+                ProductDetail dbdetail =response.body();
+                binding.txtProductName.setText(dbdetail.getProduct_name());
+                binding.txtProductPrice.setText(String.valueOf(dbdetail.getProduct_price()));
+
+                productStock = binding.productOption;
+                selectedOptionText = binding.selectedOptionText1;
+                Log.i(TAG, "옵션 : " + dbdetail.getProduct_option());
+                String[] stockOptions = dbdetail.getProduct_option().toArray(new String[0]);
+                stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stockOptions);
+                stockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                productStock.setAdapter(stockAdapter);
+                productStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String selectedStock = stockAdapter.getItem(position);
+                        if (selectedOptionText != null) {
+
+                            selectedOptionText.setText(selectedStock);
+                        }
+                    }
+                });
+                ProductService.loadDetailThumbnail(product_no, binding.viewPager);
+            }
+
+            @Override
+            public void onFailure(Call<ProductDetail> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
     private void initDetailPagerView() {
         DetailPagerAdapter detailPagerAdapter = new DetailPagerAdapter(this);
         binding.viewpagerDetail.setAdapter(detailPagerAdapter);
@@ -80,27 +131,6 @@ public class DetailFragment extends Fragment {
         selectedOptionText = binding.selectedOptionText2;
 
         String[] stockOptions = {"1", "2", "3", "4", "5", "6", "7", "8","9","10"};
-        stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stockOptions);
-        stockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        productStock.setAdapter(stockAdapter);
-
-        productStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedStock = stockAdapter.getItem(position);
-                if (selectedOptionText != null) {
-
-                    selectedOptionText.setText(selectedStock);
-                }
-            }
-        });
-    }
-
-    private void initOptionSelect() {
-        productStock = binding.productOption;
-        selectedOptionText = binding.selectedOptionText1;
-
-        String[] stockOptions = {"Option 1", "Option 2", "Option 3", "Option 4"};
         stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stockOptions);
         stockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         productStock.setAdapter(stockAdapter);

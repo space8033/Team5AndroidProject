@@ -31,8 +31,12 @@ public interface ProductService {
         Glide.with(imageView.getContext()).load(url).into(imageView);
     }
 
-    static void loadDetail(int product_no, ImageView imageView){
-        String url = NetworkInfo.BASE_URL+"products/getDetailImgDetail?product_no="+ product_no;
+    static void loadDetailThumbnail(int image_no, ImageView imageView){
+        String url = NetworkInfo.BASE_URL+"products/getDetailImgThumbnail?image_no="+image_no;
+        Glide.with(imageView.getContext()).load(url).into(imageView);
+    }
+    static void loadDetailImgDetail(int product_no, ImageView imageView){
+        String url = NetworkInfo.BASE_URL+"products/getDetailImgDetail?product_no="+product_no;
         Glide.with(imageView.getContext()).load(url).into(imageView);
     }
 }

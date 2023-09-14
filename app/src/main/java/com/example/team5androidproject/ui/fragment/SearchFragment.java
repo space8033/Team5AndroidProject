@@ -123,8 +123,7 @@ public class SearchFragment extends Fragment {
 
     private void initBtnMain() {
         binding.Home.setOnClickListener(v->{
-            navController.navigate(R.id.action_dest_search_to_dest_list);
-            //navController.popBackStack(R.id.dest_main, false);
+            navController.popBackStack(R.id.dest_main, false);
         });
     }
 
