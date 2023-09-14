@@ -14,27 +14,30 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="399dp"
+            android:layout_height="124dp"
+            android:background="#FFFFFF"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="3dp">
 
             <CheckBox
                 android:id="@+id/check_item"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/white" />
 
             <ImageView
                 android:id="@+id/cart_imgFile"
-                android:layout_width="116dp"
-                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/photo1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -53,23 +56,35 @@
 
                         <TextView
                             android:id="@+id/cart_name"
-                            android:layout_width="229dp"
-                            android:layout_height="58dp"
+                            android:layout_width="189dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="맛도리 무드등"
-                            android:maxLines="2"
                             android:ellipsize="end"
-                            android:textAppearance="?attr/textAppearanceHeadline6" />
+                            android:gravity="start"
+                            android:singleLine="true"
+                            android:maxLines="2"
+                            android:text="맛도리 무드등"
+                            android:textAppearance="?attr/textAppearanceHeadline6"
+                            android:textSize="14sp" />
 
                         <ImageButton
                             android:id="@+id/imageButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_cancel_24dp"
-                            tools:ignore="SpeakableTextPresentCheck"/>
+                            tools:ignore="SpeakableTextPresentCheck" />
 
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/cart_option"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxEms="8"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:text="맛도르 무드등의 옵션" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -77,42 +92,64 @@
                         android:layout_weight="1"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/cart_option"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="맛도르 무드등의 옵션" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp">
+                        android:layout_marginTop="8dp"
+                        >
 
                         <TextView
                             android:id="@+id/textView4"
-                            android:layout_width="2dp"
+                            android:layout_width="6dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="수량" />
 
-                        <TextView
-                            android:id="@+id/cart_qty"
-                            android:layout_width="39dp"
+                        <ImageButton
+                            android:id="@+id/qty_minus"
+                            android:layout_width="3dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="수량:1개"
+                            android:background="@drawable/ic_minus_24px"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                        <TextView
+                            android:id="@+id/cart_qty"
+                            android:layout_width="2dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="1개"
                             android:textAppearance="?attr/textAppearanceBody1"
-                            android:textColor="?android:attr/textColorSecondary" />
+                            android:textColor="?android:attr/textColorSecondary"
+                            android:textSize="15sp" />
+
+                        <ImageButton
+                            android:id="@+id/qty_plus"
+                            android:layout_width="3dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_plus_24px"
+                            tools:ignore="SpeakableTextPresentCheck"
+                            android:layout_marginRight="10dp"/>
 
                         <TextView
                             android:id="@+id/cart_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:text="80000원"
+                            android:text="80000"
                             android:textAppearance="?attr/textAppearanceBody1"
                             android:textColor="?android:attr/textColorSecondary" />
+
+                        <TextView
+                            android:id="@+id/textView21"
+                            android:layout_width="37dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="원" />
 
                     </LinearLayout>
 

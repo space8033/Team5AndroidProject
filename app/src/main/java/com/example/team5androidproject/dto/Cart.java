@@ -10,6 +10,7 @@ public class Cart {
     private byte[] product_imgFile;
     private String productOption_type;
     private int product_no;
+    private boolean selected; // 선택 상태를 나타내는 필드 추가
 
     public int getCart_no() {
         return cart_no;
@@ -67,6 +68,16 @@ public class Cart {
         this.product_no = product_no;
     }
 
+    // 다른 필드의 getter 및 setter 메서드들
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
@@ -77,6 +88,7 @@ public class Cart {
                 ", product_imgFile=" + Arrays.toString(product_imgFile) +
                 ", productOption_type='" + productOption_type + '\'' +
                 ", product_no=" + product_no +
+                ", selected=" + selected +
                 '}';
     }
 }

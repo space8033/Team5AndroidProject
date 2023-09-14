@@ -48,6 +48,7 @@ public class CartFragment extends Fragment {
     private static final String TAG = "CartFragment";
     private FragmentCartBinding binding;
     private NavController navController;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,9 +58,16 @@ public class CartFragment extends Fragment {
         initBtnOrder();
         initMenu();
         initRecyclerView();
-        /*initCheckAll();*/
+        initCheckAll();
 
         return binding.getRoot();
+    }
+
+    private void initCheckAll() {
+        CartAdapter cartAdapter = new CartAdapter();
+        binding.allSelect.setOnClickListener(v -> {
+            cartAdapter.setAllSelected(!cartAdapter.isAllSelected()); // 전체 선택 상태를 토글합니다.
+        });
     }
 
     private void initMenu() {
@@ -88,14 +96,31 @@ public class CartFragment extends Fragment {
     }
 
     private void initRecyclerView() {
+        CartService cartService = ServiceProvider.getCartService(getContext());
+        //카트 수 받아오기
+        Call<Integer> callCount = cartService.getCartCount();
+
+        callCount.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                binding.countCart.setText(String.valueOf(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+            }
+        });
+
+        //장바구니 리사이클러뷰 가져오기
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(
                 getContext(), LinearLayoutManager.VERTICAL,false
         );
         binding.recyclerView.setLayoutManager(linearLayoutManager);
 
         CartAdapter cartAdapter =new CartAdapter();
-        CartService cartService = ServiceProvider.getCartService(getContext());
         Call<List<Cart>> call = cartService.getCartList();
+
         call.enqueue(new Callback<List<Cart>>() {
             @Override
             public void onResponse(Call<List<Cart>> call, Response<List<Cart>> response) {
@@ -110,54 +135,6 @@ public class CartFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+
     }
-
-/*    public class CartViewHolder extends RecyclerView.ViewHolder {
-        public CheckBox checkBox;
-
-        public CartViewHolder(View itemView) {
-            super(itemView);
-            checkBox = itemView.findViewById(R.id.check_item);
-        }
-    }
-
-    private void initCheckAll() {
-        // CartAdapter 인스턴스 생성
-        CartAdapter cartAdapter = new CartAdapter();
-
-        // RecyclerView에 Adapter 설정
-        binding.recyclerView.setAdapter(cartAdapter);
-
-        // 데이터를 설정하고 나서 항목 수 가져오기
-        CartService cartService = ServiceProvider.getCartService(getContext());
-        Call<List<Cart>> call = cartService.getCartList();
-        call.enqueue(new Callback<List<Cart>>() {
-            @Override
-            public void onResponse(Call<List<Cart>> call, Response<List<Cart>> response) {
-                List<Cart> list = response.body();
-                cartAdapter.setList(list);
-                int cnt = cartAdapter.getItemCount();
-                Log.i(TAG, "전체 아이템의 갯수: " + cnt);
-
-                // RecyclerView를 업데이트하기 위해 notifyDataSetChanged 호출
-                cartAdapter.notifyDataSetChanged();
-
-                for (int i = 0; i < cnt; i++) {
-                    // 각 ViewHolder에서 CheckBox를 가져와서 선택 상태로 설정
-                    CartViewHolder cartViewHolder = (CartViewHolder) binding.recyclerView.findViewHolderForAdapterPosition(i);
-                    if (cartViewHolder != null) {
-                        cartViewHolder.checkBox.setChecked(true);
-                        Log.i(TAG, "장바구니 항목 번호: " + i );
-                    } else {
-                        Log.i(TAG, "ViewHolder가 아직 생성되지 않았습니다.");
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Cart>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }*/
 }

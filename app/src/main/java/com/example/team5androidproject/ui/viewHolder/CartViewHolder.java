@@ -3,6 +3,7 @@ package com.example.team5androidproject.ui.viewHolder;
 import android.media.Image;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +26,9 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
     private TextView product_price;
     private ImageView product_imgFile;
     private TextView productOption_type;
-
+    private TextView cartQtyTextView;
+    public ImageButton qtyPlusButton;
+    public ImageButton qtyMinusButton;
 
 
     private static final String TAG = "CartViewHolder";
@@ -37,6 +40,11 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         product_price = (TextView) itemView.findViewById(R.id.cart_price);
         cart_qty = (TextView) itemView.findViewById(R.id.cart_qty);
         productOption_type = (TextView) itemView.findViewById(R.id.cart_option);
+
+        //카트 수량 변경 버튼
+        qtyPlusButton = (ImageButton) itemView.findViewById(R.id.qty_plus);
+        qtyMinusButton= (ImageButton) itemView.findViewById(R.id.qty_minus);
+
     }
     public void setData(Cart cart) {
         cart_no = cart.getCart_no();
