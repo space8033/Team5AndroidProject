@@ -8,7 +8,7 @@ public class ProductDetail implements Serializable {
     private int product_no;
     private String product_name;
     private int product_price;
-    private List<String> product_option;
+    private List<String> productoption_type;
     private int product_qty;
     private List<Integer> images_no;
     private byte[] product_detail_img;
@@ -39,12 +39,12 @@ public class ProductDetail implements Serializable {
     }
 
 
-    public List<String> getProduct_option() {
-        return product_option;
+    public List<String> getProductoption_type() {
+        return productoption_type;
     }
 
-    public void setProduct_option(List<String> product_option) {
-        this.product_option = product_option;
+    public void setProductoption_type(List<String> productoption_type) {
+        this.productoption_type = productoption_type;
     }
 
     public int getProduct_qty() {
@@ -85,7 +85,7 @@ public class ProductDetail implements Serializable {
                 "product_no=" + product_no +
                 ", product_name='" + product_name + '\'' +
                 ", product_price=" + product_price +
-                ", product_option=" + product_option +
+                ", productoption_type=" + productoption_type +
                 ", product_qty=" + product_qty +
                 ", images_no=" + images_no +
                 ", product_detail_img=" + Arrays.toString(product_detail_img) +

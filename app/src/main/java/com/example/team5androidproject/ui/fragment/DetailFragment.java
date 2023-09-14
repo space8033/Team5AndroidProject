@@ -45,9 +45,10 @@ public class DetailFragment extends Fragment {
     private FragmentDetailBinding binding;
     private NavController navController;
     private AutoCompleteTextView productStock;
+    private AutoCompleteTextView productOption;
     private ArrayAdapter<String> stockAdapter;
-    private TextView selectedOptionText;
-
+    private TextView selectedOptionText1;
+    private TextView selectedOptionText2;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,29 +74,32 @@ public class DetailFragment extends Fragment {
 
     private void initContent(ProductDetail productDetail){
         int product_no = productDetail.getProduct_no();
+        Log.i(TAG, "Product_name : " + productDetail.getProduct_name());
         ProductService productService = ServiceProvider.getProductService(getContext());
         Call<ProductDetail> call = productService.getDetailList(product_no);
+        Log.i(TAG, "Call : " + call);
         call.enqueue(new Callback<ProductDetail>() {
             @Override
             public void onResponse(Call<ProductDetail> call, Response<ProductDetail> response) {
                 ProductDetail dbdetail =response.body();
+                Log.i(TAG, "dbdetail : " + dbdetail.toString());
                 binding.txtProductName.setText(dbdetail.getProduct_name());
                 binding.txtProductPrice.setText(String.valueOf(dbdetail.getProduct_price()));
 
-                productStock = binding.productOption;
-                selectedOptionText = binding.selectedOptionText1;
-                Log.i(TAG, "옵션 : " + dbdetail.getProduct_option());
-                String[] stockOptions = dbdetail.getProduct_option().toArray(new String[0]);
-                stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stockOptions);
+                productOption = binding.productOption;
+                selectedOptionText1 = binding.selectedOptionText1;
+                Log.i(TAG, "옵션 : " + dbdetail.getProductoption_type());
+                String[] typeOptions = dbdetail.getProductoption_type().toArray(new String[0]);
+                stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, typeOptions);
                 stockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                productStock.setAdapter(stockAdapter);
+                productOption.setAdapter(stockAdapter);
                 productStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String selectedStock = stockAdapter.getItem(position);
-                        if (selectedOptionText != null) {
+                        if (selectedOptionText1 != null) {
 
-                            selectedOptionText.setText(selectedStock);
+                            selectedOptionText1.setText(selectedStock);
                         }
                     }
                 });
@@ -128,9 +132,9 @@ public class DetailFragment extends Fragment {
     private void initStockSelect() {
 
         productStock = binding.productStock;
-        selectedOptionText = binding.selectedOptionText2;
+        selectedOptionText2 = binding.selectedOptionText2;
 
-        String[] stockOptions = {"1", "2", "3", "4", "5", "6", "7", "8","9","10"};
+        String[] stockOptions = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
         stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stockOptions);
         stockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         productStock.setAdapter(stockAdapter);
@@ -139,9 +143,9 @@ public class DetailFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedStock = stockAdapter.getItem(position);
-                if (selectedOptionText != null) {
+                if (selectedOptionText2 != null) {
 
-                    selectedOptionText.setText(selectedStock);
+                    selectedOptionText2.setText(selectedStock);
                 }
             }
         });

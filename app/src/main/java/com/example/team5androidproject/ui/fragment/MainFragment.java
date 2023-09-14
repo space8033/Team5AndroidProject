@@ -162,6 +162,8 @@ public class MainFragment extends Fragment {
         productDetail.setProduct_no(product.getProduct_no());
         productDetail.setProduct_name(product.getProduct_name());
         productDetail.setProduct_price(product.getProduct_price());
+        productDetail.setProductoption_type(product.getProduct_option());
+        productDetail.setImages_no(product.getImage_no());
 
         return productDetail;
     }

@@ -13,11 +13,15 @@ import com.example.team5androidproject.dto.Product;
 import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.ui.adapter.ProductAdapter;
 
+import java.util.List;
+
 public class ProductViewHolder extends RecyclerView.ViewHolder {
     private int product_no;
     private ImageView product_imgFile;
     private TextView product_name;
     private TextView product_price;
+    private List<String> product_option;
+    private List<Integer> product_detail_thumbnail;
 
     private static final String TAG = "ListViewHolder";
 
@@ -41,5 +45,7 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
         ProductService.loadImage(product.getProduct_no(), product_imgFile);
         product_name.setText(product.getProduct_name());
         product_price.setText(String.valueOf(product.getProduct_price()));
+        product_option = product.getProduct_option();
+        product_detail_thumbnail = product.getImage_no();
     }
 }
