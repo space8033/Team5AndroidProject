@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.databinding.FragmentReviewBinding;
+import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.Review;
 import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;
@@ -45,9 +46,9 @@ public class ReviewFragment extends Fragment {
         binding.reviewRecycler.setLayoutManager(linearLayoutManager);
 
         ReviewAdapter reviewAdapter = new ReviewAdapter();
-
+        String id = AppKeyValueStore.getValue(getContext(), "userId");
         ReviewService reviewService = ServiceProvider.getReviewService(getContext());
-        Call<List<Review>> call = reviewService.getReviewByUser("space");
+        Call<List<Review>> call = reviewService.getReviewByUser(id);
         call.enqueue(new Callback<List<Review>>() {
             @Override
             public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentCouponBinding;
+import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.Coupon;
 import com.example.team5androidproject.service.CouponService;
 import com.example.team5androidproject.service.ServiceProvider;
@@ -40,8 +41,10 @@ public class CouponFragment extends Fragment {
 
     private void initRecyclerView() {
         CouponService couponService = ServiceProvider.getCouponService(getContext());
+
+        String id = AppKeyValueStore.getValue(getContext(), "userId");
         //쿠폰수 받아오기
-        Call<Integer> callCount = couponService.getCouponCount("space");
+        Call<Integer> callCount = couponService.getCouponCount(id);
         callCount.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
@@ -63,7 +66,7 @@ public class CouponFragment extends Fragment {
 
         CouponAdapter couponAdapter = new CouponAdapter();
 
-        Call<List<Coupon>> call = couponService.getCouponByUser("space");
+        Call<List<Coupon>> call = couponService.getCouponByUser(id);
 
         call.enqueue(new Callback<List<Coupon>>() {
             @Override
