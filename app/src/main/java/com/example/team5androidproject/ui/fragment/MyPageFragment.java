@@ -37,6 +37,7 @@ public class MyPageFragment extends Fragment {
         initBtnReview();
         initFloatButton();
         hideButton();
+        initBtnLogin();
 
         return binding.getRoot();
     }
@@ -100,5 +101,11 @@ public class MyPageFragment extends Fragment {
 
     private void showButton() {
         binding.btnMypageFloat.show();
+    }
+
+    private void initBtnLogin() {
+        binding.btnLogin.setOnClickListener(v -> {
+            navController.navigate(R.id.action_dest_mypage_to_dest_login);
+        });
     }
 }
