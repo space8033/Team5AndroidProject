@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import com.example.team5androidproject.R;
 
 import com.example.team5androidproject.databinding.FragmentMyPageBinding;
+import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.ui.adapter.MyPagePagerAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -37,6 +39,7 @@ public class MyPageFragment extends Fragment {
         initBtnReview();
         initFloatButton();
         hideButton();
+        initBtnLogout();
 
         return binding.getRoot();
     }
@@ -100,5 +103,23 @@ public class MyPageFragment extends Fragment {
 
     private void showButton() {
         binding.btnMypageFloat.show();
+    }
+
+    private void initBtnLogout() {
+        binding.btnLogout.setOnClickListener(v -> {
+            AppKeyValueStore.remove(getContext(), "userId");
+            AppKeyValueStore.remove(getContext(), "password");
+
+            BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+            bottomNavigationView.getMenu().findItem(R.id.dest_login).setVisible(true);
+            bottomNavigationView.getMenu().findItem(R.id.dest_mypage).setVisible(false);
+
+            navController.navigate(R.id.dest_main);
+        });
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        requireActivity().findViewById(R.id.bottom_navigation_view).setVisibility(View.VISIBLE);
     }
 }

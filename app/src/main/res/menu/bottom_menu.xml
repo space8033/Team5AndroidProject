@@ -23,4 +23,9 @@
         android:icon="@drawable/ic_person_24dp"
         app:showAsAction="always"
         android:title="마이페이지" />
+    <item
+        android:id="@+id/dest_login"
+        android:icon="@drawable/ic_person_24dp"
+        app:showAsAction="always"
+        android:title="로그인" />
 </menu>
