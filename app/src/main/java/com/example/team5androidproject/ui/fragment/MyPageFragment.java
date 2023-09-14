@@ -17,10 +17,17 @@ import com.example.team5androidproject.R;
 
 import com.example.team5androidproject.databinding.FragmentMyPageBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
+import com.example.team5androidproject.dto.MyPage;
+import com.example.team5androidproject.service.MemberService;
+import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.MyPagePagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MyPageFragment extends Fragment {
@@ -40,6 +47,7 @@ public class MyPageFragment extends Fragment {
         initFloatButton();
         hideButton();
         initBtnLogout();
+        initMyPageView();
 
         return binding.getRoot();
     }
@@ -115,6 +123,30 @@ public class MyPageFragment extends Fragment {
             bottomNavigationView.getMenu().findItem(R.id.dest_mypage).setVisible(false);
 
             navController.navigate(R.id.dest_main);
+        });
+    }
+
+    private void initMyPageView() {
+        String userId = AppKeyValueStore.getValue(getContext(), "userId");
+        MemberService memberService = ServiceProvider.getMemberService(getContext());
+        Call<MyPage> call = memberService.mypage(userId);
+        call.enqueue(new Callback<MyPage>() {
+            @Override
+            public void onResponse(Call<MyPage> call, Response<MyPage> response) {
+                MyPage myPage = response.body();
+                binding.txtName.setText(myPage.getName());
+                binding.txtCreatedAt.setText(myPage.getCreated_at());
+                binding.txtPoint.setText(String.valueOf(myPage.getPoint()) + "P");
+                binding.txtCoupon.setText(String.valueOf(myPage.getCouponCount()) + "장");
+                binding.txtReview.setText(String.valueOf(myPage.getReviewCount()) + "건");
+                binding.txtInquriy.setText(String.valueOf(myPage.getInquiryCount()) + "건");
+                MemberService.loadImage(userId, binding.profileImage);
+            }
+
+            @Override
+            public void onFailure(Call<MyPage> call, Throwable t) {
+
+            }
         });
     }
     @Override

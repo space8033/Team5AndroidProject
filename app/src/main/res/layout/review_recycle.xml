@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/txt_review_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -42,7 +42,7 @@
                 android:rating="4" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar2"
+                android:id="@+id/review_menu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"

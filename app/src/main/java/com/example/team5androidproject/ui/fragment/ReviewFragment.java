@@ -33,6 +33,9 @@ public class ReviewFragment extends Fragment {
         binding = FragmentReviewBinding.inflate(inflater);
         navController = NavHostFragment.findNavController(this);
 
+        String userId = AppKeyValueStore.getValue(getContext(), "userId");
+        binding.txtUserId.setText(userId);
+
         initRecyclerView();
 
         return binding.getRoot();

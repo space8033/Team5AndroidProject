@@ -46,7 +46,8 @@ public class DetailFragment extends Fragment {
     private NavController navController;
     private AutoCompleteTextView productStock;
     private AutoCompleteTextView productOption;
-    private ArrayAdapter<String> stockAdapter;
+    private ArrayAdapter<String> stockAdapter1;
+    private ArrayAdapter<String> stockAdapter2;
     private TextView selectedOptionText1;
     private TextView selectedOptionText2;
     @Nullable
@@ -90,13 +91,13 @@ public class DetailFragment extends Fragment {
                 selectedOptionText1 = binding.selectedOptionText1;
                 Log.i(TAG, "옵션 : " + dbdetail.getProductoption_type());
                 String[] typeOptions = dbdetail.getProductoption_type().toArray(new String[0]);
-                stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, typeOptions);
-                stockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                productOption.setAdapter(stockAdapter);
-                productStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                stockAdapter1 = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, typeOptions);
+                stockAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                productOption.setAdapter(stockAdapter1);
+                productOption.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String selectedStock = stockAdapter.getItem(position);
+                        String selectedStock = stockAdapter1.getItem(position);
                         if (selectedOptionText1 != null) {
 
                             selectedOptionText1.setText(selectedStock);
@@ -135,14 +136,14 @@ public class DetailFragment extends Fragment {
         selectedOptionText2 = binding.selectedOptionText2;
 
         String[] stockOptions = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        stockAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stockOptions);
-        stockAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        productStock.setAdapter(stockAdapter);
+        stockAdapter2 = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, stockOptions);
+        stockAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        productStock.setAdapter(stockAdapter2);
 
         productStock.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedStock = stockAdapter.getItem(position);
+                String selectedStock = stockAdapter2.getItem(position);
                 if (selectedOptionText2 != null) {
 
                     selectedOptionText2.setText(selectedStock);
