@@ -1,12 +1,9 @@
 package com.example.team5androidproject.ui.viewHolder;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,11 +26,11 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
     public void setData(Coupon coupon) {
         createdDate.setText(coupon.getCoupon_createdDate());
         expiredDate.setText(coupon.getCoupon_expiredDate());
-        if(String.valueOf(coupon.getCoupon_type()) == "BIRTHDAY_COUPON") {
+        if(String.valueOf(coupon.getCoupon_type()).equals("BIRTHDAY_COUPON")) {
             couponImage.setImageResource(R.drawable.birthday_coupon);
-        }else if(String.valueOf(coupon.getCoupon_type()) == "DEL_FREE_COUPON") {
+        }else if(String.valueOf(coupon.getCoupon_type()).equals("DEL_FREE_COUPON")) {
             couponImage.setImageResource(R.drawable.delivery_coupon);
-        }else if(String.valueOf(coupon.getCoupon_type()) == "WELCOME_COUPON") {
+        }else if(String.valueOf(coupon.getCoupon_type()).equals("WELCOME_COUPON")) {
             couponImage.setImageResource(R.drawable.welcome_coupon);
         }
     }

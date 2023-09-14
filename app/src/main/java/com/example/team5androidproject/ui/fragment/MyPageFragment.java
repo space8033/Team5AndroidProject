@@ -35,6 +35,8 @@ public class MyPageFragment extends Fragment {
         initMyPagePagerView();
         initBtnCoupon();
         initBtnReview();
+        initFloatButton();
+        hideButton();
 
         return binding.getRoot();
     }
@@ -71,5 +73,32 @@ public class MyPageFragment extends Fragment {
         binding.layoutReview.setOnClickListener(v -> {
             binding.viewpagerMypage.setCurrentItem(1);
         });
+    }
+    private void initFloatButton() {
+        binding.mypageNestedScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(scrollY > oldScrollY) {
+                    showButton();
+                }else {
+                    hideButton();
+                }
+            }
+        });
+
+        binding.btnMypageFloat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.mypageNestedScroll.smoothScrollTo(0, 0);
+            }
+        });
+    }
+
+    private void hideButton() {
+        binding.btnMypageFloat.hide();
+    }
+
+    private void showButton() {
+        binding.btnMypageFloat.show();
     }
 }

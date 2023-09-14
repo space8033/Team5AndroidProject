@@ -52,6 +52,8 @@ public class MainFragment extends Fragment {
         initMenu();
         initPagerView();
         initMainRecyclerView();
+        hideButton();
+        initFloatButton();
 
         return binding.getRoot();
 
@@ -151,5 +153,33 @@ public class MainFragment extends Fragment {
             }
         });
 
+    }
+
+    private void initFloatButton() {
+        binding.nestedMainScroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(scrollY > oldScrollY) {
+                    showButton();
+                }else {
+                    hideButton();
+                }
+            }
+        });
+
+        binding.btnFloatMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.nestedMainScroll.smoothScrollTo(0, 0);
+            }
+        });
+    }
+
+    private void hideButton() {
+        binding.btnFloatMain.hide();
+    }
+
+    private void showButton() {
+        binding.btnFloatMain.show();
     }
 }

@@ -11,4 +11,6 @@ import retrofit2.http.Query;
 public interface CouponService {
     @GET("coupon/getCouponByUser")
     Call<List<Coupon>> getCouponByUser(@Query("usersId") String usersId);
+    @GET("coupon/getCouponCount")
+    Call<Integer> getCouponCount(@Query("usersId") String usersId);
 }

@@ -39,6 +39,22 @@ public class CouponFragment extends Fragment {
     }
 
     private void initRecyclerView() {
+        CouponService couponService = ServiceProvider.getCouponService(getContext());
+        //쿠폰수 받아오기
+        Call<Integer> callCount = couponService.getCouponCount("space");
+        callCount.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                binding.txtCouponCount.setText(String.valueOf(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+            }
+        });
+
+        //쿠폰 리사이클러뷰 가져오기
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 getContext(), LinearLayoutManager.VERTICAL, false
         );
@@ -47,7 +63,6 @@ public class CouponFragment extends Fragment {
 
         CouponAdapter couponAdapter = new CouponAdapter();
 
-        CouponService couponService = ServiceProvider.getCouponService(getContext());
         Call<List<Coupon>> call = couponService.getCouponByUser("space");
 
         call.enqueue(new Callback<List<Coupon>>() {
@@ -61,5 +76,6 @@ public class CouponFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Coupon>> call, Throwable t) {}
         });
+
     }
 }
