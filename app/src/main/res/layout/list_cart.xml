@@ -26,14 +26,17 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="10dp"
-                android:backgroundTint="@color/white" />
+                android:backgroundTint="@color/white"
+                android:layout_marginTop="45dp"
+                android:layout_marginLeft="5dp"/>
 
             <ImageView
                 android:id="@+id/cart_imgFile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/photo1" />
+                app:srcCompat="@drawable/photo1"
+                android:layout_marginTop="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -56,13 +59,13 @@
 
                         <TextView
                             android:id="@+id/cart_name"
-                            android:layout_width="189dp"
+                            android:layout_width="175dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:ellipsize="end"
                             android:gravity="start"
-                            android:singleLine="true"
                             android:maxLines="2"
+                            android:singleLine="true"
                             android:text="맛도리 무드등"
                             android:textAppearance="?attr/textAppearanceHeadline6"
                             android:textSize="14sp" />
