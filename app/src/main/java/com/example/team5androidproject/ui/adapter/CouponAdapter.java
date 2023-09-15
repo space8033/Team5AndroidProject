@@ -30,8 +30,8 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CouponViewHolder holder, int position) {
-            Coupon coupon = list.get(position);
-            holder.setData(coupon);
+        Coupon coupon = list.get(position);
+        holder.setData(coupon);
     }
 
     @Override
