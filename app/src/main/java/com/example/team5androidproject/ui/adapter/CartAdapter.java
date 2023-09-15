@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,7 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     private List<Cart> list = new ArrayList<>();
-    private boolean isAllSelected = false; //전체 선택 여부를 나타내는 변수
+    private CheckBox allCheckBox; // 전체 체크박스
 
 
     @NonNull
@@ -54,7 +55,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     }
 
     // 전체 선택 상태 설정
-    public void setAllSelected(boolean isAllSelected) {
+   /* public void setAllSelected(boolean isAllSelected) {
         this.isAllSelected = isAllSelected;
         for (Cart cart : list) {
             cart.setSelected(isAllSelected); // 모든 아이템의 선택 상태를 설정합니다.
@@ -65,7 +66,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     // 전체 선택 상태 반환
     public boolean isAllSelected() {
         return isAllSelected;
-    }
+    }*/
 
     //수량을 증가시키는 메서드
     public void increaseQuantity(int position) {
