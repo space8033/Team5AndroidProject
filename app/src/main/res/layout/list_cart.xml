@@ -112,7 +112,7 @@
 
                         <ImageButton
                             android:id="@+id/qty_minus"
-                            android:layout_width="3dp"
+                            android:layout_width="1dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/ic_minus_24px"
@@ -120,7 +120,7 @@
 
                         <TextView
                             android:id="@+id/cart_qty"
-                            android:layout_width="2dp"
+                            android:layout_width="4dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
@@ -131,7 +131,7 @@
 
                         <ImageButton
                             android:id="@+id/qty_plus"
-                            android:layout_width="3dp"
+                            android:layout_width="1dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@drawable/ic_plus_24px"
@@ -155,7 +155,6 @@
                             android:text="원" />
 
                     </LinearLayout>
-
 
                 </LinearLayout>
             </LinearLayout>
