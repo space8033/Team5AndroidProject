@@ -18,6 +18,7 @@ import com.example.team5androidproject.dto.Coupon;
 import com.example.team5androidproject.service.CouponService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.CouponAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class CouponFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCouponBinding.inflate(inflater);
         navController = NavHostFragment.findNavController(this);
+
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.GONE);
 
         initRecyclerView();
 
@@ -80,5 +84,12 @@ public class CouponFragment extends Fragment {
             public void onFailure(Call<List<Coupon>> call, Throwable t) {}
         });
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

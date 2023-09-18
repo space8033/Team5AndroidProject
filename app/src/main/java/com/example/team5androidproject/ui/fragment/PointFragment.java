@@ -19,6 +19,7 @@ import com.example.team5androidproject.dto.Point;
 import com.example.team5androidproject.service.MemberService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.PointAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -34,6 +35,9 @@ public class PointFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPointBinding.inflate(inflater);
         navController = NavHostFragment.findNavController(this);
+
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.GONE);
 
         initRecyclerView();
 
@@ -78,5 +82,12 @@ public class PointFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.VISIBLE);
     }
 }

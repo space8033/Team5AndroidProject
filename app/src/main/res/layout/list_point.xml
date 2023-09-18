@@ -9,6 +9,7 @@
         android:layout_width="409dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"
+        android:paddingRight="10dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +42,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:paddingRight="8dp"
             android:text="5000"
             android:textStyle="bold" />
 
@@ -49,6 +51,7 @@
             android:layout_width="20dp"
             android:layout_height="30dp"
             android:layout_weight="0.8"
+            android:paddingRight="13dp"
             android:gravity="center"
             android:text="132"
             android:textStyle="bold" />
