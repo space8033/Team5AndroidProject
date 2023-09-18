@@ -134,7 +134,6 @@ public class MainFragment extends Fragment {
                 List<Product> list = response.body();
                 listAdapter.setList(list);
                 binding.recyclerViewMain.setAdapter(listAdapter);
-                Log.i(TAG, "테스트");
             }
 
             @Override
@@ -146,15 +145,14 @@ public class MainFragment extends Fragment {
         listAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-                Log.i(TAG, position+"번 항목 이동");
                 Product product = listAdapter.getItem(position);
-                Log.i(TAG, product.toString());
                 ProductDetail productDetail = convertToProductDetail(product);
 
                 Bundle args = new Bundle();
                 args.putSerializable("product",productDetail);
-                args.putIntegerArrayList("imageNoList", new ArrayList<>(product.getImage_no()));
-
+                if (product.getImage_no() != null) {
+                    args.putIntegerArrayList("imageNoList", new ArrayList<>(product.getImage_no()));
+                }
                 navController.navigate(R.id.action_dest_main_to_dest_detail,args);
             }
         });
