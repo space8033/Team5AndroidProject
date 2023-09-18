@@ -28,10 +28,12 @@ import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.AdPagerAdapter;
 import com.example.team5androidproject.databinding.FragmentMainBinding;
+import com.example.team5androidproject.ui.adapter.DetailThumbnailAdapter;
 import com.example.team5androidproject.ui.adapter.ProductAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -132,7 +134,6 @@ public class MainFragment extends Fragment {
                 List<Product> list = response.body();
                 listAdapter.setList(list);
                 binding.recyclerViewMain.setAdapter(listAdapter);
-                Log.i(TAG, "테스트");
             }
 
             @Override
@@ -144,13 +145,14 @@ public class MainFragment extends Fragment {
         listAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-                Log.i(TAG, position+"번 항목 이동");
                 Product product = listAdapter.getItem(position);
-                Log.i(TAG, product.toString());
                 ProductDetail productDetail = convertToProductDetail(product);
 
                 Bundle args = new Bundle();
                 args.putSerializable("product",productDetail);
+                if (product.getImage_no() != null) {
+                    args.putIntegerArrayList("imageNoList", new ArrayList<>(product.getImage_no()));
+                }
                 navController.navigate(R.id.action_dest_main_to_dest_detail,args);
             }
         });

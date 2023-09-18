@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentDetailBinding;
@@ -28,6 +29,7 @@ import com.example.team5androidproject.dto.ProductDetail;
 import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.DetailPagerAdapter;
+import com.example.team5androidproject.ui.adapter.DetailThumbnailAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -50,6 +52,7 @@ public class DetailFragment extends Fragment {
     private ArrayAdapter<String> stockAdapter2;
     private TextView selectedOptionText1;
     private TextView selectedOptionText2;
+    private ViewPager2 viewPagerDetailThumbnail;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,7 +73,26 @@ public class DetailFragment extends Fragment {
         Log.i(TAG, productDetail.toString());
         initContent(productDetail);
 
+        viewPagerDetailThumbnail = binding.getRoot().findViewById(R.id.view_pager);
+        initDetailThumbnail();
+
         return binding.getRoot();
+    }
+
+    private void initDetailThumbnail() {
+        Bundle args = getArguments();
+        if (args != null) {
+            ProductDetail productDetail = (ProductDetail) args.getSerializable("product");
+
+            // ProductDetail 객체가 null이 아니고 Images_no가 있는 경우에만 처리
+            if (productDetail != null && productDetail.getImages_no() != null) {
+                List<Integer> imageNoList = productDetail.getImages_no();
+
+                // DetailThumbnailAdapter를 설정하고 ViewPager2에 연결
+                DetailThumbnailAdapter adapter = new DetailThumbnailAdapter(imageNoList);
+                viewPagerDetailThumbnail.setAdapter(adapter);
+            }
+        }
     }
 
     private void initContent(ProductDetail productDetail){
@@ -104,7 +126,6 @@ public class DetailFragment extends Fragment {
                         }
                     }
                 });
-                ProductService.loadDetailThumbnail(product_no, binding.viewPager);
             }
 
             @Override
