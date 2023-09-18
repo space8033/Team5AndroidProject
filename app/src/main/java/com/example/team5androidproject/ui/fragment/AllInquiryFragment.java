@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
+import com.example.team5androidproject.databinding.FragmentAllInquiryBinding;
 import com.example.team5androidproject.databinding.FragmentInquiryBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.Inquiry;
 import com.example.team5androidproject.service.MemberService;
-import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.InquiryAdapter;
 
@@ -26,14 +26,13 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-public class InquiryFragment extends Fragment {
-    private static final String TAG = "InquiryFragment";
-    private FragmentInquiryBinding binding;
+public class AllInquiryFragment extends Fragment {
+    private static final String TAG = "AllInquiryFragment";
+    private FragmentAllInquiryBinding binding;
     private NavController navController;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentInquiryBinding.inflate(inflater);
+        binding = FragmentAllInquiryBinding.inflate(inflater);
         navController = NavHostFragment.findNavController(this);
 
         initRecyclerView();
@@ -48,10 +47,9 @@ public class InquiryFragment extends Fragment {
 
         binding.inquriyRecycler.setLayoutManager(linearLayoutManager);
         InquiryAdapter inquiryAdapter = new InquiryAdapter();
-        String id = AppKeyValueStore.getValue(getContext(), "userId");
         MemberService memberService = ServiceProvider.getMemberService(getContext());
 
-        Call<List<Inquiry>> call = memberService.inquiry(id);
+        Call<List<Inquiry>> call = memberService.allInquiry();
         call.enqueue(new Callback<List<Inquiry>>() {
             @Override
             public void onResponse(Call<List<Inquiry>> call, Response<List<Inquiry>> response) {

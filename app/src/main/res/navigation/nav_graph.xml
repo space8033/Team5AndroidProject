@@ -120,4 +120,8 @@
         android:id="@+id/dest_point"
         android:name="com.example.team5androidproject.ui.fragment.PointFragment"
         tools:layout="@layout/fragment_point" />
+    <fragment
+        android:id="@+id/dest_all_inquiry"
+        android:name="com.example.team5androidproject.ui.fragment.AllInquiryFragment"
+        tools:layout="@layout/fragment_all_inquiry" />
 </navigation>

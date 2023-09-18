@@ -14,7 +14,7 @@
         app:showAsAction="always"
         android:title="검색" />
     <item
-        android:id="@+id/dest_inquiry"
+        android:id="@+id/dest_all_inquiry"
         android:icon="@drawable/ic_chat_24dp"
         app:showAsAction="always"
         android:title="문의" />

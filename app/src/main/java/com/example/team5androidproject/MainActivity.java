@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         AppKeyValueStore.remove(getApplicationContext(), "userId");
-        Log.i(TAG, "onDestroy: 됨?");
         AppKeyValueStore.remove(getApplicationContext(), "password");
         super.onDestroy();
     }

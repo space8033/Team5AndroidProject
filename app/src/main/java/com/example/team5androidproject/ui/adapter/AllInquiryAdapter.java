@@ -9,25 +9,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Inquiry;
-import com.example.team5androidproject.ui.viewHolder.InquiryViewHolder;
+import com.example.team5androidproject.ui.viewHolder.AllInquiryViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InquiryAdapter extends RecyclerView.Adapter<InquiryViewHolder> {
+public class AllInquiryAdapter extends RecyclerView.Adapter<AllInquiryViewHolder> {
     List<Inquiry> list = new ArrayList<>();
     @NonNull
     @Override
-    public InquiryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AllInquiryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.list_inquriy, parent, false);
-        InquiryViewHolder inquiryViewHolder = new InquiryViewHolder(itemView);
+        AllInquiryViewHolder allInquiryViewHolder = new AllInquiryViewHolder(itemView);
 
-        return inquiryViewHolder;
+        return allInquiryViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InquiryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AllInquiryViewHolder holder, int position) {
         Inquiry inquiry = list.get(position);
         holder.setData(inquiry);
     }
