@@ -5,9 +5,7 @@ public class OrderHistory {
     private String orderDate;
     private String arrival;
     private int productNo;
-
     private String productName;
-
     private int price;
     private int quantity;
 

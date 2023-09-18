@@ -102,7 +102,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txt_product_name"
+                android:id="@+id/txt_inquiry_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="무어스 철푸덕 무드등" />

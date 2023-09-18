@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="20dp"
     android:paddingBottom="100dp"
-    tools:context=".ui.fragment.InquiryFragment">
+    tools:context=".ui.fragment.AllInquiryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/inquriy_recycler"

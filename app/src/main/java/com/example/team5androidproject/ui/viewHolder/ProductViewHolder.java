@@ -13,6 +13,7 @@ import com.example.team5androidproject.dto.Product;
 import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.ui.adapter.ProductAdapter;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ProductViewHolder extends RecyclerView.ViewHolder {
@@ -44,8 +45,10 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
         product_no = product.getProduct_no();
         ProductService.loadImage(product.getProduct_no(), product_imgFile);
         product_name.setText(product.getProduct_name());
-        product_price.setText(String.valueOf(product.getProduct_price()));
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        product_price.setText(decimalFormat.format(product.getProduct_price()));
         product_option = product.getProduct_option();
         product_detail_thumbnail = product.getImage_no();
     }
+
 }

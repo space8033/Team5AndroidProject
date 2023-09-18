@@ -27,6 +27,7 @@ import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.ProductAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -89,7 +90,6 @@ public class ListFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> list = response.body();
-                Log.i(TAG, "list : " + list);
                 productAdapter.setList(list);
                 binding.recyclerView.setAdapter(productAdapter);
             }
@@ -103,13 +103,14 @@ public class ListFragment extends Fragment {
         productAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int position) {
-                Log.i(TAG, position+"번 항목 이동");
                 Product product = productAdapter.getItem(position);
-                Log.i(TAG, product.toString());
                 ProductDetail productDetail = convertToProductDetail(product);
 
                 Bundle args = new Bundle();
                 args.putSerializable("product",productDetail);
+                if (product.getImage_no() != null) {
+                    args.putIntegerArrayList("imageNoList", new ArrayList<>(product.getImage_no()));
+                }
                 navController.navigate(R.id.action_dest_list_to_dest_detail,args);
             }
         });
