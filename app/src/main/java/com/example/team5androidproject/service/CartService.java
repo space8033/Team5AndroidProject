@@ -24,7 +24,10 @@ public interface CartService {
             @Query("cart_no") int cart_no, // 업데이트할 카트 항목의 번호
             @Query("cart_qty") int cart_qty // 새로운 수량
     );
-
+    @GET("cart/deleteOneCart")
+    Call<Void> deleteOneCart(
+            @Query("cart_no") int cart_no
+    );
 
     static void loadImage(int product_no, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "cart/fileDownload?product_no=" + product_no;

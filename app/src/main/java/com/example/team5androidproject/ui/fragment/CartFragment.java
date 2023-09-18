@@ -128,6 +128,8 @@ public class CartFragment extends Fragment {
         CartAdapter cartAdapter =new CartAdapter();
         cartAdapter.getAllCheckBox(binding.allSelect);
         cartAdapter.getSelectNumTextView(binding.selectNum);
+        cartAdapter.getSelectPriceTextView(binding.selectPrice);
+
         Call<List<Cart>> call = cartService.getCartList();
 
         call.enqueue(new Callback<List<Cart>>() {
