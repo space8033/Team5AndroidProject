@@ -11,6 +11,8 @@ import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.OrderHistory;
 import com.example.team5androidproject.service.OrderService;
 
+import java.text.DecimalFormat;
+
 public class HistoryDetailViewHolder extends RecyclerView.ViewHolder{
     private TextView deliveryStatus;
     private TextView arriveAt;
@@ -32,6 +34,7 @@ public class HistoryDetailViewHolder extends RecyclerView.ViewHolder{
         arriveAt.setText(orderHistory.getArrival());
         OrderService.loadImage(orderHistory.getProductNo(), productImage);
         productTitle.setText(orderHistory.getProductName());
-        priceQuantity.setText(orderHistory.getPrice() + "원 * " + orderHistory.getQuantity() + "개");
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        priceQuantity.setText(decimalFormat.format(orderHistory.getPrice()) + "원 * " + orderHistory.getQuantity() + "개");
     }
 }
