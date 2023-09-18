@@ -28,10 +28,12 @@ import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.AdPagerAdapter;
 import com.example.team5androidproject.databinding.FragmentMainBinding;
+import com.example.team5androidproject.ui.adapter.DetailThumbnailAdapter;
 import com.example.team5androidproject.ui.adapter.ProductAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -151,6 +153,8 @@ public class MainFragment extends Fragment {
 
                 Bundle args = new Bundle();
                 args.putSerializable("product",productDetail);
+                args.putIntegerArrayList("imageNoList", new ArrayList<>(product.getImage_no()));
+
                 navController.navigate(R.id.action_dest_main_to_dest_detail,args);
             }
         });

@@ -23,8 +23,11 @@ public interface ProductService {
     @GET("products/getDetailList")
     Call<ProductDetail> getDetailList(@Query("product_no") int product_no);
 
-    @GET("products/searchmobile") // 서버에서 검색을 처리할 엔드포인트 경로
+    @GET("products/searchmobile")
     Call<List<Product>> searchProducts(@Query("keyword") String keyword);
+
+    @GET("products/getImageNo")
+    Call<List<Integer>> getImageNo(@Query("product_no") int product_no);
 
     static void loadImage(int product_no, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "products/fileDownload?product_no=" + product_no;
