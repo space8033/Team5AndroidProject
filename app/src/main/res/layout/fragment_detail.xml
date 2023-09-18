@@ -25,7 +25,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:background="@android:color/transparent">
 
                 <!--<ImageView
@@ -38,7 +38,7 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="300dp" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_img_layout"
