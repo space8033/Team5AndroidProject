@@ -42,6 +42,7 @@ public class MyPageFragment extends Fragment {
         navController = NavHostFragment.findNavController(this);
 
         initMyPagePagerView();
+        initBtnPoint();
         initBtnCoupon();
         initBtnReview();
         initFloatButton();
@@ -74,6 +75,11 @@ public class MyPageFragment extends Fragment {
         tabLayoutMediator.attach();
     }
 
+    private void initBtnPoint() {
+        binding.layoutPoint.setOnClickListener(v -> {
+            navController.navigate(R.id.action_dest_mypage_to_dest_point);
+        });
+    }
     private void initBtnCoupon() {
         binding.layoutCoupon.setOnClickListener(v -> {
             navController.navigate(R.id.action_dest_mypage_to_dest_coupon);

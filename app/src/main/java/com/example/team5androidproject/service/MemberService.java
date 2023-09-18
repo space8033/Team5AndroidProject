@@ -5,6 +5,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.team5androidproject.dto.Login;
 import com.example.team5androidproject.dto.MyPage;
+import com.example.team5androidproject.dto.Point;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -16,6 +19,10 @@ public interface MemberService {
 
     @GET("member/mypage")
     Call<MyPage> mypage(@Query("userId") String userId);
+    @GET("member/point")
+    Call<List<Point>> point(@Query("userId") String userId);
+    @GET("member/totalPoint")
+    Call<Integer> totalPoint(@Query("userId") String userId);
 
     static void loadImage(String userId, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "member/myImage?userId=" + userId;
