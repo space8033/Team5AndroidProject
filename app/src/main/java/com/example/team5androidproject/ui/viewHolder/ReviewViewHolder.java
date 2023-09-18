@@ -28,7 +28,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
         reviewImageRecycler = (RecyclerView)  itemView.findViewById(R.id.review_image_recycler_view);
         reviewContent = (TextView) itemView.findViewById(R.id.review_content);
         registeredAt = (TextView) itemView.findViewById(R.id.txt_registered_at);
-        productName = (TextView) itemView.findViewById(R.id.txt_product_name);
+        productName = (TextView) itemView.findViewById(R.id.txt_inquiry_product);
     }
 
     public void setData(Review review) {
