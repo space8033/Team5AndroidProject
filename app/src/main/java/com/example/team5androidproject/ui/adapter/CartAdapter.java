@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -43,6 +44,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     private List<Integer> checkedCartIds = new ArrayList<>(); //체크된 상품의 카트 번호가 들어갈 List 선언
     private TextView selectNum;
     private TextView selectPrice;
+    private Button deleteAll;
+    private TextView countCart;
     DecimalFormat df =new DecimalFormat("#,###");
 
     private static final String TAG = "CartAdapter";
@@ -114,7 +117,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         });
 
         holder.deleteOneButton.setOnClickListener(v->{
-            deleteOneCart(cart.getCart_no());
+            deleteOneCartItem(cart.getCart_no());
+        });
+
+        deleteAll.setOnClickListener(v->{
+            deleteSelectedItems();
         });
     }
 
@@ -123,18 +130,125 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         callUpdate.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
             }
         });
         Log.i(TAG, "업데이트 실행");
     }
 
-    private void deleteOneCart(int cartNo) {
+    // for문이 돌면 dialog와 토스트가 그만큼 출력되므로 두개를 제외한 기본 삭제 메소드
+    private void deleteCart(int cartNo) {
+
+                Call<Void> callDelete = cartService.deleteOneCart(cartNo);
+                callDelete.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            removeItem(cartNo);
+                        } else {
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                    }
+                });
+            }
+    // 다중 삭제 메서드
+    public void deleteSelectedItems() {
+        List<Integer> itemsToDelete = new ArrayList<>();
+
+        // 선택된 항목을 찾아서 삭제할 항목 리스트에 추가
+        for (int i = 0; i < selectedItems.length; i++) {
+            if (selectedItems[i]) {
+                itemsToDelete.add(list.get(i).getCart_no());
+            }
+        }
+
+        // 선택된 상품이 없는 경우 다이얼로그를 띄웁니다.
+        if (itemsToDelete.isEmpty()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(selectPrice.getContext());
+            builder.setTitle("선택한 상품 없음");
+            builder.setMessage("삭제할 상품을 선택하지 않았습니다.");
+
+            // 확인 버튼을 누를 때의 동작을 정의합니다.
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    // 아무 동작도 하지 않습니다.
+                }
+            });
+
+            // AlertDialog를 생성하고 표시합니다.
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            return;
+        }
+
+        // 다중 삭제 여부를 묻는 다이얼로그 표시
+        AlertDialog.Builder builder = new AlertDialog.Builder(selectPrice.getContext());
+        builder.setTitle("삭제 확인");
+        builder.setMessage("선택한 상품을 장바구니에서 삭제하시겠습니까?");
+
+        // 확인 버튼을 누를 때의 동작을 정의합니다.
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // 선택된 상품들을 삭제합니다.
+                for (Integer cartNo : itemsToDelete) {
+                    // 여기서 다이얼로그를 표시하지 않고 삭제 진행
+                    Call<Void> callDelete = cartService.deleteOneCart(cartNo);
+                    callDelete.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                removeItem(cartNo);
+                                int remainingItemCount = list.size(); // 상품 하나 삭제
+                                countCart.setText(remainingItemCount - checkedCartIds.size() + "개의 상품이 담겨있습니다");
+                            } else {
+                                // 삭제에 실패한 경우에 대한 처리를 추가할 수 있습니다.
+                                Toast.makeText(selectPrice.getContext(), "삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            // 삭제에 실패한 경우에 대한 처리를 추가할 수 있습니다.
+                            Toast.makeText(selectPrice.getContext(), "삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                // 선택 항목 초기화
+                Arrays.fill(selectedItems, false);
+                checkedCartIds.clear();
+
+                // RecyclerView 갱신
+                notifyDataSetChanged();
+
+                // 선택된 항목 수 및 가격 업데이트
+                selectNum.setText("총 0개"); // 선택된 항목 수 초기화
+                selectPrice.setText("| 0원 결제하기"); // 선택된 항목 가격 초기화
+                Toast.makeText(selectPrice.getContext(), "장바구니에서 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 취소 버튼을 누를 때의 동작을 정의합니다.
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // 사용자가 취소 버튼을 누른 경우 아무 동작도 하지 않습니다.
+            }
+        });
+
+        // AlertDialog를 생성하고 표시합니다.
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    // 개별 삭제 메서드
+    private void deleteOneCartItem(int cartNo) {
         // AlertDialog를 생성하여 삭제 확인 메시지를 표시합니다.
         AlertDialog.Builder builder = new AlertDialog.Builder(selectPrice.getContext());
         builder.setTitle("삭제 확인");
@@ -154,6 +268,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                             removeItem(cartNo);
                             // 삭제가 완료되면 Toast 메시지를 표시합니다.
                             Toast.makeText(selectPrice.getContext(), "장바구니에서 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            // 남은 상품의 갯수를 업데이트합니다.
+                            int remainingItemCount = list.size() - 0; // 상품 하나 삭제
+                            countCart.setText(remainingItemCount + "개의 상품이 담겨있습니다");
                         } else {
                             // 삭제에 실패한 경우에 대한 처리를 추가할 수 있습니다.
                             Toast.makeText(selectPrice.getContext(), "삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
@@ -162,12 +279,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-
+                        // 삭제에 실패한 경우에 대한 처리를 추가할 수 있습니다.
                     }
                 });
             }
         });
-
         // 취소 버튼을 누를 때의 동작을 정의합니다.
         builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
@@ -180,6 +296,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    //개별 삭제 메소드
+
 
     // RecyclerView에서 아이템을 삭제하는 메서드
     private void removeItem(int cartNo) {
@@ -311,6 +430,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public void getSelectPriceTextView(TextView selectPrice){
         this.selectPrice = selectPrice;
     }
+
+    public void getDeleteAllBtn(Button deleteAll){
+        this.deleteAll = deleteAll;
+    }
+    public void getCountCartTextview(TextView countCart) {this.countCart = countCart; }
 }
 
 

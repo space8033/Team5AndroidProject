@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentCartBinding;
+import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.Cart;
 import com.example.team5androidproject.dto.Product;
 import com.example.team5androidproject.dto.Review;
@@ -101,9 +102,10 @@ public class CartFragment extends Fragment {
     }
 
     private void initRecyclerView() {
+        String userId = AppKeyValueStore.getValue(getContext(), "userId");
         CartService cartService = ServiceProvider.getCartService(getContext());
         //카트 수 받아오기
-        Call<Integer> callCount = cartService.getCartCount();
+        Call<Integer> callCount = cartService.getCartCount(userId);
 
         callCount.enqueue(new Callback<Integer>() {
             @Override
@@ -129,8 +131,10 @@ public class CartFragment extends Fragment {
         cartAdapter.getAllCheckBox(binding.allSelect);
         cartAdapter.getSelectNumTextView(binding.selectNum);
         cartAdapter.getSelectPriceTextView(binding.selectPrice);
+        cartAdapter.getCountCartTextview(binding.countCart);
+        cartAdapter.getDeleteAllBtn(binding.deleteAll);
 
-        Call<List<Cart>> call = cartService.getCartList();
+        Call<List<Cart>> call = cartService.getCartList(userId);
 
         call.enqueue(new Callback<List<Cart>>() {
             @Override

@@ -16,9 +16,13 @@ import retrofit2.http.Query;
 public interface CartService {
 
     @GET("cart/getCartList")
-    Call<List<Cart>> getCartList();
+    Call<List<Cart>> getCartList(
+            @Query("user_Id") String user_Id
+    );
     @GET("cart/getCartCount")
-    Call<Integer> getCartCount();
+    Call<Integer> getCartCount(
+            @Query("user_Id") String user_Id
+    );
     @GET("cart/updateCartCount")
     Call<Void> updateCart(
             @Query("cart_no") int cart_no, // 업데이트할 카트 항목의 번호

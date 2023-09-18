@@ -4,6 +4,7 @@ import android.icu.text.DecimalFormat;
 import android.media.Image;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -55,6 +56,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
 
         //카트 지우기 버튼
         deleteOneButton = (ImageButton) itemView.findViewById(R.id.delete_Item);
+        //카트 전체 지우기 버튼
     }
     public void setData(Cart cart) {
         cart_no = cart.getCart_no();
