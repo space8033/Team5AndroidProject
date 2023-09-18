@@ -51,9 +51,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
         qtyPlusButton = (ImageButton) itemView.findViewById(R.id.qty_plus);
         qtyMinusButton= (ImageButton) itemView.findViewById(R.id.qty_minus);
         checkBox = (CheckBox) itemView.findViewById(R.id.check_item); // CheckBox 초기화
-
-        //카트 수량 변경시 text변경
-        /* selectedItemCountText = (TextView) itemView.findViewById(R.id.select_num);*/
     }
     public void setData(Cart cart) {
         cart_no = cart.getCart_no();

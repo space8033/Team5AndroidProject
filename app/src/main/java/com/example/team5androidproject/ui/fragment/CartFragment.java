@@ -68,14 +68,6 @@ public class CartFragment extends Fragment {
         return binding.getRoot();
     }
 
-
-   /* private void initCheckAll() {
-        CartAdapter cartAdapter = new CartAdapter();
-        binding.allSelect.setOnClickListener(v -> {
-            cartAdapter.setAllSelected(!cartAdapter.isAllSelected()); // 전체 선택 상태를 토글합니다.
-        });
-    }*/
-
     private void initMenu() {
         MenuProvider menuProvider = new MenuProvider() {
             @Override
@@ -135,6 +127,7 @@ public class CartFragment extends Fragment {
 
         CartAdapter cartAdapter =new CartAdapter();
         cartAdapter.getAllCheckBox(binding.allSelect);
+        cartAdapter.getSelectNumTextView(binding.selectNum);
         Call<List<Cart>> call = cartService.getCartList();
 
         call.enqueue(new Callback<List<Cart>>() {

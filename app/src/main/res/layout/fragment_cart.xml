@@ -70,21 +70,33 @@
         android:layout_margin="10dp"
         android:layout_marginTop="16dp"
         android:layout_weight="1"
-        android:text="구매하기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintVertical_bias="0.852" />
+
 
     <TextView
         android:id="@+id/select_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="선택된 상품의 갯수"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="125dp"
+        android:text="총 0개"
         android:textColor="#FFFDFD"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="135dp" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/select_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="| 0 원 결제하기"
+        android:textColor="#FFFDFD"
+        app:layout_constraintStart_toEndOf="@+id/select_num"
+        app:layout_constraintTop_toTopOf="@+id/select_num" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
