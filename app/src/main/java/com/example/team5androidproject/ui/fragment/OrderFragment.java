@@ -51,7 +51,7 @@ public class OrderFragment extends Fragment {
 
     private void initBtnMypage() {
         binding.btnMypage.setOnClickListener(v -> {
-            navController.navigate(R.id.action_dest_order_to_dest_mypage);
+            navController.navigate(R.id.dest_mypage);
         });
     }
 }

@@ -4,11 +4,14 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.team5androidproject.dto.Cart;
+import com.example.team5androidproject.dto.ProductDetail;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
+
 
 public interface CartService {
 
@@ -16,7 +19,11 @@ public interface CartService {
     Call<List<Cart>> getCartList();
     @GET("cart/getCartCount")
     Call<Integer> getCartCount();
-    @GET("cart/CartUpdate")
+    @GET("cart/updateCartCount")
+    Call<Void> updateCart(
+            @Query("cart_no") int cart_no, // 업데이트할 카트 항목의 번호
+            @Query("cart_qty") int cart_qty // 새로운 수량
+    );
 
 
     static void loadImage(int product_no, ImageView imageView) {

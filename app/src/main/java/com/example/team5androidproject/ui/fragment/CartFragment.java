@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentCartBinding;
@@ -62,19 +63,10 @@ public class CartFragment extends Fragment {
         initBtnOrder();
         initMenu();
         initRecyclerView();
-/*
-        initCheckAll();
-*/
+
 
         return binding.getRoot();
     }
-
-   /* private void initCheckAll() {
-        CartAdapter cartAdapter = new CartAdapter();
-        binding.allSelect.setOnClickListener(v -> {
-            cartAdapter.setAllSelected(!cartAdapter.isAllSelected()); // 전체 선택 상태를 토글합니다.
-        });
-    }*/
 
     private void initMenu() {
         MenuProvider menuProvider = new MenuProvider() {
@@ -94,6 +86,13 @@ public class CartFragment extends Fragment {
         };
         getActivity().addMenuProvider(menuProvider,getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
+
+    public void onPause() {
+        super.onPause();
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+    }
+
 
     private void initBtnOrder() {
         binding.btnOrder.setOnClickListener(v -> {
@@ -127,6 +126,8 @@ public class CartFragment extends Fragment {
         binding.recyclerView.setLayoutManager(linearLayoutManager);
 
         CartAdapter cartAdapter =new CartAdapter();
+        cartAdapter.getAllCheckBox(binding.allSelect);
+        cartAdapter.getSelectNumTextView(binding.selectNum);
         Call<List<Cart>> call = cartService.getCartList();
 
         call.enqueue(new Callback<List<Cart>>() {
@@ -143,6 +144,5 @@ public class CartFragment extends Fragment {
                 t.printStackTrace();
             }
         });
-
     }
 }
