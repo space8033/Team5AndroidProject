@@ -60,6 +60,9 @@ public class DetailFragment extends Fragment {
         navController = NavHostFragment.findNavController(this);
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setVisibility(View.GONE);
+        Bundle bundle= getArguments();
+        ProductDetail productDetail =(ProductDetail) bundle.getSerializable("product");
+        Log.i(TAG, "productDetail_product_no: " + productDetail.getProduct_no());
 
         initDetailPagerView();
         initBtnOrder();
@@ -68,9 +71,6 @@ public class DetailFragment extends Fragment {
         initStockSelect();
         initMenu();
 
-        Bundle bundle= getArguments();
-        ProductDetail productDetail =(ProductDetail) bundle.getSerializable("product");
-        Log.i(TAG, productDetail.toString());
         initContent(productDetail);
 
         viewPagerDetailThumbnail = binding.getRoot().findViewById(R.id.view_pager);
@@ -135,7 +135,13 @@ public class DetailFragment extends Fragment {
         });
     }
     private void initDetailPagerView() {
+        Bundle bundle2 = getArguments();
+        ProductDetail productDetail = (ProductDetail) bundle2.getSerializable("product");
+        Log.i(TAG, "PagerView_productDetail : " + productDetail.getProduct_no());
+        int product_no = productDetail.getProduct_no();
+        Log.i(TAG, "DetailFragment_product_no : " + product_no);
         DetailPagerAdapter detailPagerAdapter = new DetailPagerAdapter(this);
+        detailPagerAdapter.setProduct_no(product_no);
         binding.viewpagerDetail.setAdapter(detailPagerAdapter);
 
         TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(binding.tabLayout, binding.viewpagerDetail, new TabLayoutMediator.TabConfigurationStrategy() {

@@ -26,9 +26,6 @@ public interface ProductService {
     @GET("products/searchmobile")
     Call<List<Product>> searchProducts(@Query("keyword") String keyword);
 
-    @GET("products/getImageNo")
-    Call<List<Integer>> getImageNo(@Query("product_no") int product_no);
-
     static void loadImage(int product_no, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "products/fileDownload?product_no=" + product_no;
         Glide.with(imageView.getContext()).load(url).into(imageView);
