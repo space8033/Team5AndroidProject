@@ -22,7 +22,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     private List<Cart> list = new ArrayList<>();
     private CheckBox allCheckBox; // 전체 체크박스
 
-
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

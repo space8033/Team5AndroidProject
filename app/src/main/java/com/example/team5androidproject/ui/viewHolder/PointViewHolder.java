@@ -31,10 +31,11 @@ public class PointViewHolder extends RecyclerView.ViewHolder{
         int blue = Color.BLUE;
         if(point.getChangeType().equals("적립 완료")) {
             amount.setTextColor(blue);
+            amount.setText("+" + point.getChangePoint());
         }else if(point.getChangeType().equals("사용 완료")) {
             amount.setTextColor(red);
+            amount.setText("-" + point.getChangePoint());
         }
-        amount.setText(String.valueOf(point.getChangePoint()));
         type.setText(point.getChangeType().substring(0, 2));
         orderNo.setText(String.valueOf(point.getOrderNo()));
     }

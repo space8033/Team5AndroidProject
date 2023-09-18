@@ -81,4 +81,9 @@ public class ServiceProvider {
         return memberService;
     }
 
+    public static OrderService getOrderService(Context context) {
+        OrderService orderService = getRetrofit(context).create(OrderService.class);
+        return orderService;
+    }
+
 }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Point;
+import com.example.team5androidproject.service.MemberService;
 import com.example.team5androidproject.ui.viewHolder.PointViewHolder;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 public class PointAdapter extends RecyclerView.Adapter<PointViewHolder> {
     private static final String TAG = "PointAdapter";
     private List<Point> list = new ArrayList<>();
+    private MemberService memberService;
     @NonNull
     @Override
     public PointViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
