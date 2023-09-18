@@ -31,7 +31,6 @@ public class HistoryDetailAdapter extends RecyclerView.Adapter<HistoryDetailView
     @Override
     public void onBindViewHolder(@NonNull HistoryDetailViewHolder holder, int position) {
         OrderHistory orderHistory = list.get(position);
-        Log.i(TAG, "onBindViewHolder: " + list.toString());
         holder.setCard(orderHistory);
     }
 

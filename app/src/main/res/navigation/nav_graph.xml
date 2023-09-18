@@ -99,9 +99,8 @@
             app:destination="@id/dest_order" />
     </fragment>
     <fragment
-        android:id="@+id/dest_inquriy"
+        android:id="@+id/dest_inquiry"
         android:name="com.example.team5androidproject.ui.fragment.InquiryFragment"
-        android:label="fragment_inquiry"
         tools:layout="@layout/fragment_inquiry" />
     <fragment
         android:id="@+id/dest_order_history"

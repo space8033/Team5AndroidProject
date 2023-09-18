@@ -45,6 +45,7 @@ public class MyPageFragment extends Fragment {
         initBtnPoint();
         initBtnCoupon();
         initBtnReview();
+        initBtnInquiry();
         initFloatButton();
         hideButton();
         initBtnLogout();
@@ -89,6 +90,12 @@ public class MyPageFragment extends Fragment {
     private void initBtnReview() {
         binding.layoutReview.setOnClickListener(v -> {
             binding.viewpagerMypage.setCurrentItem(1);
+        });
+    }
+
+    private void initBtnInquiry() {
+        binding.layoutInquriy.setOnClickListener(v -> {
+            binding.viewpagerMypage.setCurrentItem(2);
         });
     }
     private void initFloatButton() {

@@ -3,6 +3,7 @@ package com.example.team5androidproject;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -57,4 +58,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.toolbar, navController, appBarConfiguration);
     }
 
+    @Override
+    protected void onDestroy() {
+        AppKeyValueStore.remove(getApplicationContext(), "userId");
+        Log.i(TAG, "onDestroy: 됨?");
+        AppKeyValueStore.remove(getApplicationContext(), "password");
+        super.onDestroy();
+    }
 }

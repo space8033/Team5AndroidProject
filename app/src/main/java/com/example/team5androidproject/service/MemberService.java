@@ -26,6 +26,8 @@ public interface MemberService {
     Call<Integer> totalPoint(@Query("userId") String userId);
     @GET("member/inquiry")
     Call<List<Inquiry>> inquiry(@Query("userId") String userId);
+    @GET("member/allInquiry")
+    Call<List<Inquiry>> allInquiry();
 
     static void loadImage(String userId, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "member/myImage?userId=" + userId;
