@@ -86,7 +86,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         // 체크 박스의 클릭 리스너를 설정하여 체크 상태가 변경될 때 배열을 업데이트
         holder.checkBox.setOnClickListener(view -> {
             boolean isChecked = holder.checkBox.isChecked();
-            selectedItems[position] = isChecked;
+            // 아이템의 체크박스 상태를 설정
+            if (position >= 0 && position < selectedItems.length) {
+                selectedItems[position] = isChecked;
+            } else {
+                // position 값이 유효한 범위를 벗어난 경우 오류 처리
+                Log.e(TAG, "유효하지 않은 position 값: " + position);
+            }
 
             if (isChecked) {
                 // 체크된 경우 해당 상품의 cartId를 리스트에 추가
@@ -224,21 +230,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                 Arrays.fill(selectedItems, false);
                 checkedCartIds.clear();
 
-                // RecyclerView 갱신
                 notifyDataSetChanged();
 
-                // 선택된 항목 수 및 가격 업데이트
                 selectNum.setText("총 0개"); // 선택된 항목 수 초기화
                 selectPrice.setText("| 0원 결제하기"); // 선택된 항목 가격 초기화
                 Toast.makeText(selectPrice.getContext(), "장바구니에서 삭제되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // 취소 버튼을 누를 때의 동작을 정의합니다.
         builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                // 사용자가 취소 버튼을 누른 경우 아무 동작도 하지 않습니다.
             }
         });
 
@@ -249,37 +251,29 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     // 개별 삭제 메서드
     private void deleteOneCartItem(int cartNo) {
-        // AlertDialog를 생성하여 삭제 확인 메시지를 표시합니다.
         AlertDialog.Builder builder = new AlertDialog.Builder(selectPrice.getContext());
         builder.setTitle("삭제 확인");
         builder.setMessage("이 상품을 장바구니에서 삭제하시겠습니까?");
 
-        // 확인 버튼을 누를 때의 동작을 정의합니다.
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                // 사용자가 확인 버튼을 누르면 해당 상품을 서버에서 삭제합니다.
                 Call<Void> callDelete = cartService.deleteOneCart(cartNo);
                 callDelete.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if (response.isSuccessful()) {
-                            // 삭제가 성공하면 RecyclerView에서도 해당 아이템을 삭제합니다.
                             removeItem(cartNo);
-                            // 삭제가 완료되면 Toast 메시지를 표시합니다.
                             Toast.makeText(selectPrice.getContext(), "장바구니에서 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                            // 남은 상품의 갯수를 업데이트합니다.
                             int remainingItemCount = list.size() - 0; // 상품 하나 삭제
                             countCart.setText(remainingItemCount + "개의 상품이 담겨있습니다");
                         } else {
-                            // 삭제에 실패한 경우에 대한 처리를 추가할 수 있습니다.
                             Toast.makeText(selectPrice.getContext(), "삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        // 삭제에 실패한 경우에 대한 처리를 추가할 수 있습니다.
                     }
                 });
             }
@@ -311,10 +305,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         }
         if (position != -1) {
             list.remove(position);
+            selectedItems = new boolean[list.size()]; // 아이템이 삭제되었으므로 배열 크기 업데이트
+            Arrays.fill(selectedItems, false); // 모든 아이템을 선택 해제 상태로 초기화
+            checkedCartIds.clear(); // 체크된 상품 ID 목록 초기화
             notifyItemRemoved(position);
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -325,6 +321,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         this.list = list;
         selectedItems = new boolean[list.size()]; // 선택 상태 배열 크기를 리스트 크기와 동일하게 설정
         Arrays.fill(selectedItems, false); // 모든 아이템을 선택 안 함으로 초기화
+        checkedCartIds.clear(); // 체크된 상품 ID 목록 초기화
         notifyDataSetChanged(); // 데이터가 변경되면 RecyclerView를 갱신합니다.
     }
 
@@ -384,21 +381,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         allCheckBox.setChecked(allSelected);
     }
 
-    private int getCheckedItemsTotalPrice(){
+    private int getCheckedItemsTotalPrice() {
         int totalPrice = 0;
+
+        // 체크된 상품만큼만 반복
         for (int i = 0; i < selectedItems.length; i++) {
             if (selectedItems[i]) {
-                // 체크된 상품인 경우 해당 상품의 cart_no로부터 price 값을 추출
                 int cartNo = list.get(i).getCart_no();
+
                 // 해당 cartNo를 가진 상품을 찾아서 price 값을 추출
                 for (Cart cartItem : list) {
                     if (cartItem.getCart_no() == cartNo) {
                         totalPrice += cartItem.getProduct_price() * cartItem.getCart_qty();
-                        break;
+                        break; // 찾았으면 더 이상 반복할 필요 없음
                     }
                 }
             }
         }
+
         return totalPrice;
     }
 

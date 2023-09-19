@@ -56,7 +56,6 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
 
         //카트 지우기 버튼
         deleteOneButton = (ImageButton) itemView.findViewById(R.id.delete_Item);
-        //카트 전체 지우기 버튼
     }
     public void setData(Cart cart) {
         cart_no = cart.getCart_no();

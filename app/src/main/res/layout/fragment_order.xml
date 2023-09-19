@@ -28,9 +28,11 @@
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="12dp"
                 android:layout_weight="1"
+                android:background="#E3DEDE"
                 android:text="구매자 정보"
-                android:textSize="34sp" />
+                android:textSize="21sp" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -41,61 +43,71 @@
 
                     <TextView android:text="이름" />
 
-                    <TextView android:text="조맛돌" />
+
                 </TableRow>
 
                 <TableRow>
 
                     <TextView android:text="이메일" />
 
-                    <TextView android:text="abc@naver.com" />
+
                 </TableRow>
 
                 <TableRow>
-
-                    <TextView android:text="휴대폰 번호" />
-
-                    <TextView android:text="010-1111-2222" />
+                <TextView android:text="휴대폰 번호"
+                    android:layout_marginBottom="10dp"/>
                 </TableRow>
             </TableLayout>
+
 
             <TextView
                 android:id="@+id/textView22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:layout_weight="1"
+                android:background="#E3DEDE"
                 android:text="배송지 정보"
-                android:textSize="34sp" />
+                android:textSize="21sp" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:padding="1dp"
+                android:text="배송지 변경" />
 
             <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
                 <TableRow>
-
                     <TextView android:text="이름" />
-
-                    <TextView android:text="조맛돌" />
                 </TableRow>
-
                 <TableRow>
-
                     <TextView android:text="이메일" />
-
-                    <TextView android:text="abc@naver.com" />
                 </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView android:text="휴대폰 번호" />
-
-                    <TextView android:text="010-1111-2222" />
+                <TableRow>
+                    <TextView android:text="배송지"
+                        android:layout_marginBottom="10dp"/>
                 </TableRow>
-
-
             </TableLayout>
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:background="#E3DEDE"
+                    android:text="상품정보"
+                    android:textSize="21sp" />
+            </TableLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -106,9 +118,12 @@
                 android:id="@+id/textView23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
+                android:background="#E3DEDE"
                 android:text="최종 결제정보"
-                android:textSize="34sp" />
+                android:textSize="21sp" />
 
             <TableLayout
                 android:layout_width="wrap_content"
@@ -120,14 +135,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_column="0"
-                        android:text="총 상품가격"
-                        android:textSize="24sp" />
+                        android:text="상품가격"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="2000원"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
 
                 </TableRow>
 
@@ -138,18 +153,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:text="쿠폰"
-                        android:textSize="24sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="112dp"
                         android:layout_height="wrap_content"
-                        android:text="3000원"
-                        android:textSize="24sp" />
+                        android:text="-3000원"
+                        android:textSize="18sp" />
 
                     <Button
                         android:id="@+id/button11"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
+                        android:padding="1dp"
                         android:layout_gravity="end"
                         android:layout_marginRight="5dp"
                         android:text="사용" />
@@ -163,13 +179,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:text="배송비"
-                        android:textSize="24sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="102dp"
                         android:layout_height="wrap_content"
                         android:text="0원"
-                        android:textSize="24sp" />
+                        android:textSize="18sp"/>
                 </TableRow>
 
                 <TableRow>
@@ -178,34 +194,35 @@
                         android:layout_width="141dp"
                         android:layout_height="wrap_content"
                         android:text="쿠폰"
-                        android:textSize="24sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="129dp"
                         android:layout_height="wrap_content"
                         android:text="2000원"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
                 </TableRow>
 
                 <TableRow>
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="적립금"
-                        android:textSize="24sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="107dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="0원"
-                        android:textSize="24sp" />
+                        android:textSize="18sp" />
 
                     <Button
                         android:id="@+id/button4"
                         android:layout_width="105dp"
-                        android:layout_height="wrap_content"
                         android:layout_gravity="end"
+                        android:layout_height="30dp"
+                        android:padding="1dp"
                         android:text="사용" />
                 </TableRow>
 
@@ -215,13 +232,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="총 결제금액"
-                        android:textSize="24sp" />
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1000000원"
-                        android:textSize="24sp" />
+                        android:textColor="#2196F3"
+                        android:textSize="18sp" />
 
                 </TableRow>
 
