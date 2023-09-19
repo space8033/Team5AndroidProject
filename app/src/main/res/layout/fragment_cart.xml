@@ -32,7 +32,7 @@
             android:text="전체 x개의 상품이 담겨있습니다." />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/delete_all"
             android:layout_width="83dp"
             android:layout_height="30dp"
             android:layout_marginLeft="40dp"
@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:layout_marginLeft="125dp"
+        android:layout_marginLeft="110dp"
         android:text="총 0개"
         android:textColor="#FFFDFD"
         app:layout_constraintBottom_toBottomOf="parent"
