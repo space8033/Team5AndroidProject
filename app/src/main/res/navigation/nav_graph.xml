@@ -124,4 +124,8 @@
         android:id="@+id/dest_all_inquiry"
         android:name="com.example.team5androidproject.ui.fragment.AllInquiryFragment"
         tools:layout="@layout/fragment_all_inquiry" />
+    <fragment
+        android:id="@+id/dest_address"
+        android:name="com.example.team5androidproject.ui.fragment.AddressFragment"
+        tools:layout="@layout/fragment_address" />
 </navigation>

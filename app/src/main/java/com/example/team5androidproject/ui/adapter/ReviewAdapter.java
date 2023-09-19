@@ -1,21 +1,15 @@
 package com.example.team5androidproject.ui.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Review;
-import com.example.team5androidproject.service.ReviewService;
-import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.viewHolder.ReviewViewHolder;
 
 import java.util.ArrayList;
@@ -23,6 +17,7 @@ import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     private List<Review> list = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
     private static final String TAG = "ReviewAdapter";
     @NonNull
     @Override
@@ -59,8 +54,15 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
         }
         return list.size();
     }
-
     public void setList(List<Review> list) {
         this.list = list;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

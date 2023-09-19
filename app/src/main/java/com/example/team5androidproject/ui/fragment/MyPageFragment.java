@@ -149,10 +149,10 @@ public class MyPageFragment extends Fragment {
                 MyPage myPage = response.body();
                 binding.txtName.setText(myPage.getName());
                 binding.txtCreatedAt.setText(myPage.getCreated_at());
-                binding.txtPoint.setText(String.valueOf(myPage.getPoint()) + "P");
-                binding.txtCoupon.setText(String.valueOf(myPage.getCouponCount()) + "장");
-                binding.txtReview.setText(String.valueOf(myPage.getReviewCount()) + "건");
-                binding.txtInquriy.setText(String.valueOf(myPage.getInquiryCount()) + "건");
+                binding.txtPoint.setText(myPage.getPoint() + "P");
+                binding.txtCoupon.setText(myPage.getCouponCount() + "장");
+                binding.txtReview.setText(myPage.getReviewCount() + "건");
+                binding.txtInquriy.setText(myPage.getInquiryCount() + "건");
                 MemberService.loadImage(userId, binding.profileImage);
             }
 

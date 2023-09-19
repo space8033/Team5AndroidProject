@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.team5androidproject.databinding.FragmentReviewBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.Review;
+import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.ReviewAdapter;
@@ -62,6 +63,14 @@ public class ReviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Review>> call, Throwable t) {
+
+            }
+        });
+
+        ProductService productService = ServiceProvider.getProductService(getContext());
+        reviewAdapter.setOnItemClickListener(new ReviewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
 
             }
         });
