@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ import retrofit2.Call;
 public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryViewHolder> {
     private List<String> dates = new ArrayList<>();
     private List<OrderHistory> histories = new ArrayList<>();
+    private NavController navController;
     private static final String TAG = "OrderHistoryAdapter";
     @NonNull
     @Override
@@ -30,6 +32,7 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryViewHo
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.outer_order_history, parent, false);
         OrderHistoryViewHolder orderHistoryViewHolder = new OrderHistoryViewHolder(itemView);
+        orderHistoryViewHolder.setNavController(navController);
 
         return orderHistoryViewHolder;
     }
@@ -51,8 +54,10 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryViewHo
         );
         HistoryDetailAdapter historyDetailAdapter = new HistoryDetailAdapter();
         historyDetailAdapter.setList(filtered);
+        historyDetailAdapter.setNavController(navController);
         holder.recyclerView.setLayoutManager(linearLayoutManager);
         holder.recyclerView.setAdapter(historyDetailAdapter);
+
     }
     @Override
     public int getItemCount() {
@@ -64,5 +69,8 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryViewHo
     }
     public void setList(List<String> list) {
         this.dates = list;
+    }
+    public void setNavController(NavController navController) {
+        this.navController = navController;
     }
 }

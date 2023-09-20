@@ -1,8 +1,11 @@
 package com.example.team5androidproject.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -14,11 +17,14 @@ import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentOrderHistoryBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.OrderHistory;
+import com.example.team5androidproject.dto.ProductDetail;
 import com.example.team5androidproject.dto.Review;
 import com.example.team5androidproject.service.OrderService;
+import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.OrderHistoryAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,10 +34,11 @@ import retrofit2.Response;
 public class OrderHistoryFragment extends Fragment {
     private static final String TAG = "OrderHistoryFragment";
     private FragmentOrderHistoryBinding binding;
+    private NavController navController;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentOrderHistoryBinding.inflate(getLayoutInflater());
+        navController = NavHostFragment.findNavController(this);
         initRecyclerView();
 
         return binding.getRoot();
@@ -51,6 +58,7 @@ public class OrderHistoryFragment extends Fragment {
             public void onResponse(Call<List<String>> call, Response<List<String>> response) {
                 List<String> dateList = response.body();
                 orderHistoryAdapter.setList(dateList);
+                orderHistoryAdapter.setNavController(navController);
             }
 
             @Override
@@ -72,4 +80,5 @@ public class OrderHistoryFragment extends Fragment {
         });
 
     }
+
 }

@@ -12,18 +12,8 @@ public class Review implements Serializable {
     private String review_createdDate;
     private String product_name;
     private List<Integer> images_no;
-
     private int product_no;
     private List<byte[]> review_image;
-    private int product_no;
-
-    public int getProduct_no() {
-        return product_no;
-    }
-
-    public void setProduct_no(int product_no) {
-        this.product_no = product_no;
-    }
 
     @Override
     public String toString() {

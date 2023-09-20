@@ -21,7 +21,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
     private TextView registeredAt;
     private TextView productName;
 
-    public ReviewViewHolder(@NonNull View itemView, ReviewAdapter.OnItemClickListener onItemClickListener) {
+    public ReviewViewHolder(@NonNull View itemView) {
         super(itemView);
         reviewName = (TextView) itemView.findViewById(R.id.txt_review_name);
         ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar2);
@@ -30,12 +30,10 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
         reviewContent = (TextView) itemView.findViewById(R.id.review_content);
         registeredAt = (TextView) itemView.findViewById(R.id.txt_registered_at);
         productName = (TextView) itemView.findViewById(R.id.txt_inquiry_product);
-        itemView.setOnClickListener(v -> {
-            onItemClickListener.onItemClick(v, getAdapterPosition());
-        });
+
     }
 
-    public void setData(Review review) {
+    public void setData(Review review, ReviewAdapter.OnItemClickListener onItemClickListener) {
         review_no = review.getReview_no();
         reviewName.setText(review.getReview_name());
         ratingBar.setRating(review.getReview_rating());
@@ -43,5 +41,8 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
         reviewContent.setText(review.getReview_contents());
         registeredAt.setText(review.getReview_createdDate());
         productName.setText(review.getProduct_name());
+        productName.setOnClickListener(v -> {
+            onItemClickListener.onItemClick(v, getAdapterPosition());
+        });
     }
 }

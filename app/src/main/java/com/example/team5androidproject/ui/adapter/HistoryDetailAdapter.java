@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
@@ -17,6 +19,8 @@ import java.util.List;
 
 public class HistoryDetailAdapter extends RecyclerView.Adapter<HistoryDetailViewHolder> {
     List<OrderHistory> list = new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
+    private NavController navController;
     private static final String TAG = "HistoryDetailAdapter";
     @NonNull
     @Override
@@ -24,7 +28,7 @@ public class HistoryDetailAdapter extends RecyclerView.Adapter<HistoryDetailView
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.inner_order_history, parent, false);
         HistoryDetailViewHolder historyDetailViewHolder = new HistoryDetailViewHolder(itemView);
-
+        historyDetailViewHolder.setNavController(navController);
         return historyDetailViewHolder;
     }
 
@@ -41,5 +45,16 @@ public class HistoryDetailAdapter extends RecyclerView.Adapter<HistoryDetailView
 
     public void setList(List<OrderHistory> list)  {
         this.list = list;
+    }
+    public void setNavController(NavController navController) {
+        this.navController = navController;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View itemView, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }
