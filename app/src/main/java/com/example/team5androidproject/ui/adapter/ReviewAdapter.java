@@ -24,8 +24,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.review_recycle, parent, false);
-        ReviewViewHolder reviewViewHolder = new ReviewViewHolder(itemView, onItemClickListener);
-
+        ReviewViewHolder reviewViewHolder = new ReviewViewHolder(itemView);
 
         return reviewViewHolder;
     }
@@ -33,7 +32,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review review = list.get(position);
-        holder.setData(review);
+        holder.setData(review, onItemClickListener);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false

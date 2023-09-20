@@ -12,7 +12,6 @@ public class Review implements Serializable {
     private String review_createdDate;
     private String product_name;
     private List<Integer> images_no;
-
     private int product_no;
     private List<byte[]> review_image;
 

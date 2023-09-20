@@ -82,7 +82,6 @@ public class ReviewFragment extends Fragment {
                 Review review = reviewAdapter.getItem(position);
                 Log.i(TAG, "onItemClick: " + review.toString());
                 getProductDetail(review.getProduct_no());
-
             }
         });
     }
