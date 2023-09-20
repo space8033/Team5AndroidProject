@@ -1,5 +1,6 @@
 package com.example.team5androidproject.ui.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
@@ -25,7 +27,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentDetailBinding;
+import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.ProductDetail;
+import com.example.team5androidproject.service.CartService;
 import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.DetailPagerAdapter;
@@ -65,7 +69,7 @@ public class DetailFragment extends Fragment {
 
         initDetailPagerView();
         initBtnOrder();
-        initBtnCart();
+        initBtnCart(productDetail);
 
         initStockSelect();
         initMenu();
@@ -204,9 +208,63 @@ public class DetailFragment extends Fragment {
     }
 
 
-    private void initBtnCart() {
+    private void initBtnCart(ProductDetail productDetail) {
         binding.btnCart.setOnClickListener(v->{
-            navController.navigate(R.id.action_dest_detail_to_dest_cart);
+            int product_product_no = productDetail.getProduct_no();
+            int cart_qty = Integer.valueOf(binding.productStock.getText().toString());
+            String productOption_type = binding.productOption.getText().toString();
+            String users_users_id = AppKeyValueStore.getValue(getContext(), "userId");
+
+            Log.i(TAG, "product_no : " + product_product_no);
+            Log.i(TAG, "cart_qty : " + cart_qty);
+            Log.i(TAG, "productOption_type : " + productOption_type);
+            String userId = AppKeyValueStore.getValue(getContext(), "userId");
+            String password = AppKeyValueStore.getValue(getContext(), "password");
+            Log.i(TAG, "userId : " + userId);
+            Log.i(TAG, "userpassword : " + password);
+            if(userId != null && password != null) {
+                CartService cartService = ServiceProvider.getCartService(getContext());
+                Call<Void> call = cartService.addMobileCart(product_product_no, cart_qty, productOption_type, users_users_id);
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                            .setTitle("장바구니 담기")
+                            .setMessage("상품을 장바구니에 담는데 성공하였습니다.")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    navController.navigate(R.id.action_dest_detail_to_dest_cart);
+                                }
+                            })
+                            .create();
+                        alertDialog.show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.i(TAG, "onFailure: 당신의 계획은 실패했다.");
+                    }
+                });
+            } else {
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                    .setTitle("로그인 확인")
+                    .setMessage("장바구니를 이용하시려면 로그인을 하셔야합니다.")
+                    .setNeutralButton("로그인하기", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            navController.navigate(R.id.action_dest_detail_to_dest_login);
+                        }
+                    })
+                    .setPositiveButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .create();
+                alertDialog.show();
+            }
         });
     }
 

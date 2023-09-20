@@ -9,7 +9,10 @@ import com.example.team5androidproject.dto.ProductDetail;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 
@@ -19,6 +22,15 @@ public interface CartService {
     Call<List<Cart>> getCartList(
             @Query("user_Id") String user_Id
     );
+    @POST("cart/addMobileCart")
+    @FormUrlEncoded
+    Call<Void> addMobileCart(
+        @Field("product_product_no") int product_product_no,
+        @Field("cart_qty") int cart_qty,
+        @Field("productOption_type") String productOption_type,
+        @Field("users_users_id") String users_users_id
+    );
+
     @GET("cart/getCartCount")
     Call<Integer> getCartCount(
             @Query("user_Id") String user_Id
