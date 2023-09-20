@@ -24,7 +24,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View itemView = layoutInflater.inflate(R.layout.review_recycle, parent, false);
-        ReviewViewHolder reviewViewHolder = new ReviewViewHolder(itemView);
+        ReviewViewHolder reviewViewHolder = new ReviewViewHolder(itemView, onItemClickListener);
 
 
         return reviewViewHolder;
@@ -56,6 +56,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     }
     public void setList(List<Review> list) {
         this.list = list;
+    }
+
+    public Review getItem(int position) {
+        return list.get(position);
     }
 
     public interface OnItemClickListener {

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Review;
+import com.example.team5androidproject.ui.adapter.ReviewAdapter;
 
 public class ReviewViewHolder extends RecyclerView.ViewHolder {
     private int review_no;
@@ -20,7 +21,7 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
     private TextView registeredAt;
     private TextView productName;
 
-    public ReviewViewHolder(@NonNull View itemView) {
+    public ReviewViewHolder(@NonNull View itemView, ReviewAdapter.OnItemClickListener onItemClickListener) {
         super(itemView);
         reviewName = (TextView) itemView.findViewById(R.id.txt_review_name);
         ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar2);
@@ -29,6 +30,9 @@ public class ReviewViewHolder extends RecyclerView.ViewHolder {
         reviewContent = (TextView) itemView.findViewById(R.id.review_content);
         registeredAt = (TextView) itemView.findViewById(R.id.txt_registered_at);
         productName = (TextView) itemView.findViewById(R.id.txt_inquiry_product);
+        itemView.setOnClickListener(v -> {
+            onItemClickListener.onItemClick(v, getAdapterPosition());
+        });
     }
 
     public void setData(Review review) {

@@ -111,7 +111,11 @@
         android:id="@+id/dest_review"
         android:name="com.example.team5androidproject.ui.fragment.ReviewFragment"
         android:label="fragment_review"
-        tools:layout="@layout/fragment_review" />
+        tools:layout="@layout/fragment_review" >
+        <action
+            android:id="@+id/action_dest_review_to_dest_detail"
+            app:destination="@id/dest_detail" />
+    </fragment>
     <fragment
         android:id="@+id/dest_coupon"
         android:name="com.example.team5androidproject.ui.fragment.CouponFragment"

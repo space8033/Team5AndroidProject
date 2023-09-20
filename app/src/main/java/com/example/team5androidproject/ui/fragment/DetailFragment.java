@@ -62,7 +62,6 @@ public class DetailFragment extends Fragment {
         bottomNavigationView.setVisibility(View.GONE);
         Bundle bundle= getArguments();
         ProductDetail productDetail =(ProductDetail) bundle.getSerializable("product");
-        Log.i(TAG, "productDetail_product_no: " + productDetail.getProduct_no());
 
         initDetailPagerView();
         initBtnOrder();
