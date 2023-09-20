@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/history_border">
+
+        <TextView
+            android:id="@+id/txt_address_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="오우주"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txt_road_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="서울 영등포구 가마산로 313" />
+
+        <TextView
+            android:id="@+id/txt_jibun_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="서울 영등포구 대림동 778-44" />
+
+        <TextView
+            android:id="@+id/txt_extra_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="(대림동)" />
+
+        <TextView
+            android:id="@+id/txt_detail_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="302호" />
+
+        <TextView
+            android:id="@+id/txt_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="010-2314-5646" />
+
+        <TextView
+            android:id="@+id/txt_delivery_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="택배함 보관" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <Button
+                android:id="@+id/btn_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_pattern"
+                android:text="선택" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_pattern"
+                android:text="삭제" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

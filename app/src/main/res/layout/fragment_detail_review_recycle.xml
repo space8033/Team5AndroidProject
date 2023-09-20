@@ -41,14 +41,7 @@
                 android:progressTint="@android:color/holo_orange_dark"
                 android:rating="4" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/review_menu"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:menu="@menu/review_menu" />
+
 
         </LinearLayout>
 
@@ -82,32 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:text="2023.09.11 11:11:11" />
 
-        <LinearLayout
-            android:id="@+id/txt_product_detail"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/history_border"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp">
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="구매 상품  "
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_inquiry_product"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="무어스 철푸덕 무드등" />
-        </LinearLayout>
 
     </LinearLayout>
 

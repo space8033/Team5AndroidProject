@@ -2,22 +2,32 @@ package com.example.team5androidproject.ui.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentReviewBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
+import com.example.team5androidproject.dto.ProductDetail;
 import com.example.team5androidproject.dto.Review;
+import com.example.team5androidproject.service.DataTransfer;
+import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.ReviewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -65,5 +75,39 @@ public class ReviewFragment extends Fragment {
 
             }
         });
+
+        reviewAdapter.setOnItemClickListener(new ReviewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                Review review = reviewAdapter.getItem(position);
+                Log.i(TAG, "onItemClick: " + review.toString());
+                getProductDetail(review.getProduct_no());
+
+            }
+        });
     }
+
+    private void getProductDetail(int productNo) {
+        ProductService productService = ServiceProvider.getProductService(getContext());
+        Call<ProductDetail> call = productService.getDetailList(productNo);
+        call.enqueue(new Callback<ProductDetail>() {
+            @Override
+            public void onResponse(Call<ProductDetail> call, Response<ProductDetail> response) {
+                ProductDetail productDetail = response.body();
+                Bundle args = new Bundle();
+                args.putSerializable("product", productDetail);
+                if(productDetail.getImages_no() != null) {
+                    args.putIntegerArrayList("imageNoList", new ArrayList<>(productDetail.getImages_no()));
+                }
+
+                navController.navigate(R.id.dest_detail, args);
+            }
+
+            @Override
+            public void onFailure(Call<ProductDetail> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

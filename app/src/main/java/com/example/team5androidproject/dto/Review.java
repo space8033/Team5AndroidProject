@@ -12,19 +12,9 @@ public class Review implements Serializable {
     private String review_createdDate;
     private String product_name;
     private List<Integer> images_no;
+
+    private int product_no;
     private List<byte[]> review_image;
-
-    public int getReview_no() {
-        return review_no;
-    }
-
-    public void setReview_no(int review_no) {
-        this.review_no = review_no;
-    }
-
-    public String getReview_name() {
-        return review_name;
-    }
 
     @Override
     public String toString() {
@@ -37,8 +27,30 @@ public class Review implements Serializable {
                 ", review_createdDate='" + review_createdDate + '\'' +
                 ", product_name='" + product_name + '\'' +
                 ", images_no=" + images_no +
+                ", product_no=" + product_no +
                 ", review_image=" + review_image +
+                ", product_no=" + product_no +
                 '}';
+    }
+
+    public int getProduct_no() {
+        return product_no;
+    }
+
+    public void setProduct_no(int product_no) {
+        this.product_no = product_no;
+    }
+
+    public int getReview_no() {
+        return review_no;
+    }
+
+    public void setReview_no(int review_no) {
+        this.review_no = review_no;
+    }
+
+    public String getReview_name() {
+        return review_name;
     }
 
     public List<Integer> getImages_no() {

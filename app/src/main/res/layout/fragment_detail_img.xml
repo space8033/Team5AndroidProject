@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/detail_img"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="2400dp"
             android:scaleType="fitXY"
             android:src="@drawable/detail"
             app:layout_constraintEnd_toEndOf="parent"
