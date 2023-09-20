@@ -13,6 +13,15 @@ public class Review implements Serializable {
     private String product_name;
     private List<Integer> images_no;
     private List<byte[]> review_image;
+    private int product_no;
+
+    public int getProduct_no() {
+        return product_no;
+    }
+
+    public void setProduct_no(int product_no) {
+        this.product_no = product_no;
+    }
 
     public int getReview_no() {
         return review_no;
@@ -38,6 +47,7 @@ public class Review implements Serializable {
                 ", product_name='" + product_name + '\'' +
                 ", images_no=" + images_no +
                 ", review_image=" + review_image +
+                ", product_no=" + product_no +
                 '}';
     }
 

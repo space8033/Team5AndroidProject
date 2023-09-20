@@ -7,6 +7,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.team5androidproject.databinding.FragmentReviewBinding;
 import com.example.team5androidproject.dto.Review;
 import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;
+import com.example.team5androidproject.ui.adapter.DetailReviewAdapter;
 import com.example.team5androidproject.ui.adapter.ReviewAdapter;
 
 import java.util.List;
@@ -30,6 +32,10 @@ public class DetailReviewFragment extends Fragment {
     private static final String TAG = "DetailReviewFragment";
     private FragmentDetailReviewBinding binding;
     private NavController navController;
+    private int product_no;
+    public DetailReviewFragment(int product_no){
+        this.product_no = product_no;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,17 +57,17 @@ public class DetailReviewFragment extends Fragment {
 
         binding.reviewRecycler.setLayoutManager(linearLayoutManager);
 
-        ReviewAdapter reviewAdapter = new ReviewAdapter();
+        DetailReviewAdapter detailReviewAdapter = new DetailReviewAdapter();
 
         ReviewService reviewService = ServiceProvider.getReviewService(getContext());
-        Call<List<Review>> call = reviewService.getReviewByUser("space");
+        Call<List<Review>> call = reviewService.getReviewByProductNo(product_no);
 
         call.enqueue(new Callback<List<Review>>() {
             @Override
             public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
                 List<Review> list = response.body();
-                reviewAdapter.setList(list);
-                binding.reviewRecycler.setAdapter(reviewAdapter);
+                detailReviewAdapter.setList(list);
+                binding.reviewRecycler.setAdapter(detailReviewAdapter);
             }
             @Override
             public void onFailure(Call<List<Review>> call, Throwable t) {

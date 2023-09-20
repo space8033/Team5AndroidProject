@@ -15,6 +15,9 @@ public interface ReviewService {
     @GET("review/getReviewByUser")
     Call<List<Review>> getReviewByUser(@Query("userId") String userId);
 
+    @GET("review/getReviewProductNo")
+    Call<List<Review>> getReviewByProductNo(@Query("product_no") int product_no);
+
     static void loadImage(int image_no, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "review/getReviewImage?image_no=" + image_no;
         Glide.with(imageView.getContext()).load(url).into(imageView);
