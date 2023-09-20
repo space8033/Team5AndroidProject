@@ -48,12 +48,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class CartFragment extends Fragment implements CartAdapter.CartAdapterListener {
+public class CartFragment extends Fragment {
     private static final String TAG = "CartFragment";
     private FragmentCartBinding binding;
     private NavController navController;
     private CartAdapter cartAdapter;
     private List<Integer> checkedCartIds = new ArrayList<>(); // 선택한 카트 아이디 목록을 저장할 리스트
+    private Bundle arguments; // 번들을 저장할 멤버 변수
 
 
 
@@ -65,13 +66,24 @@ public class CartFragment extends Fragment implements CartAdapter.CartAdapterLis
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setVisibility(View.GONE);
 
+        // getArguments()를 사용하여 번들을 받아옴
+        arguments = getArguments();
+
         cartAdapter = new CartAdapter();
         // CartAdapter에 리스너 설정
-        cartAdapter.setCartAdapterListener(this);
 
         initBtnOrder();
         initMenu();
         initRecyclerView();
+
+        // 번들을 가져와서 내용을 로그로 출력
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            ArrayList<Integer> checkedCartIds = arguments.getIntegerArrayList("checkedCartIds");
+            if (checkedCartIds != null) {
+                Log.i(TAG, "번들 내용 확인: " + checkedCartIds);
+            }
+        }
 
         return binding.getRoot();
     }
@@ -105,20 +117,26 @@ public class CartFragment extends Fragment implements CartAdapter.CartAdapterLis
     private void initBtnOrder() {
         binding.btnOrder.setOnClickListener(v -> {
             List<Integer> selectedCartIds = cartAdapter.getCheckedCartIds();
-            Log.i(TAG, "cartAdapter 결과값" + cartAdapter.getCheckedCartIds());
-            Log.i(TAG, "선택된 카트의 아이디들" + selectedCartIds);
 
-            onCartIdsSelected(selectedCartIds);
+            // 번들을 생성하고 선택한 카트 아이디 목록을 담습니다.
+            Bundle bundle = new Bundle();
+            bundle.putIntegerArrayList("selectedCartIds", new ArrayList<>(selectedCartIds));
+            Log.i(TAG, "번들의 값" + bundle);
 
+            // 프래그먼트에 번들을 전달합니다.
+            CartFragment cartFragment = new CartFragment();
+            cartFragment.setArguments(bundle);
+
+            // 주문 화면으로 이동
             navController.navigate(R.id.action_dest_cart_to_dest_order);
         });
     }
 
-    @Override
-    public void onCartIdsSelected(List<Integer> checkedCartIds) {
+   /* @Override
+    *//*public void onCartIdsSelected(List<Integer> checkedCartIds) {
         // 선택한 카트 아이디 목록 업데이트
         Log.i(TAG, "Selected Cart IDs: " + checkedCartIds);
-    }
+    }*/
 
     private void initRecyclerView() {
         String userId = AppKeyValueStore.getValue(getContext(), "userId");

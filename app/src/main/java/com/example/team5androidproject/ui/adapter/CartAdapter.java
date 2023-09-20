@@ -51,7 +51,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>  {
     private Button deleteAll;
     private TextView countCart;
     DecimalFormat df =new DecimalFormat("#,###");
-    private CartAdapterListener cartAdapterListener;
+    /*private CartAdapterListener cartAdapterListener;*/
 
 
 
@@ -143,21 +143,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>  {
         });
     }
 
-    public interface CartAdapterListener {
+   /* public interface CartAdapterListener {
         void onCartIdsSelected(List<Integer> selectedCartIds);
     }
 
     // "CartAdapterListener" 설정 메서드
     public void setCartAdapterListener(CartAdapterListener listener) {
         this.cartAdapterListener = listener;
-    }
+    }*/
 
-    private void notifyCartIdsSelected() {
+    /*private void notifyCartIdsSelected() {
         if (cartAdapterListener != null) {
             List<Integer> selectedCartIdsList = new ArrayList<>(checkedCartIds);
             cartAdapterListener.onCartIdsSelected(selectedCartIdsList);
         }
-    }
+    }*/
     private void updateQuantity(int cartNo, int cartQty) {
         Call<Void> callUpdate = cartService.updateCart(cartNo, cartQty);
         callUpdate.enqueue(new Callback<Void>() {
@@ -445,10 +445,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>  {
                 Log.i(TAG, "체크된 상품의 총 가격의 합" + getCheckedItemsTotalPrice());
                 selectPrice.setText( "| " + String.valueOf(df.format(getCheckedItemsTotalPrice())) + "원 결제하기");
                 Bundle bundle = new Bundle();
-                bundle.putSerializable();
+                bundle.putIntegerArrayList("checkedCartIds", (ArrayList<Integer>) checkedCartIds);
+                CartFragment cartFragment = new CartFragment();
+                cartFragment.setArguments(bundle);
 
-                // 프래그먼트 내에서도 checkedCartIds를 사용할 수 있음
-                cartAdapterListener.onCartIdsSelected(checkedCartIds);
             });
         }
     }
