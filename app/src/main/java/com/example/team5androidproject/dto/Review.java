@@ -15,6 +15,15 @@ public class Review implements Serializable {
 
     private int product_no;
     private List<byte[]> review_image;
+    private int product_no;
+
+    public int getProduct_no() {
+        return product_no;
+    }
+
+    public void setProduct_no(int product_no) {
+        this.product_no = product_no;
+    }
 
     @Override
     public String toString() {
@@ -29,6 +38,7 @@ public class Review implements Serializable {
                 ", images_no=" + images_no +
                 ", product_no=" + product_no +
                 ", review_image=" + review_image +
+                ", product_no=" + product_no +
                 '}';
     }
 

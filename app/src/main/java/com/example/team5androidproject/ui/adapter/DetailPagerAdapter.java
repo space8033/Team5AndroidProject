@@ -30,7 +30,8 @@ public class DetailPagerAdapter extends FragmentStateAdapter {
             fragment = new DetailImgFragment(product_no);
             Log.i(TAG, "DetailFragment_product_no : " + product_no);
         }else if(position == 1) {
-            fragment = new DetailReviewFragment();
+            fragment = new DetailReviewFragment(product_no);
+            Log.i(TAG, "DetailFragment_product_no : " + product_no);
         }
         return fragment;
     }
