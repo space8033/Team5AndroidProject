@@ -19,7 +19,6 @@ import java.util.List;
 
 public class HistoryDetailAdapter extends RecyclerView.Adapter<HistoryDetailViewHolder> {
     List<OrderHistory> list = new ArrayList<>();
-    private OnItemClickListener onItemClickListener;
     private NavController navController;
     private static final String TAG = "HistoryDetailAdapter";
     @NonNull
@@ -48,13 +47,5 @@ public class HistoryDetailAdapter extends RecyclerView.Adapter<HistoryDetailView
     }
     public void setNavController(NavController navController) {
         this.navController = navController;
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View itemView, int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
     }
 }
