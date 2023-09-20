@@ -40,6 +40,7 @@ import com.example.team5androidproject.ui.adapter.ReviewAdapter;
 import com.example.team5androidproject.ui.viewHolder.CartViewHolder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,10 +48,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements CartAdapter.CartAdapterListener {
     private static final String TAG = "CartFragment";
     private FragmentCartBinding binding;
     private NavController navController;
+    private CartAdapter cartAdapter;
+    private List<Integer> checkedCartIds = new ArrayList<>(); // 선택한 카트 아이디 목록을 저장할 리스트
+
+
 
     @Nullable
     @Override
@@ -60,11 +65,13 @@ public class CartFragment extends Fragment {
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setVisibility(View.GONE);
 
+        cartAdapter = new CartAdapter();
+        // CartAdapter에 리스너 설정
+        cartAdapter.setCartAdapterListener(this);
 
         initBtnOrder();
         initMenu();
         initRecyclerView();
-
 
         return binding.getRoot();
     }
@@ -97,13 +104,26 @@ public class CartFragment extends Fragment {
 
     private void initBtnOrder() {
         binding.btnOrder.setOnClickListener(v -> {
+            List<Integer> selectedCartIds = cartAdapter.getCheckedCartIds();
+            Log.i(TAG, "cartAdapter 결과값" + cartAdapter.getCheckedCartIds());
+            Log.i(TAG, "선택된 카트의 아이디들" + selectedCartIds);
+
+            onCartIdsSelected(selectedCartIds);
+
             navController.navigate(R.id.action_dest_cart_to_dest_order);
         });
+    }
+
+    @Override
+    public void onCartIdsSelected(List<Integer> checkedCartIds) {
+        // 선택한 카트 아이디 목록 업데이트
+        Log.i(TAG, "Selected Cart IDs: " + checkedCartIds);
     }
 
     private void initRecyclerView() {
         String userId = AppKeyValueStore.getValue(getContext(), "userId");
         CartService cartService = ServiceProvider.getCartService(getContext());
+
         //카트 수 받아오기
         Call<Integer> callCount = cartService.getCartCount(userId);
 

@@ -1,10 +1,7 @@
 package com.example.team5androidproject.ui.viewHolder;
 
 import android.icu.text.DecimalFormat;
-import android.media.Image;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,9 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.dto.Cart;
 import com.example.team5androidproject.service.CartService;
-import com.example.team5androidproject.ui.adapter.CartAdapter;
-
-import org.w3c.dom.Text;
 
 public class CartViewHolder extends RecyclerView.ViewHolder {
 
@@ -42,11 +36,11 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
 
     public CartViewHolder(@NonNull View itemView) {
         super(itemView);
-        product_name = (TextView) itemView.findViewById(R.id.cart_name);
+        product_name = (TextView) itemView.findViewById(R.id.pay_prodcut_name);
         product_imgFile = (ImageView) itemView.findViewById(R.id.cart_imgFile);
-        product_price = (TextView) itemView.findViewById(R.id.cart_price);
-        cart_qty = (TextView) itemView.findViewById(R.id.cart_qty);
-        productOption_type = (TextView) itemView.findViewById(R.id.cart_option);
+        product_price = (TextView) itemView.findViewById(R.id.pay_product_price);
+        cart_qty = (TextView) itemView.findViewById(R.id.pay_product_qty);
+        productOption_type = (TextView) itemView.findViewById(R.id.pay_prodcut_option);
 
 
         //카트 수량 변경 버튼

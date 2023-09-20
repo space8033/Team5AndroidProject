@@ -41,21 +41,28 @@
 
                 <TableRow>
 
-                    <TextView android:text="이름" />
+                    <TextView
+                        android:id="@+id/order_name"
+                        android:text="이름" />
 
 
                 </TableRow>
 
                 <TableRow>
 
-                    <TextView android:text="이메일" />
+                    <TextView
+                        android:id="@+id/order_email"
+                        android:text="이메일" />
 
 
                 </TableRow>
 
                 <TableRow>
-                <TextView android:text="휴대폰 번호"
-                    android:layout_marginBottom="10dp"/>
+
+                    <TextView
+                        android:id="@+id/order_phone"
+                        android:layout_marginBottom="10dp"
+                        android:text="휴대폰 번호" />
                 </TableRow>
             </TableLayout>
 
@@ -85,16 +92,26 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="20dp">
                 <TableRow>
-                    <TextView android:text="이름" />
+
+                    <TextView
+                        android:id="@+id/delivery_name"
+                        android:text="이름" />
                 </TableRow>
                 <TableRow>
-                    <TextView android:text="이메일" />
+
+                    <TextView
+                        android:id="@+id/delivery_phone"
+                        android:text="휴대폰 번호" />
                 </TableRow>
                 <TableRow>
-                    <TextView android:text="배송지"
-                        android:layout_marginBottom="10dp"/>
+
+                    <TextView
+                        android:id="@+id/delivery_location"
+                        android:layout_marginBottom="10dp"
+                        android:text="배송지" />
                 </TableRow>
             </TableLayout>
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -115,6 +132,80 @@
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/textView30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="#E3DEDE"
+                android:text="쿠폰/포인트"
+                android:textSize="21sp" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
+                <TableRow android:layout_width="317dp">
+
+                    <TextView
+                        android:layout_width="117dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="쿠폰"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/coupon_price"
+                        android:layout_width="111dp"
+                        android:layout_height="wrap_content"
+                        android:text="-3000원"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/button19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:padding="1dp"
+                        android:layout_gravity="end"
+                        android:layout_marginRight="5dp"
+                        android:text="사용" />
+                </TableRow>
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="적립금"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="99dp"
+                        android:layout_height="match_parent"
+                        android:text="0원"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="105dp"
+                        android:layout_gravity="end"
+                        android:layout_height="30dp"
+                        android:padding="1dp"
+                        android:text="사용" />
+                    <TextView
+                        android:text=""
+                        />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/user_point"
+                        android:text="보유 포인트 2,300"
+                        android:textStyle="bold"
+                        />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
                 android:id="@+id/textView23"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,8 +217,8 @@
                 android:textSize="21sp" />
 
             <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <TableRow>
 
@@ -139,7 +230,8 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/pay_price"
+                        android:layout_width="111dp"
                         android:layout_height="match_parent"
                         android:text="2000원"
                         android:textSize="18sp" />
@@ -152,23 +244,15 @@
                         android:layout_width="117dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="쿠폰"
+                        android:text="쿠폰 할인"
                         android:textSize="15sp" />
 
                     <TextView
-                        android:layout_width="112dp"
+                        android:id="@+id/last_coupon"
+                        android:layout_width="111dp"
                         android:layout_height="wrap_content"
                         android:text="-3000원"
                         android:textSize="18sp" />
-
-                    <Button
-                        android:id="@+id/button11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:padding="1dp"
-                        android:layout_gravity="end"
-                        android:layout_marginRight="5dp"
-                        android:text="사용" />
 
                 </TableRow>
 
@@ -178,14 +262,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
-                        android:text="배송비"
+                        android:text="적립금 할인"
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/last_point"
                         android:layout_width="102dp"
                         android:layout_height="wrap_content"
-                        android:text="0원"
-                        android:textSize="18sp"/>
+                        android:text="-1000원"
+                        android:textSize="18sp" />
                 </TableRow>
 
                 <TableRow>
@@ -193,37 +278,15 @@
                     <TextView
                         android:layout_width="141dp"
                         android:layout_height="wrap_content"
-                        android:text="쿠폰"
+                        android:text="배송비"
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/shipping_fee"
                         android:layout_width="129dp"
                         android:layout_height="wrap_content"
-                        android:text="2000원"
-                        android:textSize="18sp" />
-                </TableRow>
-
-                <TableRow>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="적립금"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:layout_width="107dp"
-                        android:layout_height="match_parent"
                         android:text="0원"
                         android:textSize="18sp" />
-
-                    <Button
-                        android:id="@+id/button4"
-                        android:layout_width="105dp"
-                        android:layout_gravity="end"
-                        android:layout_height="30dp"
-                        android:padding="1dp"
-                        android:text="사용" />
                 </TableRow>
 
                 <TableRow>
@@ -236,6 +299,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/last_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1000000원"
@@ -243,8 +307,82 @@
                         android:textSize="18sp" />
 
                 </TableRow>
-
             </TableLayout>
+                <TextView
+                    android:id="@+id/info_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:background="#E3DEDE"
+                    android:text="결제방법"
+                    android:textSize="21sp" />
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TableRow>
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="100dp">
+
+                        <RadioButton
+                            android:id="@+id/radioButton7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="계좌이체" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="신용/체크카드" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="휴대폰" />
+                    </RadioGroup>
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <RadioButton
+                            android:id="@+id/radioButton5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="오페이머니" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="법인카드" />
+
+                        <RadioButton
+                            android:id="@+id/radioButton2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="무통장입금(가상계좌)" />
+
+                    </RadioGroup>
+
+                </TableRow>
+                <TableRow>
+
+                    <CheckBox
+                        android:id="@+id/checkBox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="헌금영수증 신청" />
+                </TableRow>
+            </TableLayout>
+
+
         </LinearLayout>
     </ScrollView>
 
