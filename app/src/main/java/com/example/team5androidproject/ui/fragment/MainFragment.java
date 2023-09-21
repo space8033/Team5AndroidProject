@@ -1,9 +1,11 @@
 package com.example.team5androidproject.ui.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
@@ -22,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.team5androidproject.R;
+import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.Product;
 import com.example.team5androidproject.dto.ProductDetail;
 import com.example.team5androidproject.service.ProductService;
@@ -75,8 +78,30 @@ public class MainFragment extends Fragment {
                     navController.navigate(R.id.action_dest_main_to_dest_search);
                     return true;
                 } else if (menuItem.getItemId() == R.id.dest_cart){
-                    navController.navigate(R.id.action_dest_main_to_dest_cart);
-                    return true;
+                    String userId = AppKeyValueStore.getValue(getContext(), "userId");
+                    String password = AppKeyValueStore.getValue(getContext(), "password");
+                    if(userId != null && password != null) {
+                        navController.navigate(R.id.action_dest_main_to_dest_cart);
+                        return true;
+                    } else {
+                        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                                .setTitle("로그인 확인")
+                                .setMessage("장바구니를 이용하시려면 로그인을 하셔야합니다.")
+                                .setNeutralButton("로그인하기", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        navController.navigate(R.id.action_dest_main_to_dest_login);
+                                    }
+                                })
+                                .setPositiveButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                })
+                                .create();
+                        alertDialog.show();
+                    }
                 }
                 return false;
             }
