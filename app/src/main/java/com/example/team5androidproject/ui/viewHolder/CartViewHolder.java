@@ -2,6 +2,7 @@ package com.example.team5androidproject.ui.viewHolder;
 
 import android.icu.text.DecimalFormat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,9 +27,10 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
     private TextView new_qty;
     public ImageButton qtyPlusButton;
     public ImageButton qtyMinusButton;
-    public CheckBox checkBox;
+    public CheckBox checkBox; //public 으로 사용
     /*public TextView selectedItemCountText;*/
     public ImageButton deleteOneButton;
+    public Button buyBtn;
 
 
 
@@ -50,6 +52,10 @@ public class CartViewHolder extends RecyclerView.ViewHolder {
 
         //카트 지우기 버튼
         deleteOneButton = (ImageButton) itemView.findViewById(R.id.delete_Item);
+
+        //구매 버튼
+
+        buyBtn = (Button) itemView.findViewById(R.id.btn_order);
     }
     public void setData(Cart cart) {
         cart_no = cart.getCart_no();

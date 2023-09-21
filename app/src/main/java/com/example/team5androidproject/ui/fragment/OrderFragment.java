@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,7 @@ import android.view.ViewGroup;
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentOrderBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
-import com.example.team5androidproject.dto.MyPage;
 import com.example.team5androidproject.dto.OrderUser;
-import com.example.team5androidproject.service.MemberService;
 import com.example.team5androidproject.service.OrderService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,6 +32,8 @@ public class OrderFragment extends Fragment  {
     private static final String TAG = "OrderFragment";
     private FragmentOrderBinding binding;
     private NavController navController;
+    private List<Integer> cart_no; // 전역변수로 선언
+    private int firstCart;
 
     @Nullable
     @Override
@@ -43,15 +44,22 @@ public class OrderFragment extends Fragment  {
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setVisibility(View.GONE);
 
+        Bundle bundle = getArguments();
+        int cartNo = bundle.getInt("cartIds");
+        Log.i(TAG, "onCreateView:" + bundle);
+        List<Integer> cart_no = bundle.getIntegerArrayList("cartIds");
+        int firstCart = cart_no.get(0);
+        Log.i(TAG, "카트아이디들" + cart_no);
+
+
         /*initBtnBack();*/
         initBtnMypage();
         /*initOderPage();*/
+        initOrderUser(firstCart);
+
+
 
         return binding.getRoot();
-    }
-
-    public interface CartSelectionListener {
-        void onCartItemSelectionChanged(List<Integer> selectedCartNos); //상품의 cart_no를 전달하기 위한 메서드
     }
 
     /*private void initOderPage(List<Integer> selectedCartNos) {
@@ -91,9 +99,39 @@ public class OrderFragment extends Fragment  {
         });
     }*/
 
+
+
     private void initBtnMypage() {
         binding.btnMypage.setOnClickListener(v -> {
             navController.navigate(R.id.dest_mypage);
         });
     }
+    private void initOrderUser(int firstCart) {
+        String userId = AppKeyValueStore.getValue(getContext(), "userId");
+        OrderService orderService = ServiceProvider.getOrderService(getContext());
+        Call<OrderUser> call = orderService.getOrderItems(firstCart);
+        Log.i(TAG, "첫번째 카트 no" + firstCart);
+        call.enqueue(new Callback<OrderUser>() {
+            @Override
+            public void onResponse(Call<OrderUser> call, Response<OrderUser> response) {
+                OrderUser orderUser = response.body();
+                Log.i(TAG, "콜 메소드 실행");
+                binding.orderName.setText(String.valueOf(orderUser.getUsers_name()));
+                Log.i(TAG, "유저의 이름: " + orderUser.getUsers_name());
+                binding.orderEmail.setText(String.valueOf(orderUser.getUsers_email()));
+                Log.i(TAG, "유저의 이름: " + orderUser.getUsers_email());
+                binding.orderPhone.setText(String.valueOf(orderUser.getUsers_phone()));
+                Log.i(TAG, "유저의 이름: " + orderUser.getUsers_phone());
+                binding.userPoint.setText("보유포인트 "+String.valueOf(orderUser.getPoint()));
+                Log.i(TAG, "유저의 이름: " + orderUser.getPoint());
+
+            }
+
+            @Override
+            public void onFailure(Call<OrderUser> call, Throwable t) {
+                Log.i(TAG, "onFailure: ");
+            }
+        });
+    }
+
 }
