@@ -132,4 +132,8 @@
         android:id="@+id/dest_address"
         android:name="com.example.team5androidproject.ui.fragment.AddressFragment"
         tools:layout="@layout/fragment_address" />
+    <fragment
+        android:id="@+id/dest_review_write"
+        android:name="com.example.team5androidproject.ui.fragment.ReviewWriteFragment"
+        tools:layout="@layout/fragment_review_write" />
 </navigation>

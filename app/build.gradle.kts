@@ -58,4 +58,6 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.6.0")
     //Circle이미지뷰를 위해 추가
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    //이미지 업로드를 위해 추가
+    implementation ("androidx.activity:activity:1.7.2")
 }

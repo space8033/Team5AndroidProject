@@ -62,6 +62,9 @@ public class HistoryDetailViewHolder extends RecyclerView.ViewHolder{
         goDetail.setOnClickListener(v -> {
             getProductDetail(orderHistory.getProductNo());
         });
+        goReview.setOnClickListener(v -> {
+            navController.navigate(R.id.dest_review_write);
+        });
     }
 
     public void setNavController(NavController navController) {
