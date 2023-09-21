@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentOrderBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.OrderUser;
+import com.example.team5androidproject.service.CartService;
 import com.example.team5androidproject.service.OrderService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,6 +36,7 @@ public class OrderFragment extends Fragment  {
     private NavController navController;
     private List<Integer> cart_no; // 전역변수로 선언
     private int firstCart;
+
 
     @Nullable
     @Override
@@ -56,11 +59,21 @@ public class OrderFragment extends Fragment  {
         initBtnMypage();
         /*initOderPage();*/
         initOrderUser(firstCart);
-
-
+        initRecyclerView();
 
         return binding.getRoot();
     }
+
+    private void initRecyclerView() {
+
+        OrderService orderService = ServiceProvider.getOrderService(getContext());
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                getContext(), LinearLayoutManager.VERTICAL, false
+        );
+        binding.
+    }
+
 
     /*private void initOderPage(List<Integer> selectedCartNos) {
         String userId = AppKeyValueStore.getValue(getContext(), "userId");
