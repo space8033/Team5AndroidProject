@@ -54,7 +54,6 @@ public class CartFragment extends Fragment {
     private NavController navController;
     private CartAdapter cartAdapter;
     private List<Integer> checkedCartIds = new ArrayList<>(); // 선택한 카트 아이디 목록을 저장할 리스트
-    private Bundle arguments; // 번들을 저장할 멤버 변수
 
 
 
@@ -66,24 +65,12 @@ public class CartFragment extends Fragment {
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setVisibility(View.GONE);
 
-        // getArguments()를 사용하여 번들을 받아옴
-        arguments = getArguments();
 
         cartAdapter = new CartAdapter();
-        // CartAdapter에 리스너 설정
 
         initBtnOrder();
         initMenu();
         initRecyclerView();
-
-        // 번들을 가져와서 내용을 로그로 출력
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            ArrayList<Integer> checkedCartIds = arguments.getIntegerArrayList("checkedCartIds");
-            if (checkedCartIds != null) {
-                Log.i(TAG, "번들 내용 확인: " + checkedCartIds);
-            }
-        }
 
         return binding.getRoot();
     }
@@ -116,19 +103,13 @@ public class CartFragment extends Fragment {
 
     private void initBtnOrder() {
         binding.btnOrder.setOnClickListener(v -> {
-            List<Integer> selectedCartIds = cartAdapter.getCheckedCartIds();
-
-            // 번들을 생성하고 선택한 카트 아이디 목록을 담습니다.
+            List<Integer> cartIds = cartAdapter.checkedCartIds;
             Bundle bundle = new Bundle();
-            bundle.putIntegerArrayList("selectedCartIds", new ArrayList<>(selectedCartIds));
-            Log.i(TAG, "번들의 값" + bundle);
-
-            // 프래그먼트에 번들을 전달합니다.
-            CartFragment cartFragment = new CartFragment();
-            cartFragment.setArguments(bundle);
+            bundle.putIntegerArrayList("cartIds", (ArrayList<Integer>) cartIds);
+            Log.i(TAG, "initBtnOrder: " + cartIds.toString());
 
             // 주문 화면으로 이동
-            navController.navigate(R.id.action_dest_cart_to_dest_order);
+            navController.navigate(R.id.action_dest_cart_to_dest_order, bundle);
         });
     }
 
@@ -165,12 +146,14 @@ public class CartFragment extends Fragment {
         );
         binding.recyclerView.setLayoutManager(linearLayoutManager);
 
-        CartAdapter cartAdapter =new CartAdapter();
+        cartAdapter =new CartAdapter();
         cartAdapter.getAllCheckBox(binding.allSelect);
         cartAdapter.getSelectNumTextView(binding.selectNum);
         cartAdapter.getSelectPriceTextView(binding.selectPrice);
         cartAdapter.getCountCartTextview(binding.countCart);
         cartAdapter.getDeleteAllBtn(binding.deleteAll);
+        cartAdapter.setNavController(navController);
+
 
         Call<List<Cart>> call = cartService.getCartList(userId);
 
@@ -188,5 +171,6 @@ public class CartFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+        Log.i(TAG, "initRecyclerView:" + cartAdapter.checkedCartIds);
     }
 }

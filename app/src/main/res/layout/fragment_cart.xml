@@ -31,12 +31,13 @@
             android:layout_marginEnd="0dp"
             android:text="전체 x개의 상품이 담겨있습니다." />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/delete_all"
             android:layout_width="83dp"
             android:layout_height="30dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="16dp"
+            android:backgroundTint="#F2ECF6"
             android:padding="0dp"
             android:text="삭제하기" />
 
@@ -63,29 +64,14 @@
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnOrder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        app:layout_constraintVertical_bias="0.852" />
-
-
     <TextView
         android:id="@+id/select_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:layout_marginLeft="110dp"
+        android:layout_marginBottom="24dp"
         android:text="총 0개"
-        android:textColor="#FFFDFD"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -95,8 +81,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="| 0 원 결제하기"
-        android:textColor="#FFFDFD"
+        android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@+id/select_num"
         app:layout_constraintTop_toTopOf="@+id/select_num" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_order"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="11dp"
+        android:layout_weight="1"
+        android:backgroundTint="#F2ECF6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3"
+        app:layout_constraintVertical_bias="0.852" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,8 +20,8 @@ public interface OrderService {
     @GET("order/history")
     Call<List<OrderHistory>> history(@Query("userId") String userId);
     @GET("order/getOrderInfo")
-    Call<List<Order>> getOrderInfo(@Query("cart_no") int cart_no);
-    Call<OrderUser> getOrderUser(@Query("cart_no") int cart_no);
+    Call<OrderUser> getOrderItems(@Query("cart_no") int cart_no);
+//    Call<OrderUser> getOrderUser(@Query("cart_no") int cart_no);
 
     static void loadImage(int product_No, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "order/getProductImage?product_no=" + product_No;

@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
@@ -45,12 +46,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>  {
     private CartService cartService;
     private boolean[] selectedItems; // 각 아이템의 체크 상태 배열 (체크되면 true 아니면 false)
     public TextView selectedItemCountText;
-    private List<Integer> checkedCartIds = new ArrayList<>(); //체크된 상품의 카트 번호가 들어갈 List 선언
+    public List<Integer> checkedCartIds = new ArrayList<>(); //체크된 상품의 카트 번호가 들어갈 List 선언
     private TextView selectNum;
     private TextView selectPrice;
     private Button deleteAll;
     private TextView countCart;
     DecimalFormat df =new DecimalFormat("#,###");
+    private Button buyBtn;
+    private NavController navController;
+
     /*private CartAdapterListener cartAdapterListener;*/
 
 
@@ -117,6 +121,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>  {
             getCheckedItemsTotalPrice();
             selectPrice.setText( "| " + String.valueOf(df.format(getCheckedItemsTotalPrice())) + "원 결제하기");
             Log.i(TAG, "체크된 상품의 총 가격의 합" + getCheckedItemsTotalPrice());
+
+
         });
 
         allCheckBox.setOnClickListener(view -> {
@@ -436,29 +442,41 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>  {
         if (allCheckBox != null) {
             allCheckBox.setOnClickListener(view -> {
                 Log.i(TAG, "전체선택 버튼 클릭");
-                int newSelectedItemCount = checkedCartIds.size();
                 toggleSelectAll();
-                Log.i(TAG, "체크돈 상품의 종류" + checkedCartIds);
+                Log.i(TAG, "체크된 상품의 종류" + checkedCartIds);
                 Log.i(TAG, "체크된 상품의 갯수" + checkedCartIds.size());
                 selectNum.setText("총" + checkedCartIds.size() + "개");
                 getCheckedItemsTotalPrice();
                 Log.i(TAG, "체크된 상품의 총 가격의 합" + getCheckedItemsTotalPrice());
                 selectPrice.setText( "| " + String.valueOf(df.format(getCheckedItemsTotalPrice())) + "원 결제하기");
+
+                // 어댑터 내에서 번들 생성 및 프래그먼트로 전달
                 Bundle bundle = new Bundle();
                 bundle.putIntegerArrayList("checkedCartIds", (ArrayList<Integer>) checkedCartIds);
-                CartFragment cartFragment = new CartFragment();
-                cartFragment.setArguments(bundle);
+                Log.i(TAG, "getAllCheckBox: " + bundle);
+                /*CartFragment cartFragment = new CartFragment();
+                cartFragment.setArguments(bundle);*/
 
+                buyBtn.setOnClickListener(v->{
+                    navController.navigate(R.id.action_dest_cart_to_dest_order, bundle);
+                });
             });
         }
     }
+   /* public List<Integer> getCheckList(){
 
-    public List<Integer> getCheckedCartIds() {
+    }*/
+
+   /* public List<Integer> getCheckedCartIds() {
         Log.i(TAG, "getCheckedCartIds: 실행");
         Log.i(TAG, "getCheckedCartIds: " + checkedCartIds);
         return checkedCartIds;
     }
+*/
 
+    public void setNavController(NavController navController){
+        this.navController = navController;
+    }
 
     //선택된 수량을 나타내는 TextView를 프래그먼트에서 받아온다.
     public void getSelectNumTextView(TextView selectNum){
@@ -469,6 +487,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>  {
     }
     public void getDeleteAllBtn(Button deleteAll){
         this.deleteAll = deleteAll;
+    }
+
+    public void getBuyButton(Button buyBtn){
+        this.buyBtn = buyBtn;
     }
     public void getCountCartTextview(TextView countCart) {this.countCart = countCart; }
 }
