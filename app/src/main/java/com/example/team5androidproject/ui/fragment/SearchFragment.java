@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentSearchBinding;
@@ -28,8 +30,11 @@ import com.example.team5androidproject.dto.Product;
 import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.ProductAdapter;
+import com.example.team5androidproject.ui.adapter.RecentSearchAdapter;
+import com.example.team5androidproject.ui.viewHolder.SearchHistoryManager;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,6 +50,35 @@ public class SearchFragment extends Fragment {
     private ImageButton searchButton;
     private ProductAdapter productAdapter;
     private String keyword = "";
+    private RecyclerView recentSearchRecyclerView;
+    private List<String> recentSearchList;
+    private RecentSearchAdapter recentSearchAdapter;
+    private SearchHistoryManager searchHistoryManager;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        recentSearchList = new ArrayList<>();
+        searchHistoryManager = new SearchHistoryManager(requireContext());
+        recentSearchList.addAll(searchHistoryManager.getSearchHistory());
+        recentSearchAdapter = new RecentSearchAdapter(recentSearchList, new RecentSearchAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String searchKeyword) {
+                editText.setText(searchKeyword);
+                performSearch();
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                recentSearchList.remove(position);
+                recentSearchAdapter.notifyItemRemoved(position);
+                recentSearchAdapter.notifyItemRangeChanged(position, recentSearchList.size());
+
+                //업데이트
+                searchHistoryManager.saveSearchHistory(recentSearchList);
+            }
+        });
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +97,12 @@ public class SearchFragment extends Fragment {
         initSearch();
         initBtnBack();
         initBtnMain();
+
+        recentSearchRecyclerView = binding.getRoot().findViewById(R.id.recent_search);
+        recentSearchRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
+        recentSearchRecyclerView.setAdapter(recentSearchAdapter);
+
+
 
         return binding.getRoot();
     }
@@ -104,6 +144,8 @@ public class SearchFragment extends Fragment {
                         getParentFragmentManager().setFragmentResult("searchResultsKey", bundle);
 
                         bundle.putString("keyword",keyword);
+
+                        updateSearchHistory(keyword);
                         // ListFragment로 이동
                         navController.navigate(R.id.action_dest_search_to_dest_list,bundle);
                     } else {
@@ -138,5 +180,22 @@ public class SearchFragment extends Fragment {
         super.onDestroyView();
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         actionBar.show();
+    }
+
+    private void updateSearchHistory(String keyword) {
+        // 기존 검색 기록 불러오기
+        List<String> searchHistory = searchHistoryManager.getSearchHistory();
+
+        // 새로운 검색어를 기록에 추가
+        searchHistory.add(0,keyword);
+
+        // 중복 제거를 위해 Set으로 변환 후 다시 List로 변환
+        List<String> deduplicatedSearchHistory = new ArrayList<>(new LinkedHashSet<>(searchHistory));
+
+        // 검색 기록 저장
+        searchHistoryManager.saveSearchHistory(deduplicatedSearchHistory);
+        recentSearchList.clear();
+        recentSearchList.addAll(deduplicatedSearchHistory);
+        recentSearchAdapter.notifyDataSetChanged();
     }
 }
