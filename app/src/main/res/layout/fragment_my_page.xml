@@ -68,12 +68,13 @@
                         android:gravity="center"
                         android:text="가입일: 2023.09.10" />
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_logout"
                         android:layout_width="110sp"
                         android:layout_height="40sp"
                         android:layout_gravity="center"
                         android:text="로그아웃"
+                        android:backgroundTint="#F2ECF6"
                         android:textSize="10dp" />
                 </LinearLayout>
 
@@ -252,6 +253,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="110dp"
         android:clickable="true"
+        android:backgroundTint="#F2ECF6"
         android:src="@drawable/baseline_keyboard_arrow_up_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

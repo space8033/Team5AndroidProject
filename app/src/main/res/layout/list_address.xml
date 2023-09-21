@@ -66,11 +66,11 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_select"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_pattern"
+                android:backgroundTint="#F2ECF6"
                 android:text="선택" />
 
             <Space
@@ -78,11 +78,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_pattern"
+                android:backgroundTint="#F2ECF6"
                 android:text="삭제" />
         </LinearLayout>
     </LinearLayout>
