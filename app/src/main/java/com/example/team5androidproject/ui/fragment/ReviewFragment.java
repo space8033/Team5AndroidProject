@@ -59,6 +59,7 @@ public class ReviewFragment extends Fragment {
         binding.reviewRecycler.setLayoutManager(linearLayoutManager);
 
         ReviewAdapter reviewAdapter = new ReviewAdapter();
+        reviewAdapter.setNavController(navController);
         String id = AppKeyValueStore.getValue(getContext(), "userId");
         ReviewService reviewService = ServiceProvider.getReviewService(getContext());
         Call<List<Review>> call = reviewService.getReviewByUser(id);
