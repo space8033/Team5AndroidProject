@@ -90,8 +90,12 @@ public class ListFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> list = response.body();
-                productAdapter.setList(list);
-                binding.recyclerView.setAdapter(productAdapter);
+                if(list.isEmpty()){
+                    binding.tvNoReviews.setVisibility(View.VISIBLE);
+                } else{
+                    productAdapter.setList(list);
+                    binding.recyclerView.setAdapter(productAdapter);
+                }
             }
 
             @Override

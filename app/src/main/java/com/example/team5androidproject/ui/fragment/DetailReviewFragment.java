@@ -66,8 +66,12 @@ public class DetailReviewFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Review>> call, Response<List<Review>> response) {
                 List<Review> list = response.body();
-                detailReviewAdapter.setList(list);
-                binding.reviewRecycler.setAdapter(detailReviewAdapter);
+                if(list.isEmpty()){
+                    binding.tvNoReviews.setVisibility(View.VISIBLE);
+                }else {
+                    detailReviewAdapter.setList(list);
+                    binding.reviewRecycler.setAdapter(detailReviewAdapter);
+                }
             }
             @Override
             public void onFailure(Call<List<Review>> call, Throwable t) {
