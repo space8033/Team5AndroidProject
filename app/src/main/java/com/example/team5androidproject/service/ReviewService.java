@@ -32,6 +32,9 @@ public interface ReviewService {
                            @Part MultipartBody.Part file
     );
 
+    @GET("review/deleteReview")
+    Call<Void> deleteReview(@Query("review_no") int review_no);
+
     static void loadImage(int image_no, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "review/getReviewImage?image_no=" + image_no;
         Glide.with(imageView.getContext()).load(url).into(imageView);
