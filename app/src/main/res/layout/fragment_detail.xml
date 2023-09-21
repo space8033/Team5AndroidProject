@@ -213,15 +213,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:backgroundTint="#F2ECF6"
             android:layout_weight="1"
             android:text="장바구니" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
+            android:backgroundTint="#F2ECF6"
             android:id="@+id/btn_order"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
