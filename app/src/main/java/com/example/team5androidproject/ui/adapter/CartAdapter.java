@@ -3,6 +3,7 @@ package com.example.team5androidproject.ui.adapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.icu.text.DecimalFormat;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +25,11 @@ import com.example.team5androidproject.dto.Cart;
 import com.example.team5androidproject.dto.Product;
 import com.example.team5androidproject.service.CartService;
 import com.example.team5androidproject.service.ServiceProvider;
+import com.example.team5androidproject.ui.fragment.CartFragment;
+import com.example.team5androidproject.ui.fragment.OrderFragment;
 import com.example.team5androidproject.ui.viewHolder.CartViewHolder;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>  {
 
     private List<Cart> list = new ArrayList<>();
     private CheckBox allCheckBox; // 전체 체크박스
@@ -47,6 +51,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     private Button deleteAll;
     private TextView countCart;
     DecimalFormat df =new DecimalFormat("#,###");
+    /*private CartAdapterListener cartAdapterListener;*/
+
+
+
 
     private static final String TAG = "CartAdapter";
 
@@ -61,6 +69,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         return cartViewHolder;
     }
 
+    // 인터페이스 정의
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Cart cart = list.get(position);
@@ -91,7 +100,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                 selectedItems[position] = isChecked;
             } else {
                 // position 값이 유효한 범위를 벗어난 경우 오류 처리
-                Log.e(TAG, "유효하지 않은 position 값: " + position);
+                Log.i(TAG, "유효하지 않은 position 값: " + position);
             }
 
             if (isChecked) {
@@ -120,17 +129,35 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
             getCheckedItemsTotalPrice();
             Log.i(TAG, "체크된 상품의 총 가격의 합" + getCheckedItemsTotalPrice());
             selectPrice.setText( "| " + String.valueOf(df.format(getCheckedItemsTotalPrice())) + "원 결제하기");
+
         });
 
         holder.deleteOneButton.setOnClickListener(v->{
             deleteOneCartItem(cart.getCart_no());
         });
 
+
+
         deleteAll.setOnClickListener(v->{
             deleteSelectedItems();
         });
     }
 
+   /* public interface CartAdapterListener {
+        void onCartIdsSelected(List<Integer> selectedCartIds);
+    }
+
+    // "CartAdapterListener" 설정 메서드
+    public void setCartAdapterListener(CartAdapterListener listener) {
+        this.cartAdapterListener = listener;
+    }*/
+
+    /*private void notifyCartIdsSelected() {
+        if (cartAdapterListener != null) {
+            List<Integer> selectedCartIdsList = new ArrayList<>(checkedCartIds);
+            cartAdapterListener.onCartIdsSelected(selectedCartIdsList);
+        }
+    }*/
     private void updateQuantity(int cartNo, int cartQty) {
         Call<Void> callUpdate = cartService.updateCart(cartNo, cartQty);
         callUpdate.enqueue(new Callback<Void>() {
@@ -417,8 +444,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
                 getCheckedItemsTotalPrice();
                 Log.i(TAG, "체크된 상품의 총 가격의 합" + getCheckedItemsTotalPrice());
                 selectPrice.setText( "| " + String.valueOf(df.format(getCheckedItemsTotalPrice())) + "원 결제하기");
+                Bundle bundle = new Bundle();
+                bundle.putIntegerArrayList("checkedCartIds", (ArrayList<Integer>) checkedCartIds);
+                CartFragment cartFragment = new CartFragment();
+                cartFragment.setArguments(bundle);
+
             });
         }
+    }
+
+    public List<Integer> getCheckedCartIds() {
+        Log.i(TAG, "getCheckedCartIds: 실행");
+        Log.i(TAG, "getCheckedCartIds: " + checkedCartIds);
+        return checkedCartIds;
     }
 
 
@@ -426,11 +464,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public void getSelectNumTextView(TextView selectNum){
         this.selectNum = selectNum;
     }
-
     public void getSelectPriceTextView(TextView selectPrice){
         this.selectPrice = selectPrice;
     }
-
     public void getDeleteAllBtn(Button deleteAll){
         this.deleteAll = deleteAll;
     }
