@@ -1,5 +1,7 @@
 package com.example.team5androidproject.dto;
 
+import java.util.Arrays;
+
 public class Order {
     private String user_id; //회원 아이디
     private String users_name;  //회원이름
@@ -12,6 +14,7 @@ public class Order {
     private String productOption_type; //상품 옵션 이름
     private int product_no; //상품 번호
     private int point; // 사용자 소유 포인트
+    private byte[] product_imgFile; //상품 이미지
 
     public String getUser_id() {
         return user_id;
@@ -101,6 +104,14 @@ public class Order {
         this.point = point;
     }
 
+    public byte[] getProduct_imgFile() {
+        return product_imgFile;
+    }
+
+    public void setProduct_imgFile(byte[] product_imgFile) {
+        this.product_imgFile = product_imgFile;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -115,6 +126,7 @@ public class Order {
                 ", productOption_type='" + productOption_type + '\'' +
                 ", product_no=" + product_no +
                 ", point=" + point +
+                ", product_imgFile=" + Arrays.toString(product_imgFile) +
                 '}';
     }
 }
