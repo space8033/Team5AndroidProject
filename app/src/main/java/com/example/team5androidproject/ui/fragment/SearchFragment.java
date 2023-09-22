@@ -135,6 +135,7 @@ public class SearchFragment extends Fragment {
                 public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                     if (response.isSuccessful()) {
                         List<Product> searchResults = response.body();
+
                         Log.i(TAG, "searchResults : " + searchResults);
                         // 검색 결과를 RecyclerView에 표시합니다.
                         productAdapter.setList(searchResults);

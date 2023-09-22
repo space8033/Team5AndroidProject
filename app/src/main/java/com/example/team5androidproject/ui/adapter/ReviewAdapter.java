@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     private List<Review> list = new ArrayList<>();
     private OnItemClickListener onItemClickListener;
     private static final String TAG = "ReviewAdapter";
+    private NavController navController;
     @NonNull
     @Override
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,6 +35,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review review = list.get(position);
         holder.setData(review, onItemClickListener);
+        holder.setNavController(navController);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 holder.itemView.getContext(), LinearLayoutManager.HORIZONTAL, false
@@ -67,5 +70,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+    public void setNavController(NavController navController) {
+        this.navController = navController;
     }
 }

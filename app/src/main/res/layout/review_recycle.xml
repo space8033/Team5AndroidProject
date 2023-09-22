@@ -20,6 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingRight="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -41,14 +42,16 @@
                 android:progressTint="@android:color/holo_orange_dark"
                 android:rating="4" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/review_menu"
-                android:layout_width="match_parent"
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/review_delete"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
-                app:menu="@menu/review_menu" />
+                app:srcCompat="@drawable/delete_24px" />
 
         </LinearLayout>
 
