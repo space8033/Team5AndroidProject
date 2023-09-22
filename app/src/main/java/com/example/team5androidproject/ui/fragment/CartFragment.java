@@ -1,9 +1,11 @@
 package com.example.team5androidproject.ui.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
@@ -104,12 +106,28 @@ public class CartFragment extends Fragment {
     private void initBtnOrder() {
         binding.btnOrder.setOnClickListener(v -> {
             List<Integer> cartIds = cartAdapter.checkedCartIds;
-            Bundle bundle = new Bundle();
-            bundle.putIntegerArrayList("cartIds", (ArrayList<Integer>) cartIds);
-            Log.i(TAG, "initBtnOrder: " + cartIds.toString());
+            binding.selectPrice.setElevation(10f);
+            binding.selectNum.setElevation(10f);
+            if(cartIds.isEmpty()){
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                        .setTitle("체크 확인")
+                        .setMessage("구매할 상품을 선택해주세요.")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-            // 주문 화면으로 이동
-            navController.navigate(R.id.action_dest_cart_to_dest_order, bundle);
+                            }
+                        })
+                        .create();
+                alertDialog.show();
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putIntegerArrayList("cartIds", (ArrayList<Integer>) cartIds);
+                Log.i(TAG, "initBtnOrder: " + cartIds.toString());
+
+                // 주문 화면으로 이동
+                navController.navigate(R.id.action_dest_cart_to_dest_order, bundle);
+            }
         });
     }
 
