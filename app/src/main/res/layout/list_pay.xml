@@ -21,7 +21,7 @@
 
 
             <ImageView
-                android:id="@+id/cart_imgFile"
+                android:id="@+id/pay_imgFile"
                 android:layout_width="116dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
