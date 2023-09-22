@@ -39,6 +39,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -68,7 +73,7 @@ public class DetailFragment extends Fragment {
         ProductDetail productDetail =(ProductDetail) bundle.getSerializable("product");
 
         initDetailPagerView();
-        initBtnOrder();
+        initBtnOrder(productDetail);
         initBtnCart(productDetail);
 
         initStockSelect();
@@ -232,10 +237,10 @@ public class DetailFragment extends Fragment {
             } else {
                 if (userId != null && password != null) {
                     CartService cartService = ServiceProvider.getCartService(getContext());
-                    Call<Void> call = cartService.addMobileCart(product_product_no, cart_qty, productOption_type, users_users_id);
-                    call.enqueue(new Callback<Void>() {
+                    Call<Integer> call = cartService.addMobileCart(product_product_no, cart_qty, productOption_type, users_users_id);
+                    call.enqueue(new Callback<Integer>() {
                         @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
+                        public void onResponse(Call<Integer> call, Response<Integer> response) {
                             AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                                     .setTitle("장바구니 담기")
                                     .setMessage("상품을 장바구니에 담는데 성공하였습니다.")
@@ -250,7 +255,7 @@ public class DetailFragment extends Fragment {
                         }
 
                         @Override
-                        public void onFailure(Call<Void> call, Throwable t) {
+                        public void onFailure(Call<Integer> call, Throwable t) {
                             Log.i(TAG, "onFailure: 당신의 계획은 실패했다.");
                         }
                     });
@@ -277,11 +282,70 @@ public class DetailFragment extends Fragment {
         });
     }
 
-    private void initBtnOrder() {
+    private void initBtnOrder(ProductDetail productDetail) {
         binding.btnOrder.setOnClickListener(v->{
+            int product_no = productDetail.getProduct_no();
+            String cart_qty_string = binding.productStock.getText().toString();
+            int cart_qty = Integer.valueOf(cart_qty_string);
+            String productOption_type = binding.productOption.getText().toString();
+            String users_users_id = AppKeyValueStore.getValue(getContext(), "userId");
+            String password = AppKeyValueStore.getValue(getContext(), "password");
 
 
-            navController.navigate(R.id.action_dest_detail_to_dest_order);
+            if (productOption_type.isEmpty()){
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                        .setTitle("필수 확인")
+                        .setMessage("상품의 옵션을 입력하세요")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .create();
+                alertDialog.show();
+            } else {
+                if (users_users_id != null && password != null) {
+                    CartService cartService = ServiceProvider.getCartService(getContext());
+                    Call<Integer> call = cartService.addMobileCart(product_no, cart_qty, productOption_type, users_users_id);
+                    call.enqueue(new Callback<Integer>() {
+                        @Override
+                        public void onResponse(Call<Integer> call, Response<Integer> response) {
+                            int generatedCartNo = getGeneratedCartNoFromResponse(response);
+                            List<Integer> cartIds = new ArrayList<>();
+                            cartIds.add(generatedCartNo);
+                            Bundle bundle = new Bundle();
+                            bundle.putIntegerArrayList("cartIds", (ArrayList<Integer>) cartIds);
+                            Log.i(TAG, "cartIds : " + cartIds);
+                            navController.navigate(R.id.action_dest_detail_to_dest_order,bundle);
+                        }
+                        private int getGeneratedCartNoFromResponse(Response<Integer> response) {
+                            int generatedCartNo = -1;
+                            try {
+                                generatedCartNo = response.body();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return generatedCartNo;
+                        }
+                        @Override
+                        public void onFailure(Call<Integer> call, Throwable t) {
+                            Log.i(TAG, "onFailure: 당신의 계획은 실패했다.");
+                        }
+                    });
+                } else {
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                            .setTitle("로그인 확인")
+                            .setMessage("상품 구매를 위해 로그인페이지로 이동합니다.")
+                            .setPositiveButton("로그인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    navController.navigate(R.id.action_dest_detail_to_dest_login);
+                                }
+                            })
+                            .create();
+                    alertDialog.show();
+                }
+            }
         });
     }
 }
