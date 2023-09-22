@@ -7,6 +7,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.team5androidproject.dto.Coupon;
 import com.example.team5androidproject.service.CouponService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.CouponAdapter;
+import com.example.team5androidproject.ui.adapter.PayCouponAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
@@ -26,18 +28,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class PayCouponFragment extends Fragment {
+
     private static final String TAG = "CouponFragment";
     private FragmentCouponBinding binding;
     private NavController navController;
+    private Bundle bundle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCouponBinding.inflate(inflater);
         navController = NavHostFragment.findNavController(this);
+        bundle = getArguments();
 
         BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setVisibility(View.GONE);
-
+        Log.i(TAG, "onCreateView: " + getArguments().toString());
         initRecyclerView();
 
         return binding.getRoot();
@@ -68,7 +74,11 @@ public class PayCouponFragment extends Fragment {
 
         binding.couponImageRecycler.setLayoutManager(layoutManager);
 
-        CouponAdapter couponAdapter = new CouponAdapter();
+        PayCouponAdapter payCouponAdapter = new PayCouponAdapter();
+        payCouponAdapter.setNavController(navController);
+        payCouponAdapter.setBundle(bundle);
+
+
 
         Call<List<Coupon>> call = couponService.getCouponByUser(id);
 
@@ -76,8 +86,11 @@ public class PayCouponFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Coupon>> call, Response<List<Coupon>> response) {
                 List<Coupon> list = response.body();
-                couponAdapter.setList(list);
-                binding.couponImageRecycler.setAdapter(couponAdapter);
+                payCouponAdapter.setList(list);
+                binding.couponImageRecycler.setAdapter(payCouponAdapter);
+                Log.i(TAG, "onResponse: " + list);
+                Bundle bundle = new Bundle();
+
             }
 
             @Override

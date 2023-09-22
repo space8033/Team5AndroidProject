@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.fragment.CouponFragment">
+    tools:context=".ui.fragment.PayCouponFragment">
 
     <ImageView
         android:id="@+id/imageView"
@@ -40,7 +40,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/coupon_image_recycler"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="635dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="17dp"

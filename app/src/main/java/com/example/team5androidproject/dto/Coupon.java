@@ -1,8 +1,11 @@
 package com.example.team5androidproject.dto;
 
-public class Coupon {
+import java.io.Serializable;
+
+public class Coupon implements Serializable {
     private int coupon_no;
     private String coupon_type;
+
 
     @Override
     public String toString() {
