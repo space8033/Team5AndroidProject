@@ -166,7 +166,7 @@
                         android:id="@+id/coupon_price"
                         android:layout_width="111dp"
                         android:layout_height="wrap_content"
-                        android:text="-3000원"
+                        android:text="0원"
                         android:textSize="18sp" />
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -210,8 +210,12 @@
                 </TableRow>
                 <TableRow>
                     <TextView
+                        android:id="@+id/user_point_txt"
+                        android:text="보유포인트"
+                        />
+                    <TextView
                         android:id="@+id/user_point"
-                        android:text="보유 포인트 2,300"
+                        android:text="보유포인트 2,300"
                         android:textStyle="bold"
                         />
                 </TableRow>
@@ -263,7 +267,7 @@
                         android:id="@+id/last_coupon"
                         android:layout_width="111dp"
                         android:layout_height="wrap_content"
-                        android:text="-3000원"
+                        android:text="0원"
                         android:textSize="18sp" />
 
                 </TableRow>
@@ -297,7 +301,7 @@
                         android:id="@+id/shipping_fee"
                         android:layout_width="129dp"
                         android:layout_height="wrap_content"
-                        android:text="0원"
+                        android:text="2,500원"
                         android:textSize="18sp" />
                 </TableRow>
 

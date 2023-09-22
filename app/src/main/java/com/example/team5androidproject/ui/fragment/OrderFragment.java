@@ -1,6 +1,7 @@
 package com.example.team5androidproject.ui.fragment;
 
 import android.content.DialogInterface;
+import android.icu.text.DecimalFormat;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class OrderFragment extends Fragment  {
     private int firstCart;
     private OrderAdapter orderAdapter; // OrderAdapter 객체 선언
     private int totalPayProductPrice;
+    private DecimalFormat df =new DecimalFormat("#,###");
 
 
 
@@ -72,8 +74,8 @@ public class OrderFragment extends Fragment  {
 
         if(coupon != null){
             int couponPrice = coupon.getCoupon_value();
-            binding.couponPrice.setText("- " + couponPrice + " 원");
-            binding.lastCoupon.setText("- " + couponPrice + " 원");
+            binding.couponPrice.setText("- " +df.format(couponPrice) + " 원");
+            binding.lastCoupon.setText("- " + df.format(couponPrice) + " 원");
             /*int finalPrice = orderAdapter.getTotalPayProductPrice();
             binding.lastPrice.setText(finalPrice - couponPrice);*/
         }
@@ -120,9 +122,9 @@ public class OrderFragment extends Fragment  {
 
                 int couponPrice = Integer.parseInt(coupon2);
                 int totalPayProductPrice = orderAdapter.getTotalPayProductPrice();
-                binding.payPrice.setText(totalPayProductPrice+"원");
+                binding.payPrice.setText(df.format(totalPayProductPrice)+" 원");
                 int newTotalPrice = totalPayProductPrice - couponPrice;
-                binding.lastPrice.setText(String.valueOf(newTotalPrice+ " 원")); //총가격
+                binding.lastPrice.setText(String.valueOf(df.format (newTotalPrice + 2500)+ " 원")); //총가격
             }
 
             @Override
@@ -184,7 +186,7 @@ public class OrderFragment extends Fragment  {
         int couponPrice = Integer.parseInt(coupon2);
         int newTotalPrice = totalPayProductPrice - couponPrice;
 
-        binding.lastPrice.setText(String.valueOf(newTotalPrice+ " 원")); //총가격
+        binding.lastPrice.setText(df.format(newTotalPrice + 2500)+ " 원"); //총가격
     }
 
 
@@ -212,7 +214,7 @@ public class OrderFragment extends Fragment  {
                 Log.i(TAG, "유저의 이름: " + orderUser.getUsers_email());
                 binding.orderPhone.setText(String.valueOf(orderUser.getUsers_phone()));
                 Log.i(TAG, "유저의 이름: " + orderUser.getUsers_phone());
-                binding.userPoint.setText("보유포인트 "+String.valueOf(orderUser.getPoint()));
+                binding.userPoint.setText(df.format(orderUser.getPoint())+ " P");
                 Log.i(TAG, "유저의 이름: " + orderUser.getPoint());
             }
 
@@ -251,8 +253,8 @@ public class OrderFragment extends Fragment  {
                     int couponPrice = Integer.parseInt(coupon2);
                     int newTotalPrice = totalPayProductPrice - enteredPointValue - couponPrice;
 
-                    binding.lastPoint.setText(String.valueOf("- "+enteredPointValue+" 원")); //최종 적립금 가격
-                    binding.lastPrice.setText(String.valueOf(newTotalPrice+ " 원")); //총가격
+                    binding.lastPoint.setText(("- "+df.format(enteredPointValue)+" 원")); //최종 적립금 가격
+                    binding.lastPrice.setText(df.format(newTotalPrice + 2500)+ " 원"); //총가격
                 }
             } catch (NumberFormatException e) {
                 // 유효하지 않은 숫자가 입력된 경우
