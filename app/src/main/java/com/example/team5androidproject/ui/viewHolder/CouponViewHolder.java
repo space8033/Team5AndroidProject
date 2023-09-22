@@ -24,14 +24,14 @@ public class CouponViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setData(Coupon coupon) {
-        createdDate.setText(coupon.getCoupon_createdDate());
-        expiredDate.setText(coupon.getCoupon_expiredDate());
-        if(String.valueOf(coupon.getCoupon_type()).equals("BIRTHDAY_COUPON")) {
-            couponImage.setImageResource(R.drawable.birthday_coupon);
-        }else if(String.valueOf(coupon.getCoupon_type()).equals("DEL_FREE_COUPON")) {
-            couponImage.setImageResource(R.drawable.delivery_coupon);
-        }else if(String.valueOf(coupon.getCoupon_type()).equals("WELCOME_COUPON")) {
-            couponImage.setImageResource(R.drawable.welcome_coupon);
+                createdDate.setText(coupon.getCoupon_createdDate());
+                expiredDate.setText(coupon.getCoupon_expiredDate());
+                if(String.valueOf(coupon.getCoupon_type()).equals("BIRTHDAY_COUPON")) {
+                    couponImage.setImageResource(R.drawable.birthday_coupon);
+                }else if(String.valueOf(coupon.getCoupon_type()).equals("DEL_FREE_COUPON")) {
+                    couponImage.setImageResource(R.drawable.delivery_coupon);
+                }else if(String.valueOf(coupon.getCoupon_type()).equals("WELCOME_COUPON")) {
+                    couponImage.setImageResource(R.drawable.welcome_coupon);
         }
     }
 }

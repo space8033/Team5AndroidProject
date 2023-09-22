@@ -136,4 +136,8 @@
         android:id="@+id/dest_review_write"
         android:name="com.example.team5androidproject.ui.fragment.ReviewWriteFragment"
         tools:layout="@layout/fragment_review_write" />
+    <fragment
+        android:id="@+id/dest_pay_coupon"
+        android:name="com.example.team5androidproject.ui.fragment.PayCouponFragment"
+        tools:layout="@layout/fragment_pay_coupon" />
 </navigation>
