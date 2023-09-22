@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="SERIAL_NUMBER" />
-            <value value="R3CN303MNDN" />
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\KOSA\.android\avd\Pixel_3a_API_33_GooglePlay.avd" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-09-22T01:06:29.841921Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-09-22T01:11:05.473977500Z" />
   </component>
 </project>
