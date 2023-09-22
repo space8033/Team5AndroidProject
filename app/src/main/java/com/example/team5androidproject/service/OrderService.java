@@ -23,6 +23,8 @@ public interface OrderService {
     Call<List<OrderHistory>> history(@Query("userId") String userId);
     @GET("order/getOrderInfo") //구매자 정보를 가져온다
     Call<OrderUser> getOrderItems(@Query("cart_no") int cart_no);
+    @GET("order/getOrderInfoDetail") //상품 상세페이지에서 바로 구매시
+    Call<Order> getOrderItemsDetail(@Query("userId") String userId);
    /* @GET("order/getOrderItems") //구매할 상품을 가져온다
     Call<List<Order>> getOrderInfo(@Query("cart_no") int cart_no);*/
     @POST("order/getOrderInfos") //리스트로 받을때 post로 받아야 한다

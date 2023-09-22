@@ -17,7 +17,6 @@ import retrofit2.http.Query;
 public interface MemberService {
     @GET("member/login")
     Call<Login> login(@Query("userId") String userId, @Query("password") String password);
-
     @GET("member/mypage")
     Call<MyPage> mypage(@Query("userId") String userId);
     @GET("member/point")

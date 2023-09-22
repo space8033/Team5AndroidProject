@@ -24,7 +24,7 @@ public interface CartService {
     );
     @POST("cart/addMobileCart")
     @FormUrlEncoded
-    Call<Void> addMobileCart(
+    Call<Integer> addMobileCart(
         @Field("product_product_no") int product_product_no,
         @Field("cart_qty") int cart_qty,
         @Field("productOption_type") String productOption_type,
