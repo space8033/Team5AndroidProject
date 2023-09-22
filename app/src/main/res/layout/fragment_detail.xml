@@ -148,13 +148,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
-                android:hint="--- [필수] 수량을 선택해 주세요 ---">
+                android:hint="--- [필수] 수량을 선택해 주세요 ---"
+
+                >
 
                 <AutoCompleteTextView
                     android:id="@+id/product_stock"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:inputType="none"
+                    android:text="1"
                     android:visibility="visible" />
 
                 <TextView

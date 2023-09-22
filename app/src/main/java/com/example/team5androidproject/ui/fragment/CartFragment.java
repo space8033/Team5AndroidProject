@@ -2,6 +2,13 @@ package com.example.team5androidproject.ui.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,36 +17,16 @@ import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.navigation.NavController;
-import androidx.navigation.NavHostController;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentCartBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.Cart;
-import com.example.team5androidproject.dto.Product;
-import com.example.team5androidproject.dto.Review;
 import com.example.team5androidproject.service.CartService;
-import com.example.team5androidproject.service.ProductService;
-import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.CartAdapter;
-import com.example.team5androidproject.ui.adapter.ProductAdapter;
-import com.example.team5androidproject.ui.adapter.ReviewAdapter;
-import com.example.team5androidproject.ui.viewHolder.CartViewHolder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
