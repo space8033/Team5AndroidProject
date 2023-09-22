@@ -256,8 +256,12 @@
                 </TableRow>
                 <TableRow>
                     <TextView
+                        android:id="@+id/user_point_txt"
+                        android:text="보유 포인트"
+                        />
+                    <TextView
                         android:id="@+id/user_point"
-                        android:text="보유 포인트 2,300"
+                        android:text="2500P"
                         android:textStyle="bold"
                         />
                 </TableRow>
