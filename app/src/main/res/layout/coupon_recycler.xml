@@ -62,7 +62,8 @@
 
         <ImageView
             android:id="@+id/coupon_image"
-            android:layout_width="372dp"
+            android:layout_width="match_parent"
+            android:padding="10dp"
             android:layout_height="195dp"
             android:layout_gravity="center"
             android:layout_marginBottom="10dp"

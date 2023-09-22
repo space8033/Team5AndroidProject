@@ -2,14 +2,14 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="120dp"
+    android:layout_width="116dp"
     android:layout_height="wrap_content"
-    android:layout_marginRight="5dp"
+    android:layout_marginRight="0dp"
     app:strokeWidth="0dp"
     >
 
     <LinearLayout
-        android:layout_width="120dp"
+        android:layout_width="116dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
@@ -17,14 +17,14 @@
 
         <ImageView
             android:id="@+id/product_imgFile"
-            android:layout_width="100dp"
+            android:layout_width="96dp"
             android:layout_height="120dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/photo2"
             />
 
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="96dp"
             android:layout_height="80dp"
             android:orientation="vertical">
 
