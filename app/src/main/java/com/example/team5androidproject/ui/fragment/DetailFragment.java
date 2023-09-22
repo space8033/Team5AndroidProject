@@ -43,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,8 +116,9 @@ public class DetailFragment extends Fragment {
                 ProductDetail dbdetail =response.body();
                 Log.i(TAG, "dbdetail : " + dbdetail.toString());
                 binding.txtProductName.setText(dbdetail.getProduct_name());
-                binding.txtProductPrice.setText(String.valueOf(dbdetail.getProduct_price()));
-
+                DecimalFormat decimalFormat = new DecimalFormat("#,###");
+                String formatprice = decimalFormat.format(dbdetail.getProduct_price());
+                binding.txtProductPrice.setText(formatprice);
                 productOption = binding.productOption;
                 selectedOptionText1 = binding.selectedOptionText1;
                 Log.i(TAG, "옵션 : " + dbdetail.getProductoption_type());
