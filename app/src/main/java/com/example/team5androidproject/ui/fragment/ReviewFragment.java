@@ -2,11 +2,7 @@ package com.example.team5androidproject.ui.fragment;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +17,6 @@ import com.example.team5androidproject.databinding.FragmentReviewBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
 import com.example.team5androidproject.dto.ProductDetail;
 import com.example.team5androidproject.dto.Review;
-import com.example.team5androidproject.service.DataTransfer;
 import com.example.team5androidproject.service.ProductService;
 import com.example.team5androidproject.service.ReviewService;
 import com.example.team5androidproject.service.ServiceProvider;

@@ -15,17 +15,22 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface MemberService {
+    //로그인 하기
     @GET("member/login")
     Call<Login> login(@Query("userId") String userId, @Query("password") String password);
-
+    //마이페이지 정보 불러오기
     @GET("member/mypage")
     Call<MyPage> mypage(@Query("userId") String userId);
+    //유저의 포인트 사용 및 적립 내역 불러오기
     @GET("member/point")
     Call<List<Point>> point(@Query("userId") String userId);
+    //유저가 가진 총 포인트 불러오기
     @GET("member/totalPoint")
     Call<Integer> totalPoint(@Query("userId") String userId);
+    //멤버가 한 문의 리스트 불러오기
     @GET("member/inquiry")
     Call<List<Inquiry>> inquiry(@Query("userId") String userId);
+    //전체 문의 리스트 불러오기
     @GET("member/allInquiry")
     Call<List<Inquiry>> allInquiry();
 
