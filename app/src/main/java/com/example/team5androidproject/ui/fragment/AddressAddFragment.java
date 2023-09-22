@@ -47,13 +47,11 @@ public class AddressAddFragment extends Fragment {
                 receiver.setReceiverAddress(address);
                 receiver.setReceiverZip(zipCode);
 
-                Log.i(TAG, "zipCode" + zipCode);
-                Log.i(TAG, "address" + address);
-
                 Bundle bundle = new Bundle();
+                bundle = getArguments();
                 bundle.putSerializable("address", receiver);
 
-                navController.navigate(R.id.dest_address, bundle);
+                navController.navigate(R.id.dest_order, bundle);
             }
         }
     }
@@ -86,6 +84,5 @@ public class AddressAddFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return binding.getRoot();
-
     }
 }

@@ -43,8 +43,7 @@
 
                     <TextView
                         android:id="@+id/order_name"
-                        android:text="이름"
-                        android:textSize="20sp"/>
+                        android:text="이름" />
 
 
                 </TableRow>
@@ -53,8 +52,7 @@
 
                     <TextView
                         android:id="@+id/order_email"
-                        android:text="이메일"
-                        android:textSize="20sp"/>
+                        android:text="이메일" />
 
 
                 </TableRow>
@@ -64,8 +62,7 @@
                     <TextView
                         android:id="@+id/order_phone"
                         android:layout_marginBottom="10dp"
-                        android:text="휴대폰 번호"
-                        android:textSize="20sp"/>
+                        android:text="휴대폰 번호" />
                 </TableRow>
             </TableLayout>
 
@@ -81,17 +78,16 @@
                 android:textSize="21sp" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button5"
+                android:id="@+id/btn_address_add"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="end"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:padding="1dp"
                 android:backgroundTint="#F2ECF6"
-                android:text="배송지 변경"
-                android:textSize="13dp"
-                />
+                android:padding="1dp"
+                android:text="배송지 검색"
+                android:textSize="13dp" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -102,20 +98,63 @@
                     <TextView
                         android:id="@+id/delivery_name"
                         android:text="이름" />
+
+                    <EditText
+                        android:id="@+id/input_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text" />
                 </TableRow>
                 <TableRow>
 
                     <TextView
                         android:id="@+id/delivery_phone"
                         android:text="휴대폰 번호" />
+
+                    <EditText
+                        android:id="@+id/input_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text" />
                 </TableRow>
-                <TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/delivery_location"
                         android:layout_marginBottom="10dp"
                         android:text="배송지" />
+
+                    <TextView
+                        android:id="@+id/txt_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                 </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/delivery_location2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="배송지 상세" />
+
+                    <EditText
+                        android:id="@+id/input_detail"
+                        android:layout_width="122dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text" />
+                </TableRow>
+
             </TableLayout>
 
             <TableLayout
@@ -166,7 +205,7 @@
                         android:id="@+id/coupon_price"
                         android:layout_width="111dp"
                         android:layout_height="wrap_content"
-                        android:text="0원"
+                        android:text="-3000원"
                         android:textSize="18sp" />
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -210,12 +249,8 @@
                 </TableRow>
                 <TableRow>
                     <TextView
-                        android:id="@+id/user_point_txt"
-                        android:text="보유포인트"
-                        />
-                    <TextView
                         android:id="@+id/user_point"
-                        android:text="보유포인트 2,300"
+                        android:text="보유 포인트 2,300"
                         android:textStyle="bold"
                         />
                 </TableRow>
@@ -267,7 +302,7 @@
                         android:id="@+id/last_coupon"
                         android:layout_width="111dp"
                         android:layout_height="wrap_content"
-                        android:text="0원"
+                        android:text="-3000원"
                         android:textSize="18sp" />
 
                 </TableRow>
@@ -301,7 +336,7 @@
                         android:id="@+id/shipping_fee"
                         android:layout_width="129dp"
                         android:layout_height="wrap_content"
-                        android:text="2,500원"
+                        android:text="0원"
                         android:textSize="18sp" />
                 </TableRow>
 
@@ -324,16 +359,16 @@
 
                 </TableRow>
             </TableLayout>
-            <TextView
-                android:id="@+id/info_payment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:background="#E3DEDE"
-                android:text="결제방법"
-                android:textSize="21sp" />
+                <TextView
+                    android:id="@+id/info_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:background="#E3DEDE"
+                    android:text="결제방법"
+                    android:textSize="21sp" />
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -343,6 +378,7 @@
                         android:layout_width="414dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="100dp">
+
                         <RadioButton
                             android:id="@+id/radioButton5"
                             android:layout_width="match_parent"

@@ -110,8 +110,7 @@
     <fragment
         android:id="@+id/dest_review"
         android:name="com.example.team5androidproject.ui.fragment.ReviewFragment"
-        android:label="fragment_review"
-        tools:layout="@layout/fragment_review" >
+        tools:layout="@layout/fragment_review">
         <action
             android:id="@+id/action_dest_review_to_dest_detail"
             app:destination="@id/dest_detail" />
@@ -139,7 +138,6 @@
     <fragment
         android:id="@+id/dest_add_address"
         android:name="com.example.team5androidproject.ui.fragment.AddressAddFragment"
-        android:label="fragment_address_add"
         tools:layout="@layout/fragment_address_add" />
     <fragment
         android:id="@+id/dest_pay_coupon"

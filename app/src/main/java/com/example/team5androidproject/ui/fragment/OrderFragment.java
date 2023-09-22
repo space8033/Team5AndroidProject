@@ -24,6 +24,7 @@ import com.example.team5androidproject.dto.Coupon;
 import com.example.team5androidproject.dto.Login;
 import com.example.team5androidproject.dto.Order;
 import com.example.team5androidproject.dto.OrderUser;
+import com.example.team5androidproject.dto.Receiver;
 import com.example.team5androidproject.service.CartService;
 import com.example.team5androidproject.service.OrderService;
 import com.example.team5androidproject.service.ServiceProvider;
@@ -47,12 +48,6 @@ public class OrderFragment extends Fragment  {
     private int totalPayProductPrice;
     private DecimalFormat df =new DecimalFormat("#,###");
 
-
-
-
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,26 +58,23 @@ public class OrderFragment extends Fragment  {
         bottomNavigationView.setVisibility(View.GONE);
 
         Bundle bundle = getArguments();
-        //int cartNo = bundle.getInt("cartIds");
-        Log.i(TAG, "onCreateView:" + bundle);
         cart_no = bundle.getIntegerArrayList("cartIds");
         int firstCart = cart_no.get(0);
-        Log.i(TAG, "카트아이디들" + cart_no);
         Coupon coupon = (Coupon)getArguments().getSerializable("coupon");
-
-
 
         if(coupon != null){
             int couponPrice = coupon.getCoupon_value();
             binding.couponPrice.setText("- " +df.format(couponPrice) + " 원");
             binding.lastCoupon.setText("- " + df.format(couponPrice) + " 원");
-            /*int finalPrice = orderAdapter.getTotalPayProductPrice();
-            binding.lastPrice.setText(finalPrice - couponPrice);*/
         }
 
-        /*initBtnBack();*/
+        Receiver receiver = (Receiver) bundle.getSerializable("address");
+        if(receiver != null) {
+            binding.txtAddress.setText(receiver.getReceiverAddress() + " " +  receiver.getReceiverZip());
+        }
+
+        initBtnAddress();
         initBtnMypage();
-        /*initOderPage();*/
         initOrderUser(firstCart);
         initRecyclerView();
         intiClickUsePoint();
@@ -91,8 +83,6 @@ public class OrderFragment extends Fragment  {
 
         return binding.getRoot();
     }
-
-
 
     private void initRecyclerView() {
 
@@ -106,8 +96,6 @@ public class OrderFragment extends Fragment  {
         orderAdapter = new OrderAdapter(); // orderAdapter 초기화
 
         Call<List<Order>> call = orderService.getOrderInfos(cart_no);
-        Log.i(TAG, "카트의 배열 orderService 사용" + cart_no);
-        Log.i(TAG, "call 메소드의 값: " + call.toString());
         call.enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
@@ -124,7 +112,7 @@ public class OrderFragment extends Fragment  {
                 int totalPayProductPrice = orderAdapter.getTotalPayProductPrice();
                 binding.payPrice.setText(df.format(totalPayProductPrice)+" 원");
                 int newTotalPrice = totalPayProductPrice - couponPrice;
-                binding.lastPrice.setText(String.valueOf(df.format (newTotalPrice + 2500)+ " 원")); //총가격
+                binding.lastPrice.setText(df.format (newTotalPrice + 2500)+ " 원"); //총가격
             }
 
             @Override
@@ -134,34 +122,7 @@ public class OrderFragment extends Fragment  {
         });
 
 
-
-
     }
-
-
-    /*private void initOderPage(List<Integer> selectedCartNos) {
-        String userId = AppKeyValueStore.getValue(getContext(), "userId");
-        OrderService orderService = ServiceProvider.getOrderService(getContext());
-        Call<OrderUser> call = orderService.getOrderUser(cart_no);
-        call.enqueue(new Callback<MyPage>() {
-            @Override
-            public void onResponse(Call<MyPage> call, Response<MyPage> response) {
-                MyPage myPage = response.body();
-                binding.txtName.setText(myPage.getName());
-                binding.txtCreatedAt.setText(myPage.getCreated_at());
-                binding.txtPoint.setText(String.valueOf(myPage.getPoint()) + "P");
-                binding.txtCoupon.setText(String.valueOf(myPage.getCouponCount()) + "장");
-                binding.txtReview.setText(String.valueOf(myPage.getReviewCount()) + "건");
-                binding.txtInquriy.setText(String.valueOf(myPage.getInquiryCount()) + "건");
-                MemberService.loadImage(userId, binding.profileImage);
-            }
-
-            @Override
-            public void onFailure(Call<MyPage> call, Throwable t) {
-
-            }
-        });
-    }*/
 
     @Override
     public void onPause() {
@@ -170,11 +131,6 @@ public class OrderFragment extends Fragment  {
         bottomNavigationView.setVisibility(View.VISIBLE);
     }
 
-    /*private void initBtnBack() {
-        binding.btnBack.setOnClickListener(v -> {
-            navController.popBackStack();
-        });
-    }*/
     private void intiPayCoupon() {
         binding.useCouponBtn.setOnClickListener(c->{
            Bundle bundle = getArguments();
@@ -188,53 +144,36 @@ public class OrderFragment extends Fragment  {
 
         binding.lastPrice.setText(df.format(newTotalPrice + 2500)+ " 원"); //총가격
     }
-
-
-
-
     private void initBtnMypage() {
         binding.btnMypage.setOnClickListener(v -> {
             navController.navigate(R.id.dest_mypage);
         });
     }
-
     private void initOrderUser(int firstCart) {
         String userId = AppKeyValueStore.getValue(getContext(), "userId");
         OrderService orderService = ServiceProvider.getOrderService(getContext());
         Call<OrderUser> call = orderService.getOrderItems(firstCart);
-        Log.i(TAG, "첫번째 카트 no" + firstCart);
         call.enqueue(new Callback<OrderUser>() {
             @Override
             public void onResponse(Call<OrderUser> call, Response<OrderUser> response) {
                 OrderUser orderUser = response.body();
-                Log.i(TAG, "콜 메소드 실행");
                 binding.orderName.setText(String.valueOf(orderUser.getUsers_name()));
-                Log.i(TAG, "유저의 이름: " + orderUser.getUsers_name());
                 binding.orderEmail.setText(String.valueOf(orderUser.getUsers_email()));
-                Log.i(TAG, "유저의 이름: " + orderUser.getUsers_email());
                 binding.orderPhone.setText(String.valueOf(orderUser.getUsers_phone()));
-                Log.i(TAG, "유저의 이름: " + orderUser.getUsers_phone());
                 binding.userPoint.setText(df.format(orderUser.getPoint())+ " P");
-                Log.i(TAG, "유저의 이름: " + orderUser.getPoint());
             }
 
             @Override
             public void onFailure(Call<OrderUser> call, Throwable t) {
-                Log.i(TAG, "onFailure: ");
             }
         });
     }
-
     private void intiClickUsePoint() {
         binding.usePointBtn.setOnClickListener(v->{
             String userPointText = binding.userPoint.getText().toString();
             String numericPart = userPointText.replaceAll("[^0-9]", "");
             int maxPointToUse = Integer.parseInt(numericPart);
             String enteredPoint = binding.editTextPoint.getText().toString();
-
-            Log.i(TAG, "사용자 보유 포인트: " + userPointText);
-            Log.i(TAG, "최대 사용 포인트: " + maxPointToUse);
-            Log.i(TAG, "입력된 숫자값" + enteredPoint);
 
             try {
                 int enteredPointValue = Integer.parseInt(enteredPoint);
@@ -262,7 +201,6 @@ public class OrderFragment extends Fragment  {
             }
         });
     }
-
     private void showDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(title)
@@ -275,5 +213,11 @@ public class OrderFragment extends Fragment  {
                     }
                 });
         builder.create().show();
+    }
+    private void initBtnAddress() {
+        binding.btnAddressAdd.setOnClickListener(v -> {
+            Bundle bundle = getArguments();
+            navController.navigate(R.id.dest_add_address, bundle);
+        });
     }
 }
