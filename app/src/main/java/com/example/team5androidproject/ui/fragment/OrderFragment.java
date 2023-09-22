@@ -72,6 +72,19 @@ public class OrderFragment extends Fragment  {
         if(receiver != null) {
             binding.txtAddress.setText(receiver.getReceiverAddress() + " " +  receiver.getReceiverZip());
         }
+        String iName = (String) bundle.getString("name");
+        String iPhone = (String) bundle.getString("phone");
+        String iDetail = (String) bundle.getString("detail");
+
+        if(iName != null) {
+            binding.inputName.setText(iName);
+        }
+        if(iPhone != null) {
+            binding.inputPhone.setText(iPhone);
+        }
+        if(iDetail != null) {
+            binding.inputDetail.setText(iDetail);
+        }
 
         initBtnAddress();
         initBtnMypage();
@@ -134,6 +147,14 @@ public class OrderFragment extends Fragment  {
     private void intiPayCoupon() {
         binding.useCouponBtn.setOnClickListener(c->{
            Bundle bundle = getArguments();
+           String name = binding.inputName.getText().toString();
+           String phone = binding.inputPhone.getText().toString();
+           String detail = binding.inputDetail.getText().toString();
+
+           bundle.putString("name", name);
+           bundle.putString("phone", phone);
+           bundle.putString("detail", detail);
+
            navController.navigate(R.id.dest_pay_coupon, bundle);
         });
         String coupon1 = binding.couponPrice.getText().toString();
@@ -217,6 +238,13 @@ public class OrderFragment extends Fragment  {
     private void initBtnAddress() {
         binding.btnAddressAdd.setOnClickListener(v -> {
             Bundle bundle = getArguments();
+            String name = binding.inputName.getText().toString();
+            String phone = binding.inputPhone.getText().toString();
+            String detail = binding.inputDetail.getText().toString();
+
+            bundle.putString("name", name);
+            bundle.putString("phone", phone);
+            bundle.putString("detail", detail);
             navController.navigate(R.id.dest_add_address, bundle);
         });
     }
