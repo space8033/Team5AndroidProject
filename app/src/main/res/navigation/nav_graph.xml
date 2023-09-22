@@ -139,5 +139,10 @@
     <fragment
         android:id="@+id/dest_add_address"
         android:name="com.example.team5androidproject.ui.fragment.AddressAddFragment"
+        android:label="fragment_address_add"
         tools:layout="@layout/fragment_address_add" />
+    <fragment
+        android:id="@+id/dest_pay_coupon"
+        android:name="com.example.team5androidproject.ui.fragment.PayCouponFragment"
+        tools:layout="@layout/fragment_pay_coupon" />
 </navigation>

@@ -214,10 +214,13 @@ public class DetailFragment extends Fragment {
             String cart_qty_string = binding.productStock.getText().toString();
             String productOption_type = binding.productOption.getText().toString();
             String users_users_id = AppKeyValueStore.getValue(getContext(), "userId");
-            if (productOption_type.isEmpty() || cart_qty_string == ""){
+            int cart_qty = Integer.valueOf(cart_qty_string);
+            String userId = AppKeyValueStore.getValue(getContext(), "userId");
+            String password = AppKeyValueStore.getValue(getContext(), "password");
+            if (productOption_type.isEmpty()){
                 AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                         .setTitle("필수 확인")
-                        .setMessage("상품의 옵션 또는 수량을 입력하세요")
+                        .setMessage("상품의 옵션을 입력하세요")
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -227,14 +230,6 @@ public class DetailFragment extends Fragment {
                         .create();
                 alertDialog.show();
             } else {
-                int cart_qty = Integer.valueOf(cart_qty_string);
-                Log.i(TAG, "product_no : " + product_product_no);
-                Log.i(TAG, "cart_qty : " + cart_qty);
-                Log.i(TAG, "productOption_type : " + productOption_type);
-                String userId = AppKeyValueStore.getValue(getContext(), "userId");
-                String password = AppKeyValueStore.getValue(getContext(), "password");
-                Log.i(TAG, "userId : " + userId);
-                Log.i(TAG, "userpassword : " + password);
                 if (userId != null && password != null) {
                     CartService cartService = ServiceProvider.getCartService(getContext());
                     Call<Void> call = cartService.addMobileCart(product_product_no, cart_qty, productOption_type, users_users_id);

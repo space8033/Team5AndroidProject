@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.example.team5androidproject.R;
 import com.example.team5androidproject.databinding.FragmentOrderBinding;
 import com.example.team5androidproject.datastore.AppKeyValueStore;
+import com.example.team5androidproject.dto.Coupon;
 import com.example.team5androidproject.dto.Login;
 import com.example.team5androidproject.dto.Order;
 import com.example.team5androidproject.dto.OrderUser;
@@ -42,6 +43,7 @@ public class OrderFragment extends Fragment  {
     private List<Integer> cart_no; // 전역변수로 선언
     private int firstCart;
     private OrderAdapter orderAdapter; // OrderAdapter 객체 선언
+    private int totalPayProductPrice;
 
 
 
@@ -64,6 +66,17 @@ public class OrderFragment extends Fragment  {
         cart_no = bundle.getIntegerArrayList("cartIds");
         int firstCart = cart_no.get(0);
         Log.i(TAG, "카트아이디들" + cart_no);
+        Coupon coupon = (Coupon)getArguments().getSerializable("coupon");
+
+
+
+        if(coupon != null){
+            int couponPrice = coupon.getCoupon_value();
+            binding.couponPrice.setText("- " + couponPrice + " 원");
+            binding.lastCoupon.setText("- " + couponPrice + " 원");
+            /*int finalPrice = orderAdapter.getTotalPayProductPrice();
+            binding.lastPrice.setText(finalPrice - couponPrice);*/
+        }
 
         /*initBtnBack();*/
         initBtnMypage();
@@ -101,10 +114,15 @@ public class OrderFragment extends Fragment  {
                 binding.orderRecyclerView.setAdapter(orderAdapter);
 
                 // TotalPayProductPrice 가져오기
+                 totalPayProductPrice = orderAdapter.getTotalPayProductPrice();
+                String coupon1 = binding.couponPrice.getText().toString();
+                String coupon2 =coupon1.replaceAll("[^0-9]", "");
+
+                int couponPrice = Integer.parseInt(coupon2);
                 int totalPayProductPrice = orderAdapter.getTotalPayProductPrice();
-                //최종 가격 셋팅
-                binding.payPrice.setText(String.valueOf(totalPayProductPrice));
-                binding.lastPrice.setText(String.valueOf(totalPayProductPrice));
+                binding.payPrice.setText(totalPayProductPrice+"원");
+                int newTotalPrice = totalPayProductPrice - couponPrice;
+                binding.lastPrice.setText(String.valueOf(newTotalPrice+ " 원")); //총가격
             }
 
             @Override
@@ -112,6 +130,8 @@ public class OrderFragment extends Fragment  {
                 Log.i(TAG, "recyclerView 불러오기 실패");
             }
         });
+
+
 
 
     }
@@ -155,8 +175,16 @@ public class OrderFragment extends Fragment  {
     }*/
     private void intiPayCoupon() {
         binding.useCouponBtn.setOnClickListener(c->{
-            navController.navigate(R.id.dest_coupon);
+           Bundle bundle = getArguments();
+           navController.navigate(R.id.dest_pay_coupon, bundle);
         });
+        String coupon1 = binding.couponPrice.getText().toString();
+        String coupon2 =coupon1.replaceAll("[^0-9]", "");
+
+        int couponPrice = Integer.parseInt(coupon2);
+        int newTotalPrice = totalPayProductPrice - couponPrice;
+
+        binding.lastPrice.setText(String.valueOf(newTotalPrice+ " 원")); //총가격
     }
 
 
@@ -217,9 +245,14 @@ public class OrderFragment extends Fragment  {
                 } else {
                     // 적립금 사용 가능한 범위 내의 값을 입력한 경우
                     int totalPayProductPrice = orderAdapter.getTotalPayProductPrice();
-                    int newTotalPrice = totalPayProductPrice - enteredPointValue;
-                    binding.lastPoint.setText(String.valueOf("- "+enteredPointValue+" 원"));
-                    binding.lastPrice.setText(String.valueOf(newTotalPrice+ " 원"));
+                    String coupon1 = binding.couponPrice.getText().toString();
+                    String coupon2 =coupon1.replaceAll("[^0-9]", "");
+
+                    int couponPrice = Integer.parseInt(coupon2);
+                    int newTotalPrice = totalPayProductPrice - enteredPointValue - couponPrice;
+
+                    binding.lastPoint.setText(String.valueOf("- "+enteredPointValue+" 원")); //최종 적립금 가격
+                    binding.lastPrice.setText(String.valueOf(newTotalPrice+ " 원")); //총가격
                 }
             } catch (NumberFormatException e) {
                 // 유효하지 않은 숫자가 입력된 경우
