@@ -33,7 +33,6 @@ public class PointAdapter extends RecyclerView.Adapter<PointViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PointViewHolder holder, int position) {
         Point point = list.get(position);
-        Log.i(TAG, point.toString());
         holder.setData(point);
     }
 
