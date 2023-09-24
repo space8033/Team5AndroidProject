@@ -45,7 +45,11 @@ public class PayCouponAdapter extends RecyclerView.Adapter<PayCouponViewHolder> 
 
     @Override
     public int getItemCount() {
-        return list.size();
+        if(list == null){
+            return 0;
+        }else {
+            return list.size();
+        }
     }
 
     public void setList(List<Coupon> list) {

@@ -30,7 +30,6 @@ public interface OrderService {
     @POST("order/getOrderInfos") //리스트로 받을때 post로 받아야 한다
     Call<List<Order>> getOrderInfos(@Body List<Integer> cartNos); //여기도 @Query 대신에 @Body로
 
-
     static void loadImage(int product_No, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "order/getProductImage?product_no=" + product_No;
         Glide.with(imageView.getContext()).load(url).into(imageView);

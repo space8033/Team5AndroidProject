@@ -34,6 +34,12 @@ public interface MemberService {
     @GET("member/allInquiry")
     Call<List<Inquiry>> allInquiry();
 
+    @GET("member/updateUserPoint") //회원 포인트 수정
+    Call<Void> updatePoint(
+            @Query("user_Id") String userId, // 구매하는 회원의 ID
+            @Query("balance_point") int balance_point // update 할 포인트 잔액
+    );
+
     static void loadImage(String userId, ImageView imageView) {
         String url = NetworkInfo.BASE_URL + "member/myImage?userId=" + userId;
         Glide.with(imageView.getContext()).load(url).into(imageView);

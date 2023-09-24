@@ -26,6 +26,8 @@ import com.example.team5androidproject.dto.Order;
 import com.example.team5androidproject.dto.OrderUser;
 import com.example.team5androidproject.dto.Receiver;
 import com.example.team5androidproject.service.CartService;
+import com.example.team5androidproject.service.CouponService;
+import com.example.team5androidproject.service.MemberService;
 import com.example.team5androidproject.service.OrderService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.OrderAdapter;
@@ -38,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class OrderFragment extends Fragment  {
+public class OrderFragment extends Fragment {
     private static final String TAG = "OrderFragment";
     private FragmentOrderBinding binding;
     private NavController navController;
@@ -46,7 +48,11 @@ public class OrderFragment extends Fragment  {
     private int firstCart;
     private OrderAdapter orderAdapter; // OrderAdapter 객체 선언
     private int totalPayProductPrice;
-    private DecimalFormat df =new DecimalFormat("#,###");
+    private DecimalFormat df = new DecimalFormat("#,###");
+    private CartService cartService;
+    private CouponService couponService;
+    private OrderService orderService;
+    private MemberService memberService;
 
     @Nullable
     @Override
@@ -60,29 +66,29 @@ public class OrderFragment extends Fragment  {
         Bundle bundle = getArguments();
         cart_no = bundle.getIntegerArrayList("cartIds");
         int firstCart = cart_no.get(0);
-        Coupon coupon = (Coupon)getArguments().getSerializable("coupon");
+        Coupon coupon = (Coupon) getArguments().getSerializable("coupon");
 
-        if(coupon != null){
+        if (coupon != null) {
             int couponPrice = coupon.getCoupon_value();
-            binding.couponPrice.setText("- " +df.format(couponPrice) + " 원");
+            binding.couponPrice.setText("- " + df.format(couponPrice) + " 원");
             binding.lastCoupon.setText("- " + df.format(couponPrice) + " 원");
         }
 
         Receiver receiver = (Receiver) bundle.getSerializable("address");
-        if(receiver != null) {
-            binding.txtAddress.setText(receiver.getReceiverAddress() + " " +  receiver.getReceiverZip());
+        if (receiver != null) {
+            binding.txtAddress.setText(receiver.getReceiverAddress() + " " + receiver.getReceiverZip());
         }
         String iName = (String) bundle.getString("name");
         String iPhone = (String) bundle.getString("phone");
         String iDetail = (String) bundle.getString("detail");
 
-        if(iName != null) {
+        if (iName != null) {
             binding.inputName.setText(iName);
         }
-        if(iPhone != null) {
+        if (iPhone != null) {
             binding.inputPhone.setText(iPhone);
         }
-        if(iDetail != null) {
+        if (iDetail != null) {
             binding.inputDetail.setText(iDetail);
         }
 
@@ -92,6 +98,7 @@ public class OrderFragment extends Fragment  {
         initRecyclerView();
         intiClickUsePoint();
         intiPayCoupon();
+        initBuyrderItem();
 
 
         return binding.getRoot();
@@ -117,15 +124,15 @@ public class OrderFragment extends Fragment  {
                 binding.orderRecyclerView.setAdapter(orderAdapter);
 
                 // TotalPayProductPrice 가져오기
-                 totalPayProductPrice = orderAdapter.getTotalPayProductPrice();
+                totalPayProductPrice = orderAdapter.getTotalPayProductPrice();
                 String coupon1 = binding.couponPrice.getText().toString();
-                String coupon2 =coupon1.replaceAll("[^0-9]", "");
+                String coupon2 = coupon1.replaceAll("[^0-9]", "");
 
                 int couponPrice = Integer.parseInt(coupon2);
                 int totalPayProductPrice = orderAdapter.getTotalPayProductPrice();
-                binding.payPrice.setText(df.format(totalPayProductPrice)+" 원");
+                binding.payPrice.setText(df.format(totalPayProductPrice) + " 원");
                 int newTotalPrice = totalPayProductPrice - couponPrice;
-                binding.lastPrice.setText(df.format (newTotalPrice + 2500)+ " 원"); //총가격
+                binding.lastPrice.setText(df.format(newTotalPrice + 2500) + " 원"); //총가격
             }
 
             @Override
@@ -133,8 +140,6 @@ public class OrderFragment extends Fragment  {
                 Log.i(TAG, "recyclerView 불러오기 실패");
             }
         });
-
-
     }
 
     @Override
@@ -145,31 +150,33 @@ public class OrderFragment extends Fragment  {
     }
 
     private void intiPayCoupon() {
-        binding.useCouponBtn.setOnClickListener(c->{
-           Bundle bundle = getArguments();
-           String name = binding.inputName.getText().toString();
-           String phone = binding.inputPhone.getText().toString();
-           String detail = binding.inputDetail.getText().toString();
+        binding.useCouponBtn.setOnClickListener(c -> {
+            Bundle bundle = getArguments();
+            String name = binding.inputName.getText().toString();
+            String phone = binding.inputPhone.getText().toString();
+            String detail = binding.inputDetail.getText().toString();
 
-           bundle.putString("name", name);
-           bundle.putString("phone", phone);
-           bundle.putString("detail", detail);
+            bundle.putString("name", name);
+            bundle.putString("phone", phone);
+            bundle.putString("detail", detail);
 
-           navController.navigate(R.id.dest_pay_coupon, bundle);
+            navController.navigate(R.id.dest_pay_coupon, bundle);
         });
         String coupon1 = binding.couponPrice.getText().toString();
-        String coupon2 =coupon1.replaceAll("[^0-9]", "");
+        String coupon2 = coupon1.replaceAll("[^0-9]", "");
 
         int couponPrice = Integer.parseInt(coupon2);
         int newTotalPrice = totalPayProductPrice - couponPrice;
 
-        binding.lastPrice.setText(df.format(newTotalPrice + 2500)+ " 원"); //총가격
+        binding.lastPrice.setText(df.format(newTotalPrice + 2500) + " 원"); //총가격
     }
+
     private void initBtnMypage() {
         binding.btnMypage.setOnClickListener(v -> {
             navController.navigate(R.id.dest_mypage);
         });
     }
+
     private void initOrderUser(int firstCart) {
         String userId = AppKeyValueStore.getValue(getContext(), "userId");
         OrderService orderService = ServiceProvider.getOrderService(getContext());
@@ -181,16 +188,98 @@ public class OrderFragment extends Fragment  {
                 binding.orderName.setText(String.valueOf(orderUser.getUsers_name()));
                 binding.orderEmail.setText(String.valueOf(orderUser.getUsers_email()));
                 binding.orderPhone.setText(String.valueOf(orderUser.getUsers_phone()));
-                binding.userPoint.setText(df.format(orderUser.getPoint())+ " P");
+                binding.userPoint.setText(df.format(orderUser.getPoint()) + " P");
             }
 
             @Override
             public void onFailure(Call<OrderUser> call, Throwable t) {
             }
         });
+
+        binding.btnMypage.setOnClickListener(v -> {
+            Bundle bundle = getArguments();
+            List<Integer> cart_nos = bundle.getIntegerArrayList("cartIds");
+            Log.i(TAG, "번들에서 넘어온 cart_no 객체들" + cart_nos);
+            Coupon coupon = (Coupon) getArguments().getSerializable("coupon");
+            int coupon_no = (coupon != null) ? coupon.getCoupon_no() : 0; // 쿠폰을 선택하지 않은 경우 0으로 초기화
+            Log.i(TAG, "선택한 쿠폰의 번호" + coupon_no);
+
+            cartService = ServiceProvider.getCartService(getContext());
+            couponService = ServiceProvider.getCouponService(getContext());
+            memberService = ServiceProvider.getMemberService(getContext());
+
+
+            for (Integer cart_no : cart_nos) {
+                // 각 cart_no에 대한 삭제 요청 보내기
+                Call<Void> callDelete = cartService.deleteOneCart(cart_no);
+                callDelete.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            // 성공적으로 삭제되었을 때의 처리
+                            Log.i(TAG, "카트 데이터 삭제 성공: " + cart_no);
+
+                            // 사용한 쿠폰 삭제 요청
+                            if (coupon_no != 0) {
+                                Call<Void> callDelete = couponService.deleteCoupon(coupon_no);
+                                callDelete.enqueue(new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                        Log.i(TAG, "쿠폰 삭제 성공: " + coupon_no);
+                                    }
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
+                                    }
+                                });
+                            }
+                            //적립금 차감 잔액(기존 적립금 - 사용한 적립금) 을 db에 업데이트
+                            String enteredPointText = binding.editTextPoint.getText().toString();
+                            String userPoint = binding.userPoint.getText().toString();
+                            String numericPart = userPoint.replaceAll("[^0-9]", "");
+
+
+                            // 빈 문자열("")이면 0으로 처리
+                            int enteredPointValue = enteredPointText.isEmpty() ? 0 : Integer.parseInt(enteredPointText);
+                            int UserPoint = userPoint.isEmpty() ? 0 : Integer.parseInt(numericPart);
+
+                            Log.i(TAG, "사용한 포인트" + enteredPointValue);
+
+                            int balance_point = UserPoint - enteredPointValue;
+
+                            Log.i(TAG, "남은 잔액 포인트"+ balance_point);
+                            Log.i(TAG, "onResponse: " + userId);
+                            Call<Void> updatePoint = memberService.updatePoint(userId, balance_point);
+                            updatePoint.enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    Log.i(TAG, "포인트 업데이트 완료");
+                                    Log.i(TAG, "유저의 아이디" + userId);
+                                    Log.i(TAG, "유저의 포인트" + balance_point);
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+
+                                }
+                            });
+
+                        } else {
+                            // 삭제 실패 시의 처리
+                            Log.e(TAG, "카트 데이터 삭제 실패: " + cart_no);
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        // 네트워크 오류 등으로 실패했을 때의 처리
+                        Log.e(TAG, "카트 데이터 삭제 오류: " + cart_no, t);
+                    }
+                });
+            }
+        });
     }
+
     private void intiClickUsePoint() {
-        binding.usePointBtn.setOnClickListener(v->{
+        binding.usePointBtn.setOnClickListener(v -> {
             String userPointText = binding.userPoint.getText().toString();
             String numericPart = userPointText.replaceAll("[^0-9]", "");
             int maxPointToUse = Integer.parseInt(numericPart);
@@ -208,13 +297,13 @@ public class OrderFragment extends Fragment  {
                     // 적립금 사용 가능한 범위 내의 값을 입력한 경우
                     int totalPayProductPrice = orderAdapter.getTotalPayProductPrice();
                     String coupon1 = binding.couponPrice.getText().toString();
-                    String coupon2 =coupon1.replaceAll("[^0-9]", "");
+                    String coupon2 = coupon1.replaceAll("[^0-9]", "");
 
                     int couponPrice = Integer.parseInt(coupon2);
                     int newTotalPrice = totalPayProductPrice - enteredPointValue - couponPrice;
 
-                    binding.lastPoint.setText(("- "+df.format(enteredPointValue)+" 원")); //최종 적립금 가격
-                    binding.lastPrice.setText(df.format(newTotalPrice + 2500)+ " 원"); //총가격
+                    binding.lastPoint.setText(("- " + df.format(enteredPointValue) + " 원")); //최종 적립금 가격
+                    binding.lastPrice.setText(df.format(newTotalPrice + 2500) + " 원"); //총가격
                 }
             } catch (NumberFormatException e) {
                 // 유효하지 않은 숫자가 입력된 경우
@@ -222,6 +311,7 @@ public class OrderFragment extends Fragment  {
             }
         });
     }
+
     private void showDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(title)
@@ -235,6 +325,7 @@ public class OrderFragment extends Fragment  {
                 });
         builder.create().show();
     }
+
     private void initBtnAddress() {
         binding.btnAddressAdd.setOnClickListener(v -> {
             Bundle bundle = getArguments();
@@ -247,5 +338,9 @@ public class OrderFragment extends Fragment  {
             bundle.putString("detail", detail);
             navController.navigate(R.id.dest_add_address, bundle);
         });
+    }
+
+    private void initBuyrderItem() {
+
     }
 }
