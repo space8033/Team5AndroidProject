@@ -80,6 +80,30 @@
                 android:text="배송지 정보"
                 android:textSize="21sp" />
 
+            <TextView
+                android:id="@+id/txt_address_road"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/txt_address_jibun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/txt_address_extra"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:visibility="gone"/>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_address_add"
                 android:layout_width="130dp"
