@@ -387,13 +387,14 @@ public class OrderFragment extends Fragment {
             String jibun = binding.txtAddressJibun.getText().toString();
             String extra = binding.txtAddressExtra.getText().toString();
 
-
             bundle.putString("name", name);
             bundle.putString("phone", phone);
             bundle.putString("detail", detail);
             bundle.putString("road", road);
             bundle.putString("jibun", jibun);
             bundle.putString("extra", extra);
+
+            navController.navigate(R.id.dest_add_address, bundle);
         });
     }
 

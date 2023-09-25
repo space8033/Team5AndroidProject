@@ -90,9 +90,6 @@ public class AddressAddFragment extends Fragment {
 
         webView.loadUrl("http://192.168.0.191:8080/our-twinkling-infinitely/getDaumAddress");
 
-
-
-
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
