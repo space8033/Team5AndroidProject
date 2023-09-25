@@ -255,6 +255,7 @@ public class OrderFragment extends Fragment {
                                     Log.i(TAG, "포인트 업데이트 완료");
                                     Log.i(TAG, "유저의 아이디" + userId);
                                     Log.i(TAG, "유저의 포인트" + balance_point);
+                                    navController.navigate(R.id.dest_mypage);
                                 }
 
                                 @Override
