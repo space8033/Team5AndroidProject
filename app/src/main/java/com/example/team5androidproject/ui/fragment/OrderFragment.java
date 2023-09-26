@@ -298,15 +298,15 @@ public class OrderFragment extends Fragment {
                     }
                 });
             }
-            AddressService addressService = ServiceProvider.getAddressService(getContext());
+            /*AddressService addressService = ServiceProvider.getAddressService(getContext());
 
-            MultipartBody.Part address_receiver = MultipartBody.Part.createFormData("address_receiver", binding.inputName.getText().toString());
-            MultipartBody.Part address_roadAddress = MultipartBody.Part.createFormData("address_roadAddress", binding.txtAddressRoad.getText().toString());
-            MultipartBody.Part address_jibunAddress = MultipartBody.Part.createFormData("address_jibunAddress", binding.txtAddressJibun.getText().toString());
-            MultipartBody.Part address_extraAddress = MultipartBody.Part.createFormData("address_extraAddress", binding.txtAddressExtra.getText().toString());
-            MultipartBody.Part address_detail = MultipartBody.Part.createFormData("address_detail", binding.inputDetail.getText().toString());
-            MultipartBody.Part users_users_id = MultipartBody.Part.createFormData("users_users_id", userId);
-            MultipartBody.Part users_phone = MultipartBody.Part.createFormData("users_phone", binding.inputPhone.getText().toString());
+            String address_receiver = binding.inputName.getText().toString();
+            String address_roadAddress = binding.txtAddressRoad.getText().toString();
+            String address_jibunAddress = binding.txtAddressJibun.getText().toString();
+            String address_extraAddress = binding.txtAddressExtra.getText().toString();
+            String address_detail = binding.inputDetail.getText().toString();
+            String users_users_id = userId;
+            String users_phone = binding.inputPhone.getText().toString();
 
             Call<Void> addressCall = addressService.addressRegister(
                     address_receiver, address_roadAddress, address_jibunAddress, address_extraAddress, address_detail, users_users_id, users_phone);
@@ -320,7 +320,7 @@ public class OrderFragment extends Fragment {
                 public void onFailure(Call<Void> call, Throwable t) {
 
                 }
-            });
+            });*/
 
 
 
