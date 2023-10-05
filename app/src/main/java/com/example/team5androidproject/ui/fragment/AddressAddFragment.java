@@ -77,7 +77,7 @@ public class AddressAddFragment extends Fragment {
             }
         });
 
-        webView.loadUrl("http://192.168.0.191:8080/our-twinkling-infinitely/getDaumAddress");
+        webView.loadUrl("http://192.168.0.169:8080/our-twinkling-infinitely/getDaumAddress");
 
 
 

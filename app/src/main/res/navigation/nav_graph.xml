@@ -10,8 +10,7 @@
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_dest_main_to_dest_search"
-            app:destination="@id/dest_search"
-            />
+            app:destination="@id/dest_search" />
         <action
             android:id="@+id/action_dest_main_to_dest_detail"
             app:destination="@id/dest_detail" />

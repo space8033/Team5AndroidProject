@@ -126,7 +126,7 @@ public class SearchFragment extends Fragment {
         keyword = editText.getText().toString();
         Log.i(TAG, "keyword : " +keyword);
         if (!TextUtils.isEmpty(keyword)) {
-            // 검색어를 사용하여 서버로 검색 요청을 보냅니다.
+            // 검색어를 사용하여 서버로 검색 요청을 보낸다.
             ProductService productService = ServiceProvider.getProductService(getContext());
             Call<List<Product>> call = productService.searchProducts(keyword);
 
@@ -137,7 +137,7 @@ public class SearchFragment extends Fragment {
                         List<Product> searchResults = response.body();
 
                         Log.i(TAG, "searchResults : " + searchResults);
-                        // 검색 결과를 RecyclerView에 표시합니다.
+                        // 검색 결과를 RecyclerView에 표시.
                         productAdapter.setList(searchResults);
 
                         Bundle bundle = new Bundle();
