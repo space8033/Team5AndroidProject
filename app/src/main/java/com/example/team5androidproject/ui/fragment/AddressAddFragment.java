@@ -38,14 +38,25 @@ public class AddressAddFragment extends Fragment {
             Log.i(TAG, "processDATA: " + data.toString());
 
             String[] addressArray = data.split(",");
-            if(addressArray.length ==2){
+            if(addressArray.length == 5){
                 String zipCode = addressArray[0].trim();
                 String address = addressArray[1].trim();
+                String roadAddress = addressArray[2].trim();
+                String jibunAddress = addressArray[3].trim();
+                String extraAddress;
+                if(addressArray[4] != null) {
+                    extraAddress = addressArray[4].trim();
+                }else {
+                    extraAddress = "";
+                }
 
                 Receiver receiver = new Receiver();
 
                 receiver.setReceiverAddress(address);
                 receiver.setReceiverZip(zipCode);
+                receiver.setRoadAddress(roadAddress);
+                receiver.setJibunAddress(jibunAddress);
+                receiver.setExtraAddress(extraAddress);
 
                 Bundle bundle = new Bundle();
                 bundle = getArguments();
@@ -78,9 +89,6 @@ public class AddressAddFragment extends Fragment {
         });
 
         webView.loadUrl("http://192.168.0.169:8080/our-twinkling-infinitely/getDaumAddress");
-
-
-
 
         // Inflate the layout for this fragment
         return binding.getRoot();

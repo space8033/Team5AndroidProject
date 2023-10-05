@@ -25,6 +25,7 @@ import com.example.team5androidproject.dto.Login;
 import com.example.team5androidproject.dto.Order;
 import com.example.team5androidproject.dto.OrderUser;
 import com.example.team5androidproject.dto.Receiver;
+import com.example.team5androidproject.service.AddressService;
 import com.example.team5androidproject.service.CartService;
 import com.example.team5androidproject.service.CouponService;
 import com.example.team5androidproject.service.MemberService;
@@ -32,9 +33,11 @@ import com.example.team5androidproject.service.OrderService;
 import com.example.team5androidproject.service.ServiceProvider;
 import com.example.team5androidproject.ui.adapter.OrderAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -81,6 +84,10 @@ public class OrderFragment extends Fragment {
         String iName = (String) bundle.getString("name");
         String iPhone = (String) bundle.getString("phone");
         String iDetail = (String) bundle.getString("detail");
+        String iRoad = (String) bundle.getString("road");
+        String iJibun = (String) bundle.getString("jibun");
+        String iExtra = (String) bundle.getString("extra");
+
 
         if (iName != null) {
             binding.inputName.setText(iName);
@@ -90,6 +97,15 @@ public class OrderFragment extends Fragment {
         }
         if (iDetail != null) {
             binding.inputDetail.setText(iDetail);
+        }
+        if(iRoad != null) {
+            binding.txtAddressRoad.setText(iRoad);
+        }
+        if(iJibun != null) {
+            binding.txtAddressJibun.setText(iJibun);
+        }
+        if(iExtra != null) {
+            binding.txtAddressExtra.setText(iExtra);
         }
 
         initBtnAddress();
@@ -155,10 +171,17 @@ public class OrderFragment extends Fragment {
             String name = binding.inputName.getText().toString();
             String phone = binding.inputPhone.getText().toString();
             String detail = binding.inputDetail.getText().toString();
+            String road = binding.txtAddressRoad.getText().toString();
+            String jibun = binding.txtAddressJibun.getText().toString();
+            String extra = binding.txtAddressExtra.getText().toString();
+
 
             bundle.putString("name", name);
             bundle.putString("phone", phone);
             bundle.putString("detail", detail);
+            bundle.putString("road", road);
+            bundle.putString("jibun", jibun);
+            bundle.putString("extra", extra);
 
             navController.navigate(R.id.dest_pay_coupon, bundle);
         });
@@ -208,7 +231,6 @@ public class OrderFragment extends Fragment {
             couponService = ServiceProvider.getCouponService(getContext());
             memberService = ServiceProvider.getMemberService(getContext());
 
-
             for (Integer cart_no : cart_nos) {
                 // 각 cart_no에 대한 삭제 요청 보내기
                 Call<Void> callDelete = cartService.deleteOneCart(cart_no);
@@ -255,6 +277,7 @@ public class OrderFragment extends Fragment {
                                     Log.i(TAG, "포인트 업데이트 완료");
                                     Log.i(TAG, "유저의 아이디" + userId);
                                     Log.i(TAG, "유저의 포인트" + balance_point);
+                                    navController.navigate(R.id.dest_mypage);
                                 }
 
                                 @Override
@@ -275,7 +298,35 @@ public class OrderFragment extends Fragment {
                     }
                 });
             }
+            /*AddressService addressService = ServiceProvider.getAddressService(getContext());
+
+            String address_receiver = binding.inputName.getText().toString();
+            String address_roadAddress = binding.txtAddressRoad.getText().toString();
+            String address_jibunAddress = binding.txtAddressJibun.getText().toString();
+            String address_extraAddress = binding.txtAddressExtra.getText().toString();
+            String address_detail = binding.inputDetail.getText().toString();
+            String users_users_id = userId;
+            String users_phone = binding.inputPhone.getText().toString();
+
+            Call<Void> addressCall = addressService.addressRegister(
+                    address_receiver, address_roadAddress, address_jibunAddress, address_extraAddress, address_detail, users_users_id, users_phone);
+            addressCall.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+
+                }
+            });*/
+
+
+
         });
+
+
     }
 
     private void intiClickUsePoint() {
@@ -332,10 +383,17 @@ public class OrderFragment extends Fragment {
             String name = binding.inputName.getText().toString();
             String phone = binding.inputPhone.getText().toString();
             String detail = binding.inputDetail.getText().toString();
+            String road = binding.txtAddressRoad.getText().toString();
+            String jibun = binding.txtAddressJibun.getText().toString();
+            String extra = binding.txtAddressExtra.getText().toString();
 
             bundle.putString("name", name);
             bundle.putString("phone", phone);
             bundle.putString("detail", detail);
+            bundle.putString("road", road);
+            bundle.putString("jibun", jibun);
+            bundle.putString("extra", extra);
+
             navController.navigate(R.id.dest_add_address, bundle);
         });
     }

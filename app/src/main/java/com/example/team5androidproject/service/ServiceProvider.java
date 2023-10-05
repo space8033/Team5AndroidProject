@@ -86,4 +86,8 @@ public class ServiceProvider {
         return orderService;
     }
 
+    public static AddressService getAddressService(Context context) {
+        AddressService addressService = getRetrofit(context).create(AddressService.class);
+        return addressService;
+    }
 }
